@@ -1,0 +1,39 @@
+//Practice Q1
+/*
+let ticket = {
+    from: "Atlanta", to: "Gwinnett", price: 10
+};
+console.log(`Ticket from: ${ticket.from}`);
+console.log(`Ticket to: ${ticket.to}`);
+console.log(`Ticket price: ${ticket.price}`);
+
+let person = {
+    name: "Charles", surname: "Agnew"
+};
+console.log(`Ticket holder: ${person.name} ${person.surname}`);
+*/
+//Practice Q3
+let book = [
+    {title: "Speaking Javascript" , author: "Axel Rauschmayer" , pages: 460}, {title: "Programming Javascript Aplications", author: "Eric Elliot", pages: 254}, {title: "Understanding ECMAScript 6", author: "Nicholas C. Zakas", pages: 352} 
+];
+let newBook = {title: "Learning Javascript Design Patterns", author: "Addy Osmani", pages: 254};
+book.push(newBook)
+console.log(book.length);
+console.log(book[0].title);
+console.log(book[1].title);
+console.log(book[2].title);
+console.log(book[3].title);
+let selectBook = book.slice(-2);
+console.log(book.length);
+console.log(book[0].title);
+console.log(book[1].title);
+console.log(book[2].title);
+console.log(book[3].title);
+console.log(`title: ${selectBook.title}`)
+book.shift();
+console.log(book.length);
+console.log(book[0].title);
+console.log(book[1].title);
+console.log(book[2].title);
+let sum = book[0].pages + book[1].pages + book[2].pages;
+console.log(`pages: ${sum}`);

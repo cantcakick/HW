@@ -1,0 +1,11 @@
+try:
+    value = int(input("Enter a natural number: "))
+    print("The reciprocal of", value, 'is', 1/value)
+except ValueError: # can specify the error and exception
+    print("Value Error detected.")
+except ZeroDivisionError:
+    print("We don't want any black hole's here...")
+
+except: # breaks code if any error occurs
+    print("Illegal value")
+    

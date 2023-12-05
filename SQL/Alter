@@ -1,0 +1,17 @@
+--Add
+ALTER TABLE table_name ADD column_name datatype;
+
+--Modify
+ALTER TABLE table_name MODIFY COLUMN column_name datatype;
+
+--Add foreign key 
+ALTER TABLE table_name ADD FOREIGN KEY (primary_key_column_name) REFERENCES link_table_name(reference_column_name);
+
+--Drop Column
+ALTER TABLE table_name DROP COLUMN column_name;
+
+--Change
+ALTER TABLE table_name CHANGE from_column to_column datatype;
+
+--Rename
+ALTER TABLE table_name RENAME new_table_name;

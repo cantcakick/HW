@@ -1,0 +1,76 @@
+/*
+function functionName() {
+	code
+}
+*/
+/*
+let temperatures;
+let sum;
+let meanTemp;
+function getMeanTemp() {
+	sum = 0;
+  for (let i = 0; i < temperatures.length; i++) {
+  sum += temperatures[i];
+  }
+  meanTemp = sum / temperatures.length;
+}
+temperatures = [17, 19, 24, 34, 13, 14, 34];
+getMeanTemp();
+console.log(`mean: ${meanTemp}`);
+*/
+/*
+function showMsg() {
+	console.log("message 1");
+  return;
+  console.log("messgae 2");
+}
+showMsg();
+
+function getTrue() {
+    return true;
+}
+let test = getTrue();
+console.log(test);
+*/
+/*
+let temperatures;
+function getMeanTemp() {
+    let sum = 0;
+    for (let i = 0; i < temperatures.length; i++) {
+        sum += temperatures[i];
+    }
+    return sum / temperatures.length;
+}
+temperatures = [17, 19, 24, 34, 13, 14, 34];
+console.log(`mean: ${getMeanTemp()}`);
+*/
+/*
+function multiply(first, second) {
+    return first * second;
+}
+let answer = multiply(24, 13);
+console.log(`Answer: ${answer}`)
+function add(first, second, third) {
+    return first + second + third;
+}
+
+
+function getElement(elements, index) {
+return elements[index];
+}
+let names = ["Tony", "Steve", "John"]
+let name = getElement(names, 2);
+console.log(name);
+*/
+
+function getMeanTemp(temperatures) {
+    let sum = 0;
+    for (let i =0; i < temperatures.length; i++) {
+        sum += temperatures[i];
+    }
+    return sum / temperatures.length;
+}
+let day1 = [80, 81, 93, 94, 92, 86, 91, 90, 74];
+console.log(`mean: ${getMeanTemp(day1)}`);
+let day2 = [90, 93, 95, 82, 85, 100, 29, 17];
+console.log(`mean: ${getMeanTemp(day2)}`);

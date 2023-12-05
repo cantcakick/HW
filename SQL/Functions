@@ -1,0 +1,32 @@
+--Numeric
+Select column_name, Round(column_name, decimal_places) From table;
+Select column_name, Mod(column/value, divide by value) From table;
+
+--String
+Select Concat("string1", separator "string2") From table_name Where condition;
+Select Substr("string", start index, length) From table_name Where condition;
+Select Ucase(column_name) From table_name
+Select Lcase(column_name)From table_name
+
+--Date
+Select Current_date()
+Select Current_time()
+Select Date_format('date', "formatType") From --format must have ''
+Select Datediff("date1", "date2")
+
+--Comparison
+Select greatest(column1, column2) AS highest, From table
+least() --works same as greatest
+Select * From table_name Where isnull(column_name) --will return 1 if true
+
+--Control Flow
+Select column_name
+Case
+    When condition then result
+    Else result --if no ELSE will result NULL
+END AS alias
+
+Select IFNULL(NULL, "outputstatement") --if the input is NULL will output 'outputstatement'
+
+Select Concat(Lcase(Name), '-', Quantity, '-', Ucase(OrderStatus)) from item, mg_orders;
+Select Date_format(DeliveryDate, '%W') from mg_orders;

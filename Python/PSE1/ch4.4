@@ -1,0 +1,33 @@
+#global keyword used within a function to force Python to refrain from creating new variables inside the function with the same name
+"""def my_fun():
+    global v
+    v = 2 # v is set to 2
+    print("Do I know the variable?", v)
+
+v = 1 # v cannot be set to a new value if done before fun call
+my_fun()
+print(v)
+v = 5 # v will be set to new value
+print(v)
+"""
+def bmi(weight, height):
+    if height < 0.0 or height > 2.5 or  weight < 20 or weight > 400:
+        return None
+    return weight / height ** 2
+def ft_and_inch_to_m(ft, inch = 0.0):
+    return ft * 0.3048 + inch * 0.0254
+ 
+ 
+def lb_to_kg(lb):
+    return lb * 0.4535923
+ 
+ 
+def bmi(weight, height):
+    if height < 1.0 or height > 2.5 or weight < 20 or weight > 200:
+        return None
+ 
+    return weight / height ** 2
+ 
+ 
+print(bmi(weight = lb_to_kg(176), height = ft_and_inch_to_m(5, 7)))
+

@@ -1,0 +1,40 @@
+/*
+let i = 0; //infinite loop
+while (true){
+  console.log(i);
+  i++;
+  if(i >=5) {
+    break;
+  }
+}
+alert (`Exited the loop with break (${i}).`);
+*/
+/*
+for (let i = 0; i < 10; i++) {
+  if (i == 3) {
+    continue;
+  }
+  console.log(i);
+}
+*/
+let stance = prompt("Choose stance: striking, grappling" );
+let win = false;
+switch (stance) {
+  case "boxing":
+  case "muay-thai":
+  case "kickboxing":
+    alert("Stance: Striking");
+    break;
+  case "judo":
+  case "bjj":
+  case "wrestling":
+  case "catch":
+    alert("Stance: Grappling");
+    win = true;
+    break;
+  default:
+    alert("No stance" + String(stance));
+}
+if (win) {
+  alert("Winner!");
+}

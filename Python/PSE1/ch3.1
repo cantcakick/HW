@@ -1,0 +1,44 @@
+"""
+n = int(input())
+x = ()
+#print(n >= 100)
+if (n <= 100):
+    x = True
+else:
+    x = False
+print("This number", n, "is under 100", x)
+"""
+"""
+a = int(input("Enter first number "))
+b = int(input("Enter first number "))
+c = int(input("Enter first number "))
+r = ()
+if (a > b & b > c):
+    r = a
+elif (b > a & a > c):
+    r = b
+elif (a == b == c):
+    r = "All equal"
+else:
+    r = c
+print("The largest of", a, b, "and", c, "is", r)
+"""
+"""
+plant = input("What type of plant is this?")
+if plant == "Spathiphyllum":
+    print("Yes - ", plant, "is the best plant ever!")
+elif plant == "spathiphyllum":
+    print("No, I want a big Spathiphyllum!")
+elif plant != "Spathiphyllum":
+    print(f"Spathiphyllum! Not {plant}!")
+"""
+income = float(input("Enter the annual income: "))
+
+if income < 85528:
+	tax = income * 0.18 - 556.02
+else:
+    tax = 14839.02 + (.32 * (income - 85528))
+if tax < 0.0:
+    tax = 0.0
+tax = round(tax, 0)
+print("The tax is:", tax, "thalers")

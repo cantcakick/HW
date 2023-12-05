@@ -1,0 +1,11 @@
+Select C.Fullname, C.PhoneNumber, B.BookingDate, B.NumberOfGuests 
+From Customers as C
+inner join Bookings as B
+ON C.CustomerID = B.CustomerID;  --Have to use a common key (CustomerID to compare)
+
+Select C.CustomerID, B.BookingID
+From Customers as C
+Left join Bookings as B
+ON C.CustomerID = B.CustomerID;
+
+

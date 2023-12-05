@@ -1,0 +1,13 @@
+/*
+let x = Number("1024");
+console.log(x);
+*/
+/*
+let summer = ["June", "July", "August"];
+let index = summer.indexOf("June");
+console.log(index)
+*/
+let animals = ["dog", /*"cat"*/, "hamster"];
+animals.pop();
+animals.reverse();
+console.log(animals);

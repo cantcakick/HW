@@ -1,0 +1,18 @@
+SELECT * FROM Bookings WHERE BookingSlot > (SELECT BookingSlot FROM Bookings WHERE GuestFirstName = 'Vanessa' AND GuestLastName = 'McCarthy');
+SELECT * FROM MenuItems WHERE Price > ALL (SELECT Price FROM MenuItems WHERE Type IN ('Starters', 'Desserts')); 
+Select * from MenuItems where Price = (Select Price from Menus, MenuItems where Menus.ItemID = MenuItems.ItemID and MenuItems.Type = 'Starters' and Cuisine = 'Italian');
+SELECT * FROM MenuItems 
+WHERE NOT EXISTS (SELECT * FROM TableOrders, Menus WHERE TableOrders.MenuID = Menus.MenuID AND Menus.ItemID = MenuItems.ItemID); 
+
+--Types of Subqueries
+--Subqueries in From clause
+select column1, column2 from (subquery) AS alias;
+
+--Subqueries in Insert
+Insert into table1 Select column1, column2, column3 from table2 where some_column some_operator(subquery);
+
+--Subqueries in Update
+update table1 set column1 = some_value where some_column some_operator(subquery);
+
+--Subquery in Delete
+delete from table1 where some_column some_operator(subquery); 

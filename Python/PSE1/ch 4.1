@@ -1,0 +1,45 @@
+# def function_name():
+    #function_body
+def message():
+    print("Enter a number")
+    
+message()
+a = int(input())
+message()
+b = int(input())
+message()
+c = int(input())
+print(a, b, c )
+
+#def function(parameter):  parameters are variables that only exist inside the function they've been defined.
+    #code
+def message(number):
+    print("Enter a number:", number)
+
+number = 1234 # a variable can be named the same as a functions parameter  Called shadowing
+message(1)
+print(number)
+
+#Keyword argument passing
+def introduction(first_name, last_name):
+    print("Hello, my name is", first_name, last_name)
+
+introduction(first_name = "James", last_name = "Bond")
+introduction(last_name = "Skywalker", first_name = "Luke")
+
+#Positional Argument passing
+def introduction(first_name, last_name):
+    print("Hello, my name is", first_name, last_name)
+ 
+introduction("Luke", "Skywalker")
+introduction("Jesse", "Quick")
+introduction("Clark", "Kent")
+ 
+# Mixing arguments
+def adding(a, b, c):
+    print(a, "+", b, "+", c, "=", a + b + c)
+
+#Parametrized functions
+def introduction(first_name, last_name="Smith"): # pr assigns value to arg last_name
+     print("Hello, my name is", first_name, last_name)
+

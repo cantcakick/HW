@@ -1,0 +1,37 @@
+console.log(10 === 5); //identity operator (strict equality)
+console.log( 10 === 10);
+
+console.log(10 == 5); // -> false  equal operator will try to convert types
+console.log(10 == 10); // -> true
+console.log(10 == 10n); // -> true
+console.log(10 == "10"); // -> true
+console.log("10" == "10"); // -> true
+console.log("Alice" == "Bob"); // -> false
+console.log(0 == false); // -> true
+console.log(undefined == false); // -> false
+console.log(NaN == NaN); // -> false
+
+console.log(10 !== 5); // -> true Non identity operator checks if inputs are identical
+console.log(10 !== 10); // -> false
+console.log(10 !== 10n); // -> true
+console.log(10 !== "10"); // -> true
+console.log("10" !== "10"); // -> false
+console.log("Alice" !== "Bob"); // -> true
+console.log(0 !== false); // -> true
+console.log(undefined !== false); // -> true
+console.log(10 != 5); // -> true    True is operands are different
+console.log(10 != 10); // -> false
+console.log(10 != 10n); // -> false
+console.log(10 != "10"); // -> false
+console.log("10" != "10"); // -> false
+console.log("Alice" != "Bob"); // -> true
+console.log(0 != false); // -> false
+console.log(undefined != false); // -> true
+console.log(NaN != NaN); // -> true
+
+let year = 10191;
+console.log(typeof year); // -> number
+console.log(typeof false); // -> boolean
+
+console.log(true ? "Alice" : "Bob"); // -> Alice based on value of first operand second or 3rd value will be output
+console.log(false ? "Alice" : "Bob"); // -> Bob seperate first from 2nd/3rd with ?

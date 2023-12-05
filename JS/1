@@ -1,0 +1,9 @@
+let bo1 = true; 
+let b02 = Boolean(true);
+let num1 = 123;
+let num2 = Number(204);
+let big1 = 34n;
+let big2 = BigInt(132);
+let str1 = "Well, Hi there!";
+let str2 = String("What string is a thread"); 
+let un = undefined;

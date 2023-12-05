@@ -1,0 +1,10 @@
+--terminal > mysql;
+CREATE DATABASE cm_devices;
+USE cm_devices;
+CREATE TABLE CUSTOMERS (username CHAR(9), fullName VARCHAR(100), email VARCHAR(255));
+show tables;
+show colummns from CUSTOMERS;
+CREATE TABLE feedback (FeedbackIS char(8), FeedbackType Varchar(100), Comment text(500 --character limit)
+show columns in feedback;
+
+CREATE TABLE player (name varchar(50) NOT NULL, city varchar(30) DEFAULT "Barcelona") -- NOT NULL verifies input is non-zero or not null and DEFAULT sets default value 

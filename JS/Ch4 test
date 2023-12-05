@@ -1,0 +1,10 @@
+for (let x = 10; x > 1; x -= 2)
+console.log("hello");
+
+let car = {make: "Citroen", model: "DS"};
+for (let f in car)
+console.log(f);
+
+let steps = [3, 2, 1];
+for (let n of steps)
+console.log(n);

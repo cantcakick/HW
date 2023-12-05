@@ -1,0 +1,26 @@
+import math
+import sys
+#import math, sys    Can import independently or as a group with commas
+print(math.sin(math.pi/2))
+#name_of_module.name_of_entity     ie math.pi
+def sin(x):
+    if 2 * x == pi:
+        return 0.99999999
+    else:
+        return None
+    
+pi = 3.14
+
+print(sin(pi/2))
+print(math.sin(math.pi/2))
+
+#OR
+from math import pi #specifies which entity to import
+from math import sin, pi 
+
+print(sin(pi/2))
+
+from module import * # import all entities from module.
+
+import module as alias # import a module and set an alias for the module.  Once done you cannot access the module through the original name.
+from module import name as alias, name2 as alias2

@@ -1,0 +1,20 @@
+let bo1 = true; 
+let b02 = Boolean(true);
+let num1 = 123;
+let num2 = Number(204);
+let big1 = 34n;
+let big2 = BigInt(132);
+let str1 = "Well, Hi there!";
+let str2 = String("What string is a thread"); 
+let un = undefined;
+
+
+console.log(`${bo1} [${typeof bo1}]`);
+console.log(`${b02} [${typeof b02}]`);
+console.log(`${num1} [${typeof num1}]`);
+console.log(`${num2} [${typeof num2}]`);
+console.log(`${big1} [${typeof big1}]`);
+console.log(`${big2} [${typeof big2}]`);
+console.log(`${str1} [${typeof str1}]`);
+console.log(`${str2} [${typeof str2}]`);
+console.log(`${un} [${typeof un}]`);

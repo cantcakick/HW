@@ -1,0 +1,39 @@
+let unit_priceRose = 8;
+let quantityRose = 70;
+let valueRose = unit_priceRose * quantityRose;
+let unit_priceLily = 10;
+let quantityLily = 50;
+let valueLily = unit_priceLily * quantityLily;
+let unit_priceTulip= 2;
+let quantityTulip = 120;
+let valueTulip = unit_priceTulip * quantityTulip;
+let Total = valueRose + valueLily + valueTulip;
+console.log("Rose - unit price: ", unit_priceRose , ", quantity: ", quantityRose, ", value: ", valueRose);
+console.log("Lily - unit price: ", unit_priceLily , ", quantity: ", quantityLily, ", value: ", valueLily);
+console.log("Tulip - unit price: ", unit_priceTulip , ", quantity: ", quantityTulip, ", value: ", valueTulip);
+console.log("Total: ", Total)
+
+let unit_priceRose = 8;
+var quantityRose = 70;
+let valueRose = unit_priceRose * quantityRose;
+let unit_priceLily = 10;
+var quantityLily = 50;
+let valueLily = unit_priceLily * quantityLily;
+let unit_priceTulip= 2;
+var quantityTulip = 120;
+let valueTulip = unit_priceTulip * quantityTulip;
+var Total = valueRose + valueLily + valueTulip;
+console.log("Rose - unit price: ", unit_priceRose , ", quantity: ", quantityRose, ", value: ", valueRose);
+console.log("Lily - unit price: ", unit_priceLily , ", quantity: ", quantityLily, ", value: ", valueLily);
+console.log("Tulip - unit price: ", unit_priceTulip , ", quantity: ", quantityTulip, ", value: ", valueTulip);
+console.log("Total: ", Total)
+let unit_price = 8
+let newRose = quantityRose - 20;
+let newLily = quantityLily - 30;
+let newValueRose = newRose * unit_price;
+let newValueLily = newLily * unit_price;
+var Total = newValueRose + newValueLily + valueTulip;
+console.log("Rose - unit price: ", unit_price , ", quantity: ", newRose, ", value: ", newValueRose);
+console.log("Lily - unit price: ", unit_price , ", quantity: ", newLily, ", value: ", newValueLily);
+console.log("Tulip - unit price: ", unit_price , ", quantity: ", quantityTulip, ", value: ", valueTulip);
+console.log("Total: ", Total)

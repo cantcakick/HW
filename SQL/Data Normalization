@@ -1,0 +1,13 @@
+CREATE DATABASE Chinook;
+USE Chinook;
+create table Employee (Employee int, LastName varchar(20), FirstName varchar(20), Title varchar(30), ReportsTo int, BirthDate date, HireDate date, Address varchar(70), primary key(Employee));
+CREATE TABLE Customers (CustomerId int, LastName varchar(20), FirstName varchar(20), Company varchar(30), Phone varchar(20), Email varchar(100), SupportRepId int, Address int(70), primary key(CustomerID), foreign key(SupportRepId) REFERENCES Employee(Employee));
+CREATE TABLE Invoices (InvoiceId int, CustomerId int, InvoiceDate DATE, BillingAddress varchar(100), TrackId int, PRIMARY KEY(InvoiceId), FOREIGN KEY(TrackId) REFERENCES Tracks(TrackId));
+CREATE TABLE Artists (ArtistId int, Name varchar(120), PRIMARY KEY(ArtistId));
+CREATE TABLE Albums (AlbumId int, Title varchar(160), ArtistId int, PRIMARY KEY(AlbumId), FOREIGN KEY(ArtistId) REFERENCES Artists(ArtistId));
+CREATE TABLE Tracks (TrackId int, Name varchar(200), AlbumId int, UnitPrice dec, PRIMARY KEY(TrackId), FOREIGN KEY(AlbumId) REFERENCES Albums(AlbumId));
+--CREATE TABLE Location (LocationId int, City varchar(20), Country varchar(20), PRIMARY KEY(locationId));
+--insert into table Artists Values LocationId;
+
+Select TrackId, Album ID WHERE TrackId % 2 = 0; -- finds even trackid
+select age, playerName from Players where age > 25;

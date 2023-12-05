@@ -1,0 +1,10 @@
+Select column, SUM() --conditional argument also count()
+From table
+Where condition
+Group By column --in order you want them displays.  # of columns must match # of columns in SELECT statement
+Having condition
+
+Select OrderDate from Orders group by OrderDate;
+Select OrderDate, Count(OrderID) from Orders group by OrderDate;
+Select Department, Sum(OrderQty) from Orders group by Department;
+Select OrderDate, Count(OrderID) from Orders group by OrderDate having OrderDate between '2022-06-01' and '2022-06-11';

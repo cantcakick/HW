@@ -1,0 +1,93 @@
+/*
+function getMeanTemp(temperatures) {
+    if (!(temperatures instanceof Array)) {  //checks input to see if it is an Array
+        return NaN;
+    }
+    let sum = 0; //init
+    for (let i = 0; i <temperatures.length; i++) {  //iteration loop will run through length of array
+        sum += temperatures[i];
+    }
+    return sum / temperatures.length; //return as value for getMeanTemp
+}
+console.log(getMeanTemp(10));
+console.log(getMeanTemp([10, 30, 32, 40]))
+*/
+/*
+function factorial(n) {
+    let result = 1;
+    while (n > 1) {
+        result *= n;
+        n--;
+    }
+    return result;
+}
+console.log(factorial(6));
+//can be shortened to 
+function factorial (n) {
+    return n > 1 ? n * factorial(n-1) : 1;
+}
+console.log(factorial(6));
+
+function operation(func, first, second) {
+    return func(first, second);
+}
+let myAdd = function(a, b) {
+    return a + b;
+}
+console.log(operation(myAdd, 15, 32));
+console.log(operation(function(a, b) {
+    return a * b;
+}, 15, 32));
+*/ 
+//Synchronous Callback
+/*
+let inner = function() {
+    console.log('inner 1');
+}
+let outer = function(callback) {
+    setTimeout(callback, 1000) //Asynchronous callback sets a timeout delay to response to 1000ms
+    console.log('outer 1');
+    callback();
+    console.log('outer 2');   
+}
+console.log('test 1');
+outer(inner);  //functions do not need to be console.log to display  can be called as is
+console.log('test 2');
+*/
+/*
+let inner = function() {
+    console.log('inner 1');
+}
+let outer = function(callback) {
+    console.log('outer 1');
+    let timerId = setInterval(callback, 1000);
+    console.log('outer 2');
+    setTimeout(function(){
+        clearInterval(timerId);
+    }, 5500);
+}
+console.log('test 1');
+outer(inner);
+console.log('test 2');
+*/
+/*
+window.addEventListener("click", function(){
+  console.log("AAAAAAH");
+});
+*/
+let add = function(a, b) {
+    return a + b;
+}
+console.log(add(15, 45))
+// can be rewritten as 
+let add = (a, b) => {
+    return a + b;
+}
+console.log(add(10, 20))
+/*
+let x = 10;
+function test() {
+    let x = 20;
+    console.log(x);
+}
+*/

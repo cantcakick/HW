@@ -1,0 +1,10 @@
+--Procedures are similar to modules  can be called and used to simplify code
+
+Create Procedure GetItalianCust() Select * From Customers where Country = "Italy";
+CALL GetItalianCust();
+
+Create Procedure GetOrdersData() Select * from Orders;
+CALL GetOrdersData();
+
+Create Procedure GetListOfOrdersInRange (MinValue Decimal, MaxValue Decimal) Select * from Orders where Cost >= MinValue AND Cost <= MaxValue;
+CALL GetListOfOrdersInRange(150, 600);

@@ -1,0 +1,12 @@
+REPLACE INTO tableName (column1, column2, column3)  --check for unique(Primary) key of existing records.  If no matching key works as INSERT
+VALUES (column1_value, column2_value, column3_value)  --can choose between SET and Values depending on if you want to replace the entire record or just select values in the record
+REPLACE INTO tableName  --Replace works even if you don't include all values
+SET columnName = newValue --locates selected record and changes the value automatically.  If not specified it will default to NULL
+
+--LAB
+CREATE DATABASE Lucky_Shrub;
+USE Lucky_Shrub;
+CREATE TABLE Orders (OrderID INT NOT NULL PRIMARY KEY, ClientID VARCHAR(10), ProductID VARCHAR(10), Quantity INT, Cost DECIMAL(6,2));
+INSERT INTO Orders (OrderID, ClientID, ProductID, Quantity, Cost) VALUES (1, "Cl1", "P1", 10, 500), (2, "Cl2", "P2", 5, 100), (3, "Cl3", "P3", 20, 800), (4, "Cl4", "P4", 15, 150), (5, "Cl3", "P3", 10, 450), (6, "Cl2", "P2", 5, 800), (7, "Cl1", "P4", 22, 1200), (8, "Cl1", "P1", 15, 150);
+REPLACE INTO Orders (OrderID, ClientID, ProductID, Quantity, Cost) VALUES (9, "Cl1", "P1", 10, 5000), (10, "Cl2", "P2", 5, 100);
+REPLACE INTO Orders SET OrderID = 9, ClientID = "Cl1", ProductID = "P1", Quantity = 10, Cost = 500;

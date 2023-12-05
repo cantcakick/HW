@@ -1,0 +1,25 @@
+--Inner Join
+--matching values in both tables
+SELECT Customers.Fullname, Booking.BookingID
+From Customer Inner Join Bookings
+ON Customers.CustomerID = Bookings.BookingID; 
+--Join Customer ID and BookingID from the tables Customers and Booking
+
+--Left/Right Join
+--matching values in left table and partial match in right and vice versa
+Select Customers.Fullname, Booking.BookingID
+From Customers Left Join Bookings
+ON Customers.CustomerID = Bookings.CustomerID;
+--outputs a NULL value for non matching values in right table.
+
+--Self join
+--matching data in a table against itself 
+
+--Union operator
+--Combine mult Select statements
+--Combines result sets from mult tables as 1
+Select column1, column2 --select statements must have same number of columns
+From table1
+UNION --use UNION ALL to show duplicates
+Select column1, column2 --related columns must be in the same order and use similar data types
+FROM table2;

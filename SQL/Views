@@ -1,0 +1,21 @@
+CREATE VIEW view_name AS alias_name Select table.column1, table.column2 FROM table_name WHERE condition;
+
+CREATE VIEW view_name 
+AS alias_name 
+Select table.column1, table.column2 
+FROM table1_name INNER JOIN table2_name 
+ON table1.column1 = table2.column1 
+WHERE condition;
+
+
+CREATE DATABASE Lucky_Shrub;
+USE Lucky_Shrub; 
+CREATE TABLE Orders (OrderID INT NOT NULL PRIMARY KEY, ClientID VARCHAR(10), ProductID VARCHAR(10), Quantity INT, Cost DECIMAL(6, 2));
+INSERT INTO Orders (OrderID, ClientID, ProductID, Quantity, Cost) VALUES (1, "Cl1", "P1", 10, 500), (2, "Cl2", "P2", 5, 100), (3, "Cl3", "P3", 20, 800), (4, "Cl4", "P4", 15, 150), (5, "Cl3", "P3", 10, 450), (6, "Cl2", "P2", 5, 800), (7, "Cl1", "P4", 22, 1200), (8, "Cl1", "P1", 15, 150);
+--create view OrdersView AS select Orders.OrderID, Orders.Quantity, Orders.Cost from Orders; 
+CREATE VIEW OrdersView AS SELECT OrderID, Quantity, Cost FROM Orders; --do not add dot notation to Select will cause errors in finding table later
+Select * from OrdersView;
+update OrdersView set Cost = 200 where OrderID = 2;
+Select * from OrdersView;
+RENAME TABLE OrdersView TO ClientsOrdersView;
+DROP VIEW ClientsOrdersView; 

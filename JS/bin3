@@ -1,0 +1,73 @@
+/* 
+let names = [];
+let isOver = false;
+while (!isOver) {
+    let name = prompt("What is your name? ");
+    if (name != null) {
+      names.push(name);
+    } else {
+      isOver = true;
+    }
+}
+for (let i = 0; i < names.length; i++){
+  console.log(names[i]);
+}
+*/
+/*
+let values = [20, 40, 60, 80, 100];
+for (let i = 0; i < values.length; i++) {
+  console.log(values[i]);
+}
+for (let i = values.length -1; i > 0; i--) {
+  console.log(values[i]);
+}
+for (let i = 0; i < values.length; i += 2) {
+  console.log(values[i]); 
+}
+let sum = 0;
+for (let i = 0; i < values.length; i++) {
+  sum += values[i];
+}
+console.log(sum);
+for (let number of values) {  //same as the previous for loop but using for...of
+  sum += number;
+}
+console.log(sum);
+*/
+/*
+for (variable of array) {
+block of code
+}
+for of loops iterate through all available values by default
+*/
+/*
+let cities = [
+  { name: "New York", population: 18.65e6 },
+  { name: "Cairo", population: 18.82e6 },
+  { name: "Mumbai", population: 19.32e6 },
+  { name: "São Paulo", population: 20.88e6 },
+  { name: "Mexico City", population: 21.34e6 },
+  { name: "Shanghai", population: 23.48e6 },
+  { name: "Delhi", population: 25.87e6 },
+  { name: "Tokyo", population: 37.26e6 }
+];
+for (let city of cities) {
+  if (city.population > 20e6) {
+    console.log(`${city.name} (${city.population})`);
+  }
+}
+*/
+let user = {
+  firstname: "Charles",
+  lastName: "Agnew",
+  age: 32,
+  email: "charles.agnew@telnet.com"
+};
+for (let key in user) {
+  console.log(key);
+  console.log(user.fistname);
+  console.log(user[firstname]);
+}
+for (let key in user) {
+  console.log(`${key} -> ${user[key]}`);
+}

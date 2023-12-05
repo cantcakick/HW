@@ -1,0 +1,54 @@
+'''my_list = [10, 20, 12, 52, 16]
+swapped = True #needed to enter while loop
+while swapped:
+    swapped = False
+    for i in range(len(my_list) - 1):
+        if my_list[i] > my_list[i + 1]:
+            swapped = True # a swap occurs
+            my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]
+print(my_list)'''
+
+'''my_list = []
+swapped = True
+num = int(input("How many elements do you want to sort: "))
+
+for i in range(num): #loop to ask for element
+    val = float(input("Enter a list element: "))
+    my_list.append(val)
+
+while swapped:
+    swapped = False
+    for i in range(len(my_list) - 1):
+        if my_list[i] > my_list[i + 1]:
+            swapped = True
+            my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]
+
+print("\nSorted:")
+print(my_list)
+'''
+'''my_list = [10, 20, 12, 52, 16]
+my_list.sort()
+print(my_list)
+
+my_list = [17, 3, 11, 5, 1, 9, 7, 15, 13]
+largest = my_list[0]
+ 
+for i in my_list:
+    if i > largest:
+        largest = i
+ 
+print(largest)'''
+
+my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+search = int(input("What number are you looking for? "))
+found = False
+
+for i in range(len(my_list)):
+    found = my_list[i] == search
+    if found:
+        break
+    
+if found:
+    print(f"Element {search} found at index", i) #print statement has to be outside of loop.  Will not execute after break
+else:
+    print("Not here")

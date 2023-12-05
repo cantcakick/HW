@@ -1,0 +1,21 @@
+hotel_bookings <- read.csv("hotel_bookings.csv")
+head(hotel_bookings)
+colnames(hotel_bookings)
+install.packages('ggplot2')
+library(ggplot2)
+ggplot(data = hotel_bookings) +  #specify location of data_frame
+  geom_point(mapping = aes(x = lead_time, y = children))
+
+ggplot(data = hotel_bookings) + # + adds a layer to plot
+ geom_point(mapping = aes(x = stay_in_weekend_nights , y = children))
+
+ ggplot(data = penguins) +
+    geom_point(mapping = aes(x = bill_size, y = age, color=species, shape = species, size =, alpha = ))  #color and shape add diff color shape to each type of penguin 
+    # alpha changes transparency
+    geom_smooth(method='loess') # adds a "smoothing line" as another layer to the chart .  loess plots with less than 1000 points
+    geom_smooth(method='gam', formula = y ~s(x)) # tilde sets relationship between dependent (left side) and independent (right side) variables
+
+ggplot(data = penguins) +
+    geom_point(mapping = aes(x = body_mass, y = age))+
+    facet_wrap(~species) #create sep plot for each variable "species"
+    

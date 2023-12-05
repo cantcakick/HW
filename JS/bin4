@@ -1,0 +1,32 @@
+/*
+for (i = 100 ; i >= 0 ; i -= 10) {
+  console.log(i); 
+}
+
+let upperLimit = Number(prompt("Enter upper limit"));
+let lowerLimit = Number(prompt("Enter lower limit"));
+
+if (!Number.isNaN(upperLimit) && !Number.isNaN(lowerLimit) && upperLimit > lowerLimit) {
+  for (i = upperLimit; i >= lowerLimit; i -= 10) {
+    console.log(i);
+  }
+}
+*/
+
+let numbers = [21, 45, 100, 12, 11, 78, 61, 4, 39, 22];
+console.log(numbers);
+for (number of numbers) {
+  console.log(number);
+}
+
+for (number of numbers) {
+  if (number % 2 === 0) {
+    console.log(number);
+  }
+}
+
+for (number of numbers) {
+  if (number > 10 && number < 60) {
+    console.log(number);
+  }
+}

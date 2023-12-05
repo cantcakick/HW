@@ -1,0 +1,15 @@
+install.packages("tidyverse")
+library(tidyverse)
+names <- c("John", "Jacob", "Steve", "Meyers") #create a vector called names
+age <- c(10, 15, 25, 43)  # create a vector called age
+people <- data.frame(names, age) # combine the vectors into a dataframe
+head(people) #shows the first 6 rows of data
+str(people) # outputs data types like chr, num and the values associated with them
+glimpse(people) #overview of info.  Number of rows/columns, values, and associated data types
+colnames(people)  #outputs column names
+mutate(people, age_in_20 = age + 20)  #creates a new variable and adds to data frame 
+view() #shows the entire dataframe
+as_tibble() #creates a tibble based on a given data frame
+rename() #changes a column name
+rename_with() #helps create uniform rules.  toupper or tolower 
+clean_names() #checks names are only char, num, and _

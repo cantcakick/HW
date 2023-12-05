@@ -1,0 +1,19 @@
+alert("Hello, World") // Alert windows popup and take precedence over the rest of the screen
+window.alert("Hello, World! once again");
+alert(4 * 7);
+alert(true);
+alert("text 1", "text 2");
+
+
+/*let remove = confirm("Remove all data?");
+let message = remove ? "Deleting Data" : "Cancelled"
+ 
+console.log(message);
+*/
+
+//Calculate volume of a cube using user input
+let width = window.prompt("Enter width: ")
+let height = window.prompt("Enter height: ")
+let length = window.prompt("Enter length: ")
+let cubeVolume = Number(width * height * length)
+console.log(cubeVolume)

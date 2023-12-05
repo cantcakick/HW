@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS Lucky_Shrub;
+USE Lucky_Shrub;
+CREATE TABLE Orders (OrderID INT NOT NULL PRIMARY KEY, ClientID VARCHAR(10),  ProductID VARCHAR(10),  Quantity   INT, Cost DECIMAL(6,2));
+INSERT INTO Orders (OrderID, ClientID, ProductID , Quantity, Cost) VALUES (1, "Cl1", "P1", 10, 500), (2, "Cl2", "P2", 5, 100), (3, "Cl3", "P3", 20, 800), (4, "Cl4", "P4", 15, 150), (5, "Cl3", "P3", 10, 450), (6, "Cl2", "P2", 5, 800), (7, "Cl1", "P4", 22, 1200), (8, "Cl3", "P1", 15, 150), (9, "Cl1", "P1", 10, 500), (10, "Cl2", "P2", 5, 100);
+Select * from Orders where Cost <= 250;
+Select * from Orders where ClientID='Cl3' and Cost > 100;
+Select * from Orders where Cost between 50 and 750;
+Select * from Orders where Quantity > 2 and ProductID between 'P1' and 'P2';
+
+
+--Between operator
+Select * from table_name where column_name between val1 and val2
+Select * from table_name where column_name like '%__o' -- % represents any number of letters up to the start or end.  the numbe rof _ represents min character count 

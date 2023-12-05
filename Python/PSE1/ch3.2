@@ -1,0 +1,85 @@
+#while
+#   code
+#(while number !=0 )and (while number) are the same
+
+"""
+counter = 5
+while counter:
+    print("Inside the loop.", counter)
+    counter -= 1
+print("Outside the loop.", counter)
+"""
+"""
+i = 0
+while i < 10: #while i is less than 10
+    i += 1 #increment 
+    print(i) #print i
+
+for i in range(10): #for i in range 0-9
+    print(i) #print i
+# if using mult arguments in range(beg, end, increment)
+
+for i in range (2, 10):
+    print("I is currently:", i)
+"""
+import time
+i = 0    
+for i in range(6):
+    print(i, "Mississippi")
+    i = time.sleep(1)
+print(time)
+
+# break - example
+
+print("The break instruction:")
+for i in range(1, 6):
+    if i == 3:
+        break
+    print("Inside the loop.", i)
+print("Outside the loop.")
+
+
+# continue - example
+
+print("\nThe continue instruction:")
+for i in range(1, 6):
+    if i == 3:
+        continue
+    print("Inside the loop.", i)
+print("Outside the loop.")
+
+largest_number = -99999999
+counter = 0
+
+while True:
+    number = int(input("Enter a number or type -1 to end the program: "))
+    if number == -1:
+        break
+    counter += 1
+    if number > largest_number:
+        largest_number = number
+
+if counter != 0:
+    print("The largest number is", largest_number)
+else:
+    print("You haven't entered any number.")
+
+i = 1
+while i < 5:
+    print(i)
+    i += 1
+else:
+    print("else:", i)
+    
+for i in range(5):
+    print(i)
+else:
+    print("else:", i)
+    
+& (ampersand) ‒ bitwise conjunction;
+| (bar) ‒ bitwise disjunction;
+~ (tilde) ‒ bitwise negation;
+^ (caret) ‒ bitwise exclusive or (xor).
+
+value << bits shift left is like mult by 2
+value >> bits shift right is like dividing by 2

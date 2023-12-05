@@ -1,0 +1,59 @@
+/*A record is a collection of named fields.  Uses key value pairs.  Called properties in JS.  Record = Object */
+/*let testObj = {
+    num1: 600,
+    str1: "Hello"
+};
+console.log(`${testObj} {[typeof testObj]}`);
+console.log(testObj.num1);
+console.log(testObj.str1);
+*/
+/*
+let user1 = {
+    fname: "Charles",
+    lname: "Agnew",
+    age: 31,
+    email: "charles@email.com"
+};
+
+let user2 = {
+    fname: "Admin",
+    lname: "Super",
+    age: 100,
+    email: "admin@email.com"
+};
+console.log(user1.fname + user1.lname);
+console.log(user1.age);
+console.log(user1.email);
+
+console.log(user2.fname +user2.lname);
+console.log(user2.age);
+console.log(user2.email);
+
+console.log(user1.phone);
+user1.phone = "000-000-0000" //add/delete values by assigning and outputing in console.
+console.log(user1.phone);
+delete user1.phone
+console.log(user1.phone)
+*/
+/*
+let days = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+console.log(days[0]);
+console.log(days[2]);
+console.log(days[5]);
+
+days[0] = "Sunday";
+console.log(days[0]);
+
+let emptyArray = [];
+console.log(emptyArray[0]);
+
+let animals = [];
+animals[0] = "dog";
+animals[2] = "cat";
+
+console.log(animals);
+console.log(animals[0]);
+*/
+let names = [["Livvy", "Emmy", "Misa", "Aria"], ["Tom", "Alfonse", "Jerome"]]; //seperate arrays with ,
+console.log(names[0]);
+console.log(names[1][1]);

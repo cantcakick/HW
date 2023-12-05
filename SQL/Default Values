@@ -1,0 +1,17 @@
+CREATE DATABASE cm_devices;
+USE cm_devices;
+CREATE TABLE address(id int not null, street varchar(255), postcode varchar(10), town varchar(30) default "Harrow");
+SHOW columns FROM address;
+DROP TABLE Address;
+CREATE TABLE address(id int not null, street varchar(255), postcode varchar(10) default "HA97DE", town varchar(30) default "Harrow");
+
+--Varchar is a variable character, indeterminate length string data type.  Holds numbers, letters, and SPECIAL CHAR.  ask for 255 must have <=255
+--Char is fixed length data type.  Ensures consistent lenght  ask for 8 char has to have 8 char
+
+CREATE DATABASE cm_devices;
+USE cm_devices;
+CREATE TABLE invoice (customerName VARCHAR(50), orderDate DATE, quantity INT, price DECIMAL); 
+show tables;
+show columns from invoice;
+create table contact(account int, phone int, email varchar(50));
+show columns from contact;

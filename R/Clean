@@ -1,0 +1,34 @@
+install.packages("tidyverse") #install packages
+install.packages("skimr")
+install.packages("janitor")
+
+library(tidyverse) #load packages
+library(skimr)
+library(janitor)
+
+bookings_df <- read_csv("file_name.csv") #use the era_csv module to load an external csv file and assign it to the data frame bookings_df
+head(bookings_df) #prints first 6 rows
+str(bookings_df) 
+glimpse(bookings_df)
+colnames(bookings_df)
+skim_without_charts(bookings_df)
+trimmed_df <- bookings_df %>%  #create data frame trimmed_df, from bookings_df select 
+  select('hotel', 'is_canceled', 'lead_time')
+trimmed_df %>% 
+  select(hotel, is_canceled, lead_time) %>% 
+  rename(hotel_type = hotel) #rename hotel to hotel_type
+example_df <- bookings_df %>% #create a data frame example_df
+  select(arrival_date_year, arrival_date_month) %>% 
+  unite(arrival_month_year, c("arrival_date_month", "arrival_date_year"), sep = " ") #unite arrival_date_month and year as arrival_month_year using space as a sep
+example_df <- bookings_df %>%
+  mutate(guests = c(adults + children + babies))
+
+head(example_df)
+#Calculate the total number of canceled bookings and the average lead time for booking - you'll want to start your code after the %>% symbol. Make a column called 'number_canceled' to represent the total number of canceled bookings. Then, make a column called 'average_lead_time' to represent the average lead time. Use the `summarize()` function to do this in the code chunk below:
+
+example_df <- bookings_df %>%
+  summarize(number_canceled = sum(is_canceled),
+  average_lead_time = mean(lead_time))
+
+
+head(example_df)

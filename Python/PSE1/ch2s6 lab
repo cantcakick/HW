@@ -1,0 +1,37 @@
+"""
+a = float(input("Enter first variable: "))
+b = float(input("Enter second variable: "))
+add = a + b
+subtract = a - b
+multiply = a * b
+divide = a / b
+print("Addition: ", add)
+print("Subtraction: ", subtract)
+print("Multiplication: ", multiply)
+print("Division: ", divide)
+
+x = float(input("Enter value for x: "))
+y = 1/(x + (1/(x+(1/(x + (1 / x))))))
+print("y =", y)
+"""
+
+hour = int(input("Starting time (hours): "))
+mins = int(input("Starting time (minutes): "))
+dura = int(input("Event duration (minutes): "))
+mins = mins + dura
+hour = hour + mins // 60 
+mins = mins % 60
+hour = hour % 24
+print(hour, ":", mins, sep='')
+
+x = int(input("Enter a number: ")) # The user enters 2
+print(x * "5") #outputs 55. * multiply strings
+
+x = int(input())
+y = int(input())
+ 
+x = x % y
+x = x % y
+y = y % x
+ 
+print(y)

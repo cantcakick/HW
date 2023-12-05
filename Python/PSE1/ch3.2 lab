@@ -1,0 +1,39 @@
+'''
+answer = input("Name a mythical creature: ")
+out = "chupacabra"
+while answer != out:
+    answer = input("Name a mythical creature: ")
+print("You've successfully exited the loop.")
+'''
+'''
+user_word = input("Enter a word: ")
+user_word = user_word.upper()
+vowel = ['A', 'E', 'I', 'O', 'U']
+for letter in user_word: #iterate through user_word
+    if letter in vowel: #iterate through vowels list 
+        continue #continue/ ignore vowels
+    elif letter != vowel:
+        print(letter,"\n") #will only print if letter is NOT a vowel
+'''
+        
+
+'''
+user_word = input("Enter a word: ")
+user_word = user_word.upper()
+vowel = ['A', 'E', 'I', 'O', 'U']
+words_without_vowels = ''
+for letter in user_word: #iterate through user_word
+    if letter in vowel: #iterate through vowels list 
+        continue #continue/ ignore vowels
+    words_without_vowels += letter #iterate and concat str as it runs through loop
+    if letter != vowel:
+        print(letter,"\n") #will only print if letter is NOT a vowel
+print(words_without_vowels) 
+'''
+blocks = int(input("Enter the number of blocks: "))
+for i in range(blocks + 1):
+    for j in range(blocks + 1):
+        height = j / 2
+if height % 2==0:
+    height = height /2
+print("The height of the pyramid: ", height)

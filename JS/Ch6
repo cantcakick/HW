@@ -1,0 +1,13 @@
+try {  //tries running program
+    console.log('abc');
+    conole.log('abc');
+} catch (error) {
+    console.log(error.message);  //report error as a message
+}
+
+function test(counter) {
+    console.log("test");
+    if (counter > 0)
+    test(--counter);
+}
+test(3);

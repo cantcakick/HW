@@ -1,0 +1,10 @@
+--Creating virtual tables
+create view TableView AS SELECT statement;
+--Retrieving data from Virtual tables
+select * from TableView;
+--updating virtual tables
+update TableView set ColumnName = value where condition;
+--Renaming Virtual Tables
+Rename table VirtualTableName TO NewVirtualTableName;
+--Dropping Virtual Tables
+drop view VirtualTableName;

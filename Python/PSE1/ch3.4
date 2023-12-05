@@ -1,0 +1,74 @@
+'''
+numbers = [10, 20, 45, 50, 15]
+for i in numbers: # or range(numbers)
+    if i <= 40 & i != 20:
+        print(i)
+    elif i == 20:
+        print("Bingo!")
+    else:
+        print(i, "is too large")
+numbers[0] = 120
+print(numbers)
+print(numbers[3]) #prints the 4th number in the list
+print(len(numbers))
+del numbers[-1] #deletes last item in list -2 is second to last and so on
+print(numbers)
+'''
+'''
+#3.4.6 lab
+hat_list = [1, 2, 3, 4, 5] 
+new_number = int(input("Enter a new 3rd number: "))
+hat_list[2] = new_number
+del hat_list[-1]
+print(len(hat_list))
+print(hat_list)
+'''
+
+'''
+A method is a specific kind of function it behaves like a function and looks like a function, but differs in the way in which it acts, and in its invocation style.
+
+A function doesn't belong to any data it gets data, it may create new data and it (generally) produces a result.
+
+A method does all these things, but is also able to change the state of a selected entity.
+
+A method is owned by the data it works for, while a function is owned by the whole code.
+'''
+#Function syntax
+#result = function(arg)
+#result = data.method(arg)
+
+
+'''
+hat_list.insert(0, 23) #list.insert(location, value)  // allows you to add value to any location in list
+hat_list.append(66) #list.append(value) // glues new value to end of list
+print(hat_list)
+'''
+'''
+variable_1 = 1
+variable_2 = 2
+ 
+variable_1, variable_2 = variable_2, variable_1 #reverse order or swap the values of lists
+print(variable_1, variable_2)
+'''
+#3.4.11 Lab
+beatles = []
+print("Step 1:", beatles)
+main = ("John Lennon", "Paul McCartney", "George Harrison")
+beatles.append(main)
+print("Step 2:", beatles)
+'''for i in beatles:
+    if len(beatles) <= 4:
+        new_members = [input("Enter the last 2 members")]
+        beatles.append(new_members)'''
+
+print("Step 3:", beatles)
+#del beatles[beatles.index("Stu Sutcliffe"): beatles.index("Pete Best")]
+# step 4
+print("Step 4:", beatles)
+beatles.insert(0, "Ringo Starr")
+# step 5``
+print("Step 5:", beatles)
+
+
+# testing list legth
+print("The Fab", len(beatles))

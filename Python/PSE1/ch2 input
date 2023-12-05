@@ -1,0 +1,6 @@
+#thing = input("Show me something")
+#print("What is this ", thing)
+
+apples = float(input("How many apples do you have"))
+baskets = apples / 5
+print("You have ", baskets, "baskets containing ", apples, "apples")

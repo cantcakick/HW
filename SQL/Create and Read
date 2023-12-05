@@ -1,0 +1,8 @@
+--Insert
+CREATE DATABASE bookshop;
+USE bookshop;
+CREATE TABLE customers (custID int, custName varchar(500), custAddress varchar(255));
+SHOW tables;
+show columns from customers;
+INSERT INTO customers (custID, custName, custAddress) VALUES (1, "Joe Dirt", "110 Ole Dirt Road");
+Select * FROM customers;

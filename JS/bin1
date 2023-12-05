@@ -1,0 +1,27 @@
+//for (initialization; condition; increment) { block of code }
+/*
+for (let i = 0; i < 10; i++) {console.log(i);}
+*/
+// i = 0 initialization, i < 10 condition, i++ increment
+/*
+let i = 0;
+while(i < 10 ) { console.log(i); i++;}
+*/
+// same thing but using a while loop
+// both declare and initiate variable before loop
+/*
+let values = [10, 20, 30, 50, 100];
+let sum = 0;
+for (let i = 0; i < values.length; i++) {sum += values[i];}
+console.log(sum);
+*/
+// you can use .length to iterate through a list of unknown length in a for loop 
+
+let names = [];
+let isOver = false;
+while (!isOver) {
+	let name = prompt("What... Is your name?! ");
+  if (name != null) {
+  names.push(name);
+  } else {isOv}
+}

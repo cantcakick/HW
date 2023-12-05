@@ -1,0 +1,10 @@
+let greetings = "Howdy";
+console.log(greetings + " " + "Partner");
+let sentence = "Let's have a rootin tootin time ";
+let newSentence = sentence + 244140;
+console.log(newSentence);
+console.log(typeof newSentence);
+let sen = "Happy New ";
+sen += "Year ";
+sen += 2024;
+console.log(sen);

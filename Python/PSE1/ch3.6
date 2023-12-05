@@ -1,0 +1,37 @@
+'''list_1 = [1]
+list_2 = list_1[:] # slices create new lists preventing th modification of the open list
+list_1[0] = 2
+print(list_2)'''
+#list[start:end] start is first index / end is first element not included in slice
+# [:] copy whole list
+#[start:] from start point to len of list
+#[:end] from 0 to 1- end
+# can be used with Del command
+
+'''my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+search = int(input("What number are you looking for? "))
+found = False
+
+for i in range(len(my_list)):
+    found = my_list[i] == search
+    if found:
+        break
+    
+if found:
+    print(f"Element {search} found at index", i) #print statement has to be outside of loop.  Will not execute after break
+else:
+    print("Not here")'''
+
+data = [12, 5431, 653, 23, 657, 7]
+fix = data[:]
+data.sort
+data.sort(key = len) # sort by length 
+print(data)
+data.reverse
+print(data)
+print(sorted(fix, reverse = True))
+print(sorted(fix, key=len))
+
+# List Comprehension
+row = [WHITE_PAWN for i in range(8)] #fill the list White_Pawn for item in range 
+temps = [[0.0 for h in range(24)] for d in range(31)]
