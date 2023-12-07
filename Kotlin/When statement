@@ -16,3 +16,18 @@ fun main() {
             }
         }
 }
+//braces only required for multiple statements in body
+//if used as an expression must include an else block to exit code
+//can also use when as a value 
+when(value){code block}
+
+fun main() {
+    val number = 1
+    val text = when (number) {
+        1 -> "You missed"
+        2..5 -> "Nice try bozo"
+        6 -> "You hit me!"
+        else -> "What are you trying to do??"
+    }
+    print(text)
+}
