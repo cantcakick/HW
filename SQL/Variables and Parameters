@@ -1,0 +1,11 @@
+--SET command used to create variables using @  Deletes/update/ or Query record
+--DECLARE command used to create variable inside a stored statement
+--:= Assignment operator used in SELECT command
+SELECT @max_order := MAX(Cost) FROM Orders;
+
+--IN parameter
+CREATE PROCEDURE procedure_name(IN logic(value1, value2)) SELECT logic;
+
+--Creating user-defined functions
+CREATE FUNCTION FunctionName() RETURNS type() DETERMINISTIC codeblock/statement RETURN output
+--deterministic means result will always be the same for the same input param
