@@ -1,0 +1,71 @@
+fun main() { 
+    val a = 10 // the type of a is Int 
+    val b = 2147483647L // the type of b is Long 
+    val c = 10.0 // the type of c is Double 
+    val d = 10F // the type of d is Float 
+}
+fun main() { 
+    val smallDebt = -0.72 
+    println(smallDebt) // -0.72 
+    val million = 1_000_000 
+    println(million) // 1000000 
+}
+//Change types
+fun main() { 
+    val i: Int = 10 
+    val l: Long = i.toLong() 
+    val d1: Double = i.toDouble() 
+    val d2: Double = l.toDouble() 
+    println(d1) // 10.0 
+    println(d2) // 10.0 
+} 
+fun main() { 
+    val a = 1 + 2L // the type of a is Long 
+    val b = 1 + 2.0 // the type of b is Double 
+    val c = 1.0F + 2 // the type of c is Float 
+    val d = 1.0F + 2.0 // the type of c is Double 
+}
+//Dividing 2 int creates int  must convert to double or float 
+fun main() { 
+    val a = 5 
+    val b = 2 
+    println(a / b) // 2 
+    println(a.toDouble() / b) // 2.5 
+}
+//Convert char to string
+val myChar: Char = 'a'
+val myString = myChar.toString()
+//check string length
+val myStringLength = myString.length 
+val startsWithHel = myString.startsWith("Hel")
+val endsWithLo = myString.endsWith("lo")
+val firstChar = myString.first()
+val firstChar = myString.last()
+val equalsHello = myString.equals("Hello")
+val myString2 = myString.substring(1)
+val myLowerString = myString.lowercase()
+val myLowerString = myString.uppercase()
+//AND &&
+fun main() { 
+    val percent = 47 
+    val correct = percent >= 0 && percent <= 100 
+    println(correct) // true 
+} 
+//OR ||
+fun main() { 
+    val carCleaned = false // or true 
+    val grassCut = true // or false 
+    val canGoToCinema = carCleaned || grassCut 
+    println(canGoToCinema) 
+} 
+//NOT !
+fun main() { 
+    println(!true) // false 
+    println(!false) // true 
+
+    val isAmazing = true 
+    print(!isAmazing) // false 
+    
+    isBoring = false 
+    print(!isBoring) // true 
+} 
