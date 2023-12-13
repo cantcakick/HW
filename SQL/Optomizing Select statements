@@ -1,0 +1,6 @@
+EXPLAIN SELECT column_name
+FROM table_name
+WHERE VALUE;
+
+CREATE INDEX IdxFullName ON Clients(FullName);
+
