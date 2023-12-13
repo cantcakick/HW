@@ -1,0 +1,9 @@
+fun main() {
+    val a = 0
+    val b = 6
+    for( i in a until b) { //from a until b including b
+    println(i)
+    }
+}
+//for(i in a downTo b)
+//for (i in a..b step c)

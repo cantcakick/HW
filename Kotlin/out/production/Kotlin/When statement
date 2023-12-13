@@ -1,0 +1,33 @@
+fun main() {
+    println("Can I stand the rain?")
+    val moistureLevel = 170
+        when {
+            moistureLevel < 40 -> {
+                println("Not that bad")
+            }
+            moistureLevel <= 80 -> {
+                println("Getting a little soggy...")
+            }
+            moistureLevel <= 100 -> {
+                println("I can't stand the rain!")
+            }
+            else -> {
+                println("I'm tired of this")
+            }
+        }
+}
+//braces only required for multiple statements in body
+//if used as an expression must include an else block to exit code
+//can also use when as a value 
+when(value){code block}
+
+fun main() {
+    val number = 1
+    val text = when (number) {
+        1 -> "You missed"
+        2..5 -> "Nice try bozo"
+        6 -> "You hit me!"
+        else -> "What are you trying to do??"
+    }
+    print(text)
+}
