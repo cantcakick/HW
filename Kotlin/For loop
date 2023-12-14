@@ -1,0 +1,9 @@
+fun main() {
+    val a = 12
+    val b = 35
+    for (i in a..b) {
+            i=i+3
+            println(i)
+    }
+    
+}
