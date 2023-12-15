@@ -1,9 +1,9 @@
 fun main() {
-    val a = 0
-    val b = 6
-    for( i in a until b) { //from a until b including b
-    println(i)
+    val a = 12
+    val b = 35
+    for (i in a..b) {
+            i=i+3
+            println(i)
     }
+    
 }
-//for(i in a downTo b)
-//for (i in a..b step c)
