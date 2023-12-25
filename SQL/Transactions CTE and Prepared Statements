@@ -1,0 +1,24 @@
+START TRANSACTION:
+SQL statements
+ROLLBACK;
+--Transactions used during critical activities.
+--Include a rollback feture to restore DB
+--usefull when writing a series of interdependent queries 
+
+--Common Table Expressions
+WITH CTE_name AS (query code)  --start with a WITH clause and create CTE name.  Use AS to associate CTE name with related expression name  
+SELECT *  
+FROM CTE_Name;
+--if using multiple CTE name and assoc a query with each one then sep with UNION (cte1 UNION cte2)
+WITH cte1 AS (query1),
+    cte2 as (query2)
+SELECT cte1
+UNION
+SELECT cte2
+
+--Prepared Statements
+--reduces parsing time,  only parsed 1x regardless of how many times used
+PREPARE InsertProductData FROM 'INSERT INTO Products VALUES(?, ?)'; --? represents parameters
+--prepare statements minimize bandwidth, only pass parameters values to the prepared statement not whole SQL statement
+--helps prevent SQL injection
+
