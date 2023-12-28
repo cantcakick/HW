@@ -1,0 +1,3 @@
+#Local Scope:  variable declared inside a function
+#Enclosed Scope: nested function
+#Global Scope: declared outside function
