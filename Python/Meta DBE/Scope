@@ -1,3 +1,11 @@
 #Local Scope:  variable declared inside a function
 #Enclosed Scope: nested function
 #Global Scope: declared outside function
+#Tuples can have mult val types (int, str, float)
+#Sets cannot have duplicate values
+set_a = {1, 2, 3, 6, 7, 4}
+set_b = {4, 5, 6, 7, 8, 9}
+
+print (set_a ^ set_b)  # same as using .symmetric_difference()  will output all values except those that appear in both sets
+
+# use del to delete from dictionary 

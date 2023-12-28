@@ -1,0 +1,15 @@
+def sum_of(*args):
+    sum = 0
+    for x in args:
+        sum += x
+    return sum
+
+print(sum_of(132, 34, 465, 765))
+
+def sum_of(**kwargs):  # allows 
+    sum = 0
+    for k, v in kwargs.items():
+        sum += v
+    return sum
+
+print(sum_of(bagel=5, pizza=34, laptop=465, desktop=765))
