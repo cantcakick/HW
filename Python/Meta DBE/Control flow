@@ -1,0 +1,12 @@
+num_list = [33, 42, 5, 66, 77, 22, 16, 79, 36, 62, 78, 43, 88, 39, 53, 67, 89, 11]
+count = 0
+for idx, item in enumerate(sorted(num_list)): #idx and enumerate are used to print the index of the item
+    if item > 45:
+        print(idx, item, "is over 45")
+    if item == 36:
+        print("Number found at this location", idx)
+        break
+    else:
+        print(idx, item, "is under 45")
+    count += 1
+print(count)

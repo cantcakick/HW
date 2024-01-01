@@ -1,5 +1,5 @@
 fun main() {
-    for (i in 1..10){
+    for (i in 1..10) {
         val numberOfSpaces = i-1
         for (j in 1 ..numberOfSpaces) {
             print(" ")
