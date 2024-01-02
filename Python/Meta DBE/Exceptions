@@ -1,0 +1,25 @@
+# Starter code
+items = [1,2,3,4,5]
+try:
+    item = items[6]
+    print(item)
+except:
+    print("Item does not exist in list")
+    
+# Starter code
+def divide_by(a, b):
+    return a / b
+
+try:
+    ans = divide_by(40, 0)
+    print(ans)
+except ZeroDivisionError as z:
+    print('0')
+    
+# Starter code
+try:
+    with open('file_does_not_exist.txt', 'r') as file:
+        print(file.read())
+    
+except:
+    print("This file could not be found")
