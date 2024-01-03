@@ -14,11 +14,11 @@ def read_file(file_name):
         string: contents of the given file.
     """
     ### WRITE SOLUTION HERE
-    file_name = open("sampletext.txt", 'r')
-    file_contents = file_name.read()
-    print(file_contents)
-    return file_contents
-    file_name.close()
+    with open(file_name, 'r') as f:
+        file_contents = f.read()
+        print(file_contents)
+        return file_contents
+        file_name.close()
     
     raise NotImplementedError()
 
@@ -37,13 +37,12 @@ def read_file_into_list(file_name):
         list: a list where each element is a line in the file.
     """
     ### WRITE SOLUTION HERE
-    new_file = []
-    file_name = open("sampletext.txt", 'r')
-    file_contents = file_name.read()
-    file_contents_list = file_contents.split('\n')
-    new_file.append(file_contents_list)
-    return new_file
-    file_name.close()
+    
+    with open(file_name, 'r') as f:
+        file_contents = f.read()
+        list = file_contents.splitlines(True)
+        return list
+        f.close()
     raise NotImplementedError()
 
 def write_first_line_to_file(file_contents, output_filename):
@@ -62,10 +61,10 @@ def write_first_line_to_file(file_contents, output_filename):
         output_filename: the name of the file to be written to
     """
     ### WRITE SOLUTION HERE
-    file_name = open("sampletext.txt", 'r')
-    first_line = file_contents.split("\n")
-    with open (output_filename, "w") as file:
-        file.write(file_contents[0])
+    
+    first_line = file_contents.split(sep='\n')[0]
+    with open (output_filename, "w") as output:
+        output.write(first_line)
     return ""
     raise NotImplementedError()
 
@@ -85,6 +84,14 @@ def read_even_numbered_lines(file_name):
         list: a list of the even-numbered lines of the file
     """
     ### WRITE SOLUTION HERE
+    with open(file_name, 'r') as file:
+        file_contents = file.read()
+        lines = file_contents.splitlines(True)
+        list = []
+        for idx, line in enumerate(lines):
+            if idx % 2 != 0:
+                list.append(line)
+    return list
 
     raise NotImplementedError()
 
@@ -104,6 +111,12 @@ def read_file_in_reverse(file_name):
         list: list of the lines of the file in reverse order.
     """
     ### WRITE SOLUTION HERE
+    with open(file_name, 'r') as file:
+        content = file.read()
+        list = content.splitlines(True)
+    list.reverse()
+    print(list)
+    return list
 
     raise NotImplementedError()
 
@@ -115,8 +128,8 @@ def main():
     file_contents = read_file("sampletext.txt")
     print(read_file_into_list("sampletext.txt"))
     write_first_line_to_file(file_contents, "online.txt")
-    # print(read_even_numbered_lines("sampletext.txt"))
-    # print(read_file_in_reverse("sampletext.txt"))
+    print(read_even_numbered_lines("sampletext.txt"))
+    print(read_file_in_reverse("sampletext.txt"))
 
 if __name__ == "__main__":
     main()
