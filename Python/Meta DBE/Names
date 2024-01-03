@@ -1,0 +1,5 @@
+with open('Python/Meta DBE/name.txt', 'r') as file:
+    lines = file.readlines() # .readlines adds a \n symbol to output 
+print(lines)
+
+#list .extend() is another form for append that allows combining lists.
