@@ -1,0 +1,14 @@
+import random
+try:
+    #f_name = input("Enter filename here: ")
+    #f = open(f_name)
+    f = open("Python/Meta DBE/petnames.txt", "r") #open file
+    f_content = f.read() #assign file contents to f_content
+    f_content_list = f_content.split('\n') #split contents of file into list with new line between characters
+    f_content_list.sort(reverse=True) #sorts list in reverse Z-A
+    #print(f_content)
+    print(f_content_list)
+    f.close()
+    print(random.choice(f_content_list))
+except:
+    print("File not found")
