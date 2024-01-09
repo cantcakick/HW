@@ -1,0 +1,22 @@
+import turtle as turt 
+import time
+
+x=0
+while x < 4 :
+    turt.forward(100)
+    turt.shape("turtle")
+    turt.color("red")
+    turt.left(90)
+    turt.shape("square")
+    #turt.color("green")
+    turt.forward(100)
+    
+    x+=1
+#turt.sleep(10)
+
+for i in range(4):
+    print(i)
+    turt.forward(150)
+    turt.left(90)
+time.sleep(5)
+turt.bye() 
