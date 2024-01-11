@@ -1,0 +1,25 @@
+def isPalindrome(str):
+    startIndex = 0
+    endIndex = len(str) - 1
+    
+    for x in str:
+        if str[startIndex] != str[endIndex]:
+            return False
+    return True
+
+print(isPalindrome("wafflecone"))
+print(isPalindrome("racecar"))
+
+def QuadraticTime():
+    for x in range(10):
+        for y in range(10):
+            print(x,y)
+            
+print("Quadratic time", QuadraticTime())
+#n = input()
+def fibonacci(n):
+    if n <=1 :
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print("Fibonacci: ", fibonacci(13))

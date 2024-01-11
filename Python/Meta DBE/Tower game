@@ -1,0 +1,16 @@
+def tower(disks, left, center, right):
+    if (disks == 1):
+        print ('Disks {} moves from tower {} to tower {}.'.format(disks, left, right))
+        return
+    tower(disks-1, left, right, center)
+    print('Disk {} moves from tower {} to tower {}.'.format(disks, left, right))
+    tower(disks-1, center, left, right)
+    
+disks = int(input('Number of disks: '))
+'''
+Tower names
+Left: A
+Center: B
+Right: C
+'''
+tower(disks, 'A', 'B', 'C')
