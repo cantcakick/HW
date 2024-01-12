@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-12T18:36:20.542Z" agent="Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="By4pNcL6Rw7f2LTl96id" version="22.1.18" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-12T18:51:00.800Z" agent="Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="2DD1MGiS09BvUhegzsRE" version="22.1.18" type="github">
   <diagram name="Page-1" id="GIW788SQWkKkHtVMfm3c">
     <mxGraphModel dx="1414" dy="1641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
@@ -107,16 +107,16 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="U64rbMpxMWpAdyeDeKGP-39" value="A/V" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="510" y="10" width="240" height="310" as="geometry" />
+          <mxGeometry x="510" y="-170" width="240" height="440" as="geometry" />
         </mxCell>
-        <mxCell id="U64rbMpxMWpAdyeDeKGP-40" value="Audinate Dante Lv 1-3&lt;br&gt;Avixa CTS&lt;br&gt;Biamp &lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Audio Training&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Tesira 101&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Tesira Forte&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Tesira Server&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;VoIP" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-39" vertex="1">
-          <mxGeometry y="30" width="240" height="120" as="geometry" />
+        <mxCell id="U64rbMpxMWpAdyeDeKGP-40" value="Audinate Dante Lv 1-3&lt;br&gt;Avixa CTS&lt;br&gt;Biamp &lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Audio Training&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Tesira 101&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Tesira Forte&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Tesira Server&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;VoIP&lt;br&gt;BrightSign" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-39" vertex="1">
+          <mxGeometry y="30" width="240" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="U64rbMpxMWpAdyeDeKGP-41" value="Crestron&lt;br&gt;Extron EAVA&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Control Specialist&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Control Professional&lt;br&gt;Legrand" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-39" vertex="1">
-          <mxGeometry y="150" width="240" height="60" as="geometry" />
+        <mxCell id="U64rbMpxMWpAdyeDeKGP-41" value="Crestron&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;AUD&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Crestron Core&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;CTI/CTS&lt;br&gt;Extron EAVA&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Control Specialist&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Control Professional&lt;br&gt;Legrand&lt;br&gt;Harmon&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;AMX Designer&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;AMX Technician" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-39" vertex="1">
+          <mxGeometry y="170" width="240" height="170" as="geometry" />
         </mxCell>
         <mxCell id="U64rbMpxMWpAdyeDeKGP-42" value="Shure &lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Integrated Systems Level 1 &amp;amp; 2&lt;br&gt;QSC&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Q-SYS Designer Lv 1 &amp;amp; 2&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Control &amp;amp; UCI Fundamentals" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-39" vertex="1">
-          <mxGeometry y="210" width="240" height="100" as="geometry" />
+          <mxGeometry y="340" width="240" height="100" as="geometry" />
         </mxCell>
         <mxCell id="U64rbMpxMWpAdyeDeKGP-43" value="Front-End" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="410" y="760" width="140" height="120" as="geometry" />
@@ -148,7 +148,7 @@
         <mxCell id="U64rbMpxMWpAdyeDeKGP-52" value="Item 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-51" vertex="1">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="U64rbMpxMWpAdyeDeKGP-53" value="Item 2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-51" vertex="1">
+        <mxCell id="U64rbMpxMWpAdyeDeKGP-53" value="Harmon&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;AMX Programmer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-51" vertex="1">
           <mxGeometry y="60" width="140" height="30" as="geometry" />
         </mxCell>
         <mxCell id="U64rbMpxMWpAdyeDeKGP-54" value="Item 3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="U64rbMpxMWpAdyeDeKGP-51" vertex="1">
@@ -188,16 +188,16 @@
           <mxGeometry y="90" width="220" height="30" as="geometry" />
         </mxCell>
         <mxCell id="UDf-HsmCtF7VT-xK_fPR-1" value="Cloud" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="630" y="450" width="140" height="120" as="geometry" />
+          <mxGeometry x="630" y="450" width="140" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="UDf-HsmCtF7VT-xK_fPR-2" value="Item 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="UDf-HsmCtF7VT-xK_fPR-1">
+        <mxCell id="UDf-HsmCtF7VT-xK_fPR-2" value="Microsoft Azure" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="UDf-HsmCtF7VT-xK_fPR-1">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="UDf-HsmCtF7VT-xK_fPR-3" value="Google Cloud+" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="UDf-HsmCtF7VT-xK_fPR-1">
+        <mxCell id="UDf-HsmCtF7VT-xK_fPR-3" value="CompTIA Cloud+" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="UDf-HsmCtF7VT-xK_fPR-1">
           <mxGeometry y="60" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="UDf-HsmCtF7VT-xK_fPR-4" value="Item 3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="UDf-HsmCtF7VT-xK_fPR-1">
-          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        <mxCell id="UDf-HsmCtF7VT-xK_fPR-4" value="AWS Cloud Practitioner&lt;br&gt;Google&amp;nbsp;Cloud Practitioner" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="UDf-HsmCtF7VT-xK_fPR-1">
+          <mxGeometry y="90" width="140" height="50" as="geometry" />
         </mxCell>
         <mxCell id="UDf-HsmCtF7VT-xK_fPR-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="U64rbMpxMWpAdyeDeKGP-13" target="UDf-HsmCtF7VT-xK_fPR-1">
           <mxGeometry relative="1" as="geometry" />
