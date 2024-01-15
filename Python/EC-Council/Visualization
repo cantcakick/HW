@@ -1,0 +1,10 @@
+import turtle as tu
+tu.speed(10)
+tu.bgcolor('Black')
+
+colors=['Red', 'Yellow', 'Green']
+
+for x in range(30):
+    tu.circle(50)
+    tu.left(10)
+    tu.color(colors[x%3])
