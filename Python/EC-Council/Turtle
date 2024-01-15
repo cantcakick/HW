@@ -14,9 +14,17 @@ while x < 4 :
     x+=1
 #turt.sleep(10)
 
+def square(length):
+    for i in range(4):
+        print(i)
+        turt.forward(length)
+        turt.left(90)
+square(250)
+
 for i in range(4):
     print(i)
     turt.forward(150)
     turt.left(90)
 time.sleep(5)
 turt.bye() 
+

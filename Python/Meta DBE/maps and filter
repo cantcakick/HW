@@ -1,0 +1,15 @@
+menu = ['pizza', 'waffles', 'string cheese', 'brussel sprouts', 'nachos']
+
+def find_tasty(tasty):
+    if tasty[0] == 'p':
+        return tasty
+    
+map_tasty = map(find_tasty, menu)
+print(map_tasty)
+for x in map_tasty:
+    print(x)
+    
+filter_tasty = filter(find_tasty, menu)
+print(filter_tasty)
+for x in filter_tasty:
+    print(x)
