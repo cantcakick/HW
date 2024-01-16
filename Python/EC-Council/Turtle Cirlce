@@ -1,0 +1,17 @@
+import turtle as tu
+import time
+
+tu.circle(50)
+tu.circle(-80)
+tu.color("red")
+for angle in range(0, 360, 20): #(start,stop,step)
+    tu.seth(angle)
+    tu.circle(70)
+time.sleep(5)
+
+"""create circle Manually
+count = 0
+while count < 360:
+    tu.fd(1)
+    tu.left(1)
+    count+=1"""
