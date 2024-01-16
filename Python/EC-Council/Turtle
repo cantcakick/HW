@@ -10,13 +10,19 @@ while x < 4 :
     turt.shape("square")
     #turt.color("green")
     turt.forward(100)
-    
     x+=1
-#turt.sleep(10)
+
 
 for i in range(4):
     print(i)
+    turt.shape("circle")
+    turt.color("indigo")
     turt.forward(150)
     turt.left(90)
-time.sleep(5)
+
+for i in range(8):
+    print(i)
+    turt.forward(75)
+    turt.left(45)
+time.sleep(2)
 turt.bye() 
