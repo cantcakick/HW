@@ -1,0 +1,1 @@
+rapsivid -t 1200000 -o /home/pi/Desktop/vid.h264
