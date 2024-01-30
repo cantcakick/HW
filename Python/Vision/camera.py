@@ -1,4 +1,4 @@
-from picamera import PiCamera
+from picamera2 import PiCamera
 from time import sleep
 
 camera = PiCamera()

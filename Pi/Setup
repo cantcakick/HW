@@ -1,0 +1,18 @@
+#!/bin/bash
+#VS Code
+sudo apt install Code
+#R
+sudo apt install r-base
+#PHPmyadmin
+sudo apt install apache2 php 
+sudo apt install mariadb-server
+sudo apt install php-mysql
+sudo apt install phpmyadmin # select apache as webserver, when prompted to install a database select yes and do NOT add password to the database 
+
+# sudo mysql #open mysql and add give admin privileges and set password
+# grant all privileges on *.* to 'admin'@'localhost' identified by 'password' with grant option;
+# quit
+# mysql -uadmin -p #check password is working and log in as admin
+
+#Pi-apps
+wget -qO- https://rawgithubusercontent.com/Botspot/pi-apps/master/install | bash 
