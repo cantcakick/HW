@@ -1,4 +1,7 @@
 #!/bin/bash
+#Pi-apps
+wget  https://rawgithubusercontent.com/Botspot/pi-apps/master/install | bash 
+
 #VS Code
 sudo apt install Code
 #R
@@ -9,10 +12,25 @@ sudo apt install mariadb-server
 sudo apt install php-mysql
 sudo apt install phpmyadmin # select apache as webserver, when prompted to install a database select yes and do NOT add password to the database 
 
-# sudo mysql #open mysql and add give admin privileges and set password
-# grant all privileges on *.* to 'admin'@'localhost' identified by 'password' with grant option;
-# quit
-# mysql -uadmin -p #check password is working and log in as admin
+#Open mysql and add give admin privileges and set password
+    # sudo mysql 
+    # grant all privileges on *.* to 'admin'@'localhost' identified by 'password' with grant option;
+    # quit
+#Check password is working and log in as admin
+    # mysql -uadmin -p 
 
-#Pi-apps
-wget -qO- https://rawgithubusercontent.com/Botspot/pi-apps/master/install | bash 
+
+
+#Install Mamba
+wget https://github.com/conda-forge/miniforge/releases/download/23.11.0-0/Mambaforge-23.11.0-0-Linux-aarch64.sh
+bash Mambaforge-23.11.0-0-Linux-aarch64.sh # Press Q to bypass EULA then yes, Enter to install in default path,  Prompt will ask to run conda init answer yes
+#Reload terminal
+mamba update mamba
+mamba update --all
+mamba install matplotlib scipy cython jupyterlab scikit-image scikit-learn opencv
+
+#Install Tensorflow
+pip install tensorflow
+#Install Opencv
+pip install opencv-python #opencv-contrib-python
+pip install picamera[array]
