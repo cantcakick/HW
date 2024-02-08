@@ -23,6 +23,7 @@ sudo apt install phpmyadmin # select apache as webserver, when prompted to insta
 
 #Install PiCamera
  sudo apt-get install python-picamera python3-picamera
+ sudo apt-get install python3-picamera2
  #or
  sudo pip install picamera
  sudo pip install "picamera[array]"
