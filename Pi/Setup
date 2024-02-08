@@ -5,7 +5,7 @@ wget  https://rawgithubusercontent.com/Botspot/pi-apps/master/install | bash
 sudo apt install git -y 
 git clone https://github.com/Botspot/pi-apps && ~/pi-apps/install
 #VS Code
-sudo apt install Code
+#sudo apt install Code
 #R
 sudo apt install r-base
 #PHPmyadmin
@@ -21,7 +21,13 @@ sudo apt install phpmyadmin # select apache as webserver, when prompted to insta
 #Check password is working and log in as admin
     # mysql -uadmin -p 
 
-
+#Install PiCamera
+ sudo apt-get install python-picamera python3-picamera
+ #or
+ sudo pip install picamera
+ sudo pip install "picamera[array]"
+ #update
+ sudo pip install -U picamera
 
 #Install Mamba
 wget https://github.com/conda-forge/miniforge/releases/download/23.11.0-0/Mambaforge-23.11.0-0-Linux-aarch64.sh
