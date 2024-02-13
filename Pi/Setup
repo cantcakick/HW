@@ -9,10 +9,9 @@ git clone https://github.com/Botspot/pi-apps && ~/pi-apps/install
 #R
 sudo apt install r-base
 #PHPmyadmin
-sudo apt install apache2 php 
-sudo apt install mariadb-server
-sudo apt install php-mysql
-sudo apt install phpmyadmin # select apache as webserver, when prompted to install a database select yes and do NOT add password to the database 
+sudo apt install apache2 php mariadb-server php-mysql 
+sudo apt install phpmyadmin 
+# select apache as webserver, when prompted to install a database select yes and do NOT add password to the database 
 
 #Open mysql and add give admin privileges and set password
     # sudo mysql 
@@ -32,7 +31,8 @@ sudo apt install phpmyadmin # select apache as webserver, when prompted to insta
 
 #Install Mamba
 wget https://github.com/conda-forge/miniforge/releases/download/23.11.0-0/Mambaforge-23.11.0-0-Linux-aarch64.sh
-bash Mambaforge-23.11.0-0-Linux-aarch64.sh # Press Q to bypass EULA then yes, Enter to install in default path,  Prompt will ask to run conda init answer yes
+bash Mambaforge-23.11.0-0-Linux-aarch64.sh 
+# Press Q to bypass EULA then yes, Enter to install in default path,  Prompt will ask to run conda init answer yes
 #Reload terminal
 mamba update mamba
 mamba update --all
@@ -43,3 +43,14 @@ pip install tensorflow
 #Install Opencv
 pip install opencv-python #opencv-contrib-python
 pip install picamera[array]
+
+MotionEye in Docker
+docker run --name="motioneye" \
+    -p 8765:8765 \
+    --hostname="motioneye" \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /etc/motioneye:/etc/motioneye \
+    -v /var/lib/motioneye:/var/lib/motioneye \
+    --restart="always" \
+    --detach=true \
+    ccrisan/motioneye:master-armhf
