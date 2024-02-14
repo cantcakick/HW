@@ -4,3 +4,6 @@ https://github.com/EbenKouao/pi-camera-stream-flask
 #MotioneyeOS
 https://raspberrytips.com/install-motioneye-on-raspberry-pi/
 https://github.com/motioneye-project/motioneyeos
+
+rtmps://live-api-s.facebook.com:443/rtmp/
+FB-386312863698852-0-AbybzzM00HudnIIF
