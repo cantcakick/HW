@@ -1,0 +1,1 @@
+raspivid -o --t 0 -w 800 -h 600 -fps 12 | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtp://:8080/}' :demux=h264
