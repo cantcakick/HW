@@ -1,0 +1,3 @@
+#MXLinux
+sudo apt install libcamera-apps 
+#fixes missing preview window 
