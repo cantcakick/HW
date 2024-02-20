@@ -5,5 +5,10 @@ https://github.com/EbenKouao/pi-camera-stream-flask
 https://raspberrytips.com/install-motioneye-on-raspberry-pi/
 https://github.com/motioneye-project/motioneyeos
 
+https://elinux.org/RPi_Configuration
+https://www.raspberrypi.com/documentation/computers/camera_software.html
+https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf
+
+#Facebook
 rtmps://live-api-s.facebook.com:443/rtmp/
 FB-386312863698852-0-AbybzzM00HudnIIF
