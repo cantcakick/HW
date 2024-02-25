@@ -12,3 +12,13 @@ https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf
 #Facebook
 rtmps://live-api-s.facebook.com:443/rtmp/
 FB-386312863698852-0-AbybzzM00HudnIIF
+
+#Distros
+https://pop.system76.com/
+https://www.parrotsec.org/download/?version=raspberry
+https://alt.fedoraproject.org/alt/
+https://garudalinux.org/
+https://forums.raspberrypi.com/viewtopic.php?t=328911
+https://github.com/openFyde/overlay-rpi4-openfyde
+https://github.com/FydeOS/chromium_os-raspberry_pi/releases
+https://fydeos.io/download/device/rpi4-fydeos
