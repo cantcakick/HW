@@ -41,7 +41,7 @@ mamba install matplotlib scipy cython jupyterlab scikit-image scikit-learn openc
 #Install Tensorflow
 pip install tensorflow
 #Install Opencv
-pip install opencv-python #opencv-contrib-python
+pip install opencv-python opencv-contrib-python opencv-python-headless
 pip install picamera[array]
 
 MotionEye in Docker

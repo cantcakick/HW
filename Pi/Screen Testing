@@ -1,0 +1,227 @@
+Tested OS:
+    Raspberry Pi OS
+    Twister
+    MX Linux
+    Fenix
+    Ubuntu
+    Ubuntu Mate
+    Leeps vids KDE Lee2KDE
+    PopOS
+    FydeOS
+    LineageOS
+    Fedora
+    Kali
+    Parrot OS
+
+Tested Screen sizes:
+    3.5" TFT/LCD 480x320 using SPI connection.  uses LCD-show driver
+    7" LCD by Eleclab 1024x600
+    7.4" LCD by Eleclab 1280x400
+    10.1" LCD by Eleclab 1280x800
+    10" LCD by WiseCoco 1024x600
+    7" LCD from Microcenter 800x480
+    5" LCD from Microcenter 800x480
+
+Tested Functionality Criteria:
+    Touch Response?
+    Does the screen require editing the config.txt?
+    Does the Raspberry Pi Camera Module work?
+    Does Pinns or multiboot work?
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet
+    Screen Blanking?
+    Video Playback and framerate?
+    Audio working?
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+
+3.5" TFT/LCD 480x320 using SPI connection.  uses LCD-show driver
+    Raspberry Pi 4 or 5?
+        Only tested on Pi4 4Gb with basic heatsink and fan.  Fan is attached to back of LCD screen.  Attempted to add a second fan for extra cooling but there was not enough space.
+    OS with full functionality: 
+        Kali, Raspberry Pi, Ubuntu Mate
+    Touch Response? 1.5/5
+        Ok when using stylus.  Terrible when trying to select anything within .5 cm from the edge of the screen. 
+    Does the screen require editing the config.txt?
+        Yes.  Requires LCD-show driver.  You must choose the correct driver otherwise things will not work correctly.  Make sure to set the rotation.
+            #Enable driver
+            sudo rm -rf LCD-show
+            git clone https://github.com/goodtft/LCD-show.git
+            chmod -R 755 LCD-show
+            cd LCD-show
+            sudo ./LCD35-show
+
+            #Touchscreen calibration
+            cd LCD-show/
+            sudo dpkg -i -B xinput-calibration_0.7.5-1_armhf.deb  #or your current version
+
+            #Disable driver
+            cd LCD-show/
+            sudo ./LCD-hdmi
+    Does the Raspberry Pi Camera Module work?
+        Limited room and screen has heat issues.  The tested distros ran into issues after attempting to run updates and only Raspberry Pi OS was able to push past update restrictions.  This later caused crashing.
+    Does Pinns or multiboot work? 
+        Absolutely not.
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet?
+        Webcam works but is slow.  Drawing tablet not tested
+    Screen Blanking?
+        No
+    Video Playback and framerate?
+        Video playback was steady at lower resolutions.  Anything past 720p causes slow downs and frame drops.
+    Audio working? 
+        Yes but there is a slight delay.
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+        No Dual screen.  The LCD-show driver requires you to set the driver type.  Either on or off.  No option to use SPI driver and micro-HDMI out.
+
+7" LCD by Eleclab 1024x600
+    Raspberry Pi 4 or 5?
+        Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
+        Pi4 8gb with 52Pi Low profile Ice Tower cooler
+    OS with full functionality: 
+        Raspberry Pi OS, MX Linux, Kali, Parrot OS, Ubuntu Mate, Ubuntu
+    Touch Response? 3.5/5
+    Does the screen require editing the config.txt?
+        Yes. 
+            hdmi_force_hotplug=1
+            hdmi_group=2
+            hdmi_mode=87
+            hdmi_ignore_edid=0xa5000080
+            hdmi_cvt 1024 600 60 6 0 0 0        Sets the default resolution (width height framerate)
+            hdmi_drive=2        Forces audio through HDMI
+            #dtoverlay=vc4-kms-v3d   This line needs to be commented out in order for the Pi to boot.  If this is not commented out the device will get stuck in the boot sequence.
+    Does the Raspberry Pi Camera Module work?
+        Yes.  MX Linux and Ubuntu run sudo apt install libcamera-apps 
+    Does Pinns or multiboot work?
+        Yes
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet.
+        Fully functional
+    Screen Blanking?
+        No
+    Video Playback and framerate?
+        Runs video at 1080p and plays Sega Dreamcast games at 30FPS
+    Audio working?
+        Yes
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+        Yes.  MX and PopOS are the only ones that did not require a restart and properly detects new displays as they are connected.
+
+
+7.4" LCD by Eleclab 1280x400
+    Raspberry Pi 4 or 5?
+        Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
+        Pi4 4Gb with Low profile 
+    OS with full functionality: 
+        Raspberry Pi OS, MX Linux, Kali, Parrot OS, Ubuntu Mate, Ubuntu
+    Touch Response? 3/5
+    Does the screen require editing the config.txt?
+        Yes
+            hdmi_force_hotplug=1
+            hdmi_group=2
+            hdmi_mode=87
+            hdmi_ignore_edid=0xa5000080
+            hdmi_timings=1280 0 64 2 18 400 0 10 3 42 0 0 0 60 0 37330000 3     Sets default resolution
+            hdmi_drive=2        Forces audio through HDMI
+            #dtoverlay=vc4-kms-v3d      This line needs to be commented out in order for the Pi to boot.  If this is not commented out the device will get stuck in the boot sequence.
+    Does the Raspberry Pi Camera Module work?
+        Yes.  MX Linux and Ubuntu run sudo apt install libcamera-apps 
+    Does Pinns or multiboot work?
+        Yes
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet.
+        Fully functional
+    Screen Blanking?
+        No
+    Video Playback and framerate?
+        Runs video at 1080p and plays Sega Dreamcast games at 30FPS
+    Audio working?
+        Yes.  Screen has built in speakers and 3.5mm AUX jack.
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+        Yes. Yes second screen must be plugged in before booting to dual screen.
+
+10.1" LCD by Eleclab 1280x800
+    Raspberry Pi 4 or 5?
+        Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
+    OS with full functionality: 
+        Raspberry Pi OS, Twister, MX Linux, Fenix, PopOS, FydeOS, Fedora, Kali, Parrot OS, Ubuntu, Ubuntu Mate, Leeps vids KDE Lee2KDE
+    Touch Response? 4.5/5
+    Does the screen require editing the config.txt?
+        No.  Instructions are provided for config but not necessary.
+            hdmi_force_hotplug=1
+            hdmi_group=2
+            hdmi_mode=87
+            hdmi_ignore_edid=0xa5000080
+            hdmi_cvt 1280 800 60 3 0 0 0
+            hdmi_drive=2
+    Does the Raspberry Pi Camera Module work?
+        Yes.  MX Linux and Ubuntu run sudo apt install libcamera-apps 
+    Does Pinns or multiboot work?
+        Yes
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet
+        Fully functional
+    Screen Blanking?
+        Yes on Raspbian distros (Raspberry Pi OS, Lee2KDE, Parrot OS) fixed by disabling 'screen blanking' in Raspi-config and changing audio output to HDMI 
+    Video Playback and framerate?
+        Runs video at 1080p and plays Sega Dreamcast games at 30FPS
+    Audio working?
+        Yes.  Screen has built in speakers.
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+        Yes.  MX and PopOS are the only ones that did not require a restart and properly detects new displays as they are connected.
+
+10" LCD by WiseCoco 1024x600
+    Raspberry Pi 4 or 5?
+        Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
+    OS with full functionality: 
+        Raspberry Pi OS, Twister, MX Linux, Fenix, PopOS, FydeOS, Fedora, Kali, Parrot OS, Ubuntu, Ubuntu Mate, Leeps vids KDE Lee2KDE 
+    Touch Response? 4/5
+    Does the screen require editing the config.txt?
+        No
+    Does the Raspberry Pi Camera Module work?
+        Yes.  MX Linux and Ubuntu run sudo apt install libcamera-apps 
+    Does Pinns or multiboot work?
+        Yes
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet
+        Fully functional
+    Screen Blanking?
+        Yes on Raspbian distros (Raspberry Pi OS, Lee2KDE, Parrot OS) fixed by disabling 'screen blanking' in Raspi-config and changing audio output to HDMI  
+    Video Playback and framerate?
+        Once the screen blanking issue is addressed you will be able to run videos from youtube at 1080p with no issues.  For best performance use a BT headset
+    Audio working? 
+        Yes.  Screen has built in speakers.  Audio is pushed through HDMI.
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+        Yes.  MX and PopOS are the only ones that did not require a restart and properly detects new displays as they are connected.  The HDMI connector to the screen slightly blocks the second HDMI port so you will need a skinny adapter to dual screen. 
+
+5" LCD from Microcenter 800x480
+    Raspberry Pi 4 or 5?
+        Fully functional on Pi4.  Untested on Pi5
+    OS with full functionality:
+        Raspberry Pi OS, MX Linux, Kali, Parrot OS, Ubuntu Mate, Ubuntu 
+    Touch Response? 2.5
+        Ok when using stylus.  Accuracy is off by a couple mm even after adjusting hdmi_cvt values and running Touchcsreen configuration.
+    Does the screen require editing the config.txt?
+        No.  Can be used without editing Config.txt but changing the hdmi_timings or hdmi_cvt values will help the OS identify the odd 800x480 resolution.  
+    Does the Raspberry Pi Camera Module work?
+        Yes.  MX Linux and Ubuntu run sudo apt install libcamera-apps 
+    Does Pinns or multiboot work?
+        Well yes but actually No.  800x480 is too low a resolution for the Pinns boot screen to display.  While you can install Pinns and distros through it you will need an external monitor with 720p or higher resolution to access the Pinns boot screen.
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet.
+        Fully functional
+    Screen Blanking?
+        No
+    Video Playback and framerate?
+        Video works well under 720p.  Anything higher causes frame drops. Plays Sega Dreamcast games at 30FPS 
+    Audio working?  
+        Yes.
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
+        Yes.
+    Notes
+        Screen resolution cannot be set below 800x400.  This will cause the screen to "white out"
+
+Untested/ Waiting on HDMI driver module
+7" LCD from Microcenter 800x480
+    Raspberry Pi 4 or 5?
+    OS with full functionality: 
+    Touch Response?
+    Does the screen require editing the config.txt?
+    Does the Raspberry Pi Camera Module work?
+    Does Pinns or multiboot work?
+    Interaction with 3rd party peripherals. Webcam/Drawing tablet
+    Screen Blanking?
+    Video Playback and framerate?
+    Audio working?
+    Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
