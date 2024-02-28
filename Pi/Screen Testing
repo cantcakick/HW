@@ -106,7 +106,7 @@ Tested Functionality Criteria:
 7.4" LCD by Eleclab 1280x400
     Raspberry Pi 4 or 5?
         Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
-        Pi4 4Gb with Low profile 
+        Pi4 4Gb with Geekworm 7mm embedded heatsink with fan (P165-A)
     OS with full functionality: 
         Raspberry Pi OS, MX Linux, Kali, Parrot OS, Ubuntu Mate, Ubuntu
     Touch Response? 3/5
@@ -137,6 +137,7 @@ Tested Functionality Criteria:
 10.1" LCD by Eleclab 1280x800
     Raspberry Pi 4 or 5?
         Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
+        Pi4 8gb with 52Pi Low profile Ice Tower cooler
     OS with full functionality: 
         Raspberry Pi OS, Twister, MX Linux, Fenix, PopOS, FydeOS, Fedora, Kali, Parrot OS, Ubuntu, Ubuntu Mate, Leeps vids KDE Lee2KDE
     Touch Response? 4.5/5
@@ -166,6 +167,7 @@ Tested Functionality Criteria:
 10" LCD by WiseCoco 1024x600
     Raspberry Pi 4 or 5?
         Fully functional on Pi4, screen blanking on Pi5 (undervoltage issue due to 5v passthrough for touchscreen??)
+        Pi4 8Gb with 52pi Ice Tower
     OS with full functionality: 
         Raspberry Pi OS, Twister, MX Linux, Fenix, PopOS, FydeOS, Fedora, Kali, Parrot OS, Ubuntu, Ubuntu Mate, Leeps vids KDE Lee2KDE 
     Touch Response? 4/5
@@ -185,10 +187,13 @@ Tested Functionality Criteria:
         Yes.  Screen has built in speakers.  Audio is pushed through HDMI.
     Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
         Yes.  MX and PopOS are the only ones that did not require a restart and properly detects new displays as they are connected.  The HDMI connector to the screen slightly blocks the second HDMI port so you will need a skinny adapter to dual screen. 
+    Notes
+        **Touch hit or miss.  Not working on any OS but recognized by OS  I may need to replace the usb to micro-usb connector**
 
 5" LCD from Microcenter 800x480
     Raspberry Pi 4 or 5?
         Fully functional on Pi4.  Untested on Pi5
+        Pi4 8Gb with ALAMSCN Aluminum Heat Sink Single Cooling Fan and 30mm fan inside of a small case
     OS with full functionality:
         Raspberry Pi OS, MX Linux, Kali, Parrot OS, Ubuntu Mate, Ubuntu 
     Touch Response? 2.5
@@ -210,7 +215,7 @@ Tested Functionality Criteria:
     Does Dual Screen work?  Do you have to have the second screen plugged in on boot?
         Yes.
     Notes
-        Screen resolution cannot be set below 800x400.  This will cause the screen to "white out"
+        **Screen resolution cannot be set below 800x400.  This will cause the screen to "white out"**
 
 Untested/ Waiting on HDMI driver module
 7" LCD from Microcenter 800x480
