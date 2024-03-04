@@ -28,6 +28,7 @@ sudo apt install phpmyadmin
  sudo pip install "picamera[array]"
  #update
  sudo pip install -U picamera
+# add --break-system-packages on MX to allow install of pip packages
 
 #Install Mamba
 wget https://github.com/conda-forge/miniforge/releases/download/23.11.0-0/Mambaforge-23.11.0-0-Linux-aarch64.sh
@@ -43,6 +44,10 @@ pip install tensorflow
 #Install Opencv
 pip install opencv-python opencv-contrib-python opencv-python-headless
 pip install picamera[array]
+
+#Install docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
 
 MotionEye in Docker
 docker run --name="motioneye" \
