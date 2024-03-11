@@ -49,6 +49,12 @@ pip install picamera[array]
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 
+sudo sh -eux <<EOF
+# Install newuidmap & newgidmap binaries
+apt-get install -y uidmap
+EOF
+dockerd-rootless-setuptool.sh install
+
 MotionEye in Docker
 docker run --name="motioneye" \
     -p 8765:8765 \
