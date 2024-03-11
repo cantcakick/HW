@@ -1,2 +1,3 @@
 rpicam-hello -t 0
 libcamera-vid -t 0 --inline --listen -o tcp://0.0.0.0:8888
+tcp/h264://raspberrypi.local:8888
