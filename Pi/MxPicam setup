@@ -1,0 +1,8 @@
+sudo apt install libcamera*
+pip install opencv-python --break-system-packages
+pip install --upgrade pip setuptools wheel --break-system-packages
+#check cv2 install
+import cv2
+print(cv2.__version__)
+sudo apt install libcap-dev
+pip install tensorflow opencv-python opencv-contrib-python opencv-python-headless --break-system-packages
