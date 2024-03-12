@@ -1,3 +1,5 @@
+sudo nano ~/.bashrc
+export PATH=$PATH: /path/to/directory
 sudo apt install libcamera*
 pip install opencv-python --break-system-packages
 pip install --upgrade pip setuptools wheel --break-system-packages
