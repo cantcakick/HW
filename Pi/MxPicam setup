@@ -1,6 +1,7 @@
-sudo apt install libcamera*
+sudo apt install libcamera* #may or may not work, if it doesn't install from synaptic
 sudo apt install libcap-dev
 #If libcamera* gives an error use synaptic and install camera-calibration-parsers-tools gstreamer1.0-libcamera gstreamer1.0-libcamera-dbgsym libcamera-apps libcamera-calibration-parsers-dev libcamera-calibration-parsers0d libcamera-dev libcamera-doc libcamera-info-managed-dev libcamera-info-manager0d libcamera-ipa libcamera-ipa-dbgsym libcamera-tools libcamera-tools-dbgsym libcamera-v4l2 libcamera-v4l2-dbgsym libcamera0.1 libcamera0.1-dbgsym libcamera0.2 libcamera0.2-dbgsym pipewire-libcamera pipewire-libcamera-dbgsym python3-libcamera python3-libcamera-dbgsym python3-picamera2 rpicam-apps
+sudo apt install code thonny 
 pip install --upgrade pip setuptools wheel --break-system-packages
 pip install tensorflow opencv-python opencv-contrib-python opencv-python-headless numpy --break-system-packages
 
@@ -9,8 +10,18 @@ import cv2
 print(cv2.__version__)
 
 export PATH=/home/charles/.local/bin:$PATH
-sudo apt install make g++ pkg-config libgl1-mesa-dev  libfontconfig1-dev libxkbcommon-x11-dev 
-#libgtk-3-dev libxcb*-dev
+#^fixes issue with OS not recognizing Opencv and tensorflow file path
+sudo apt install make g++ pkg-config libgl1-mesa-dev libfontconfig1-dev libxkbcommon-x11-dev 
+#^ needed for OpenCV to use GUI
+#not needed libgtk-3-dev libxcb*-dev
 sudo apt-get install libopencv-dev python-opencv
-export QT_QPA_PLATFORM=xcb
-echo "export QT_QPA_PLATFORM=xcb" >> ~/.profile
+
+#Install docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+sudo sh -eux <<EOF
+# Install newuidmap & newgidmap binaries
+apt-get install -y uidmap
+EOF
+dockerd-rootless-setuptool.sh install
