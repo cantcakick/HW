@@ -2,7 +2,7 @@ import cv2
 import time
 from picamera2 import Picamera2, Preview
 picam2=Picamera2()
-camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (1280,720)})
+camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (720,480)})
 picam2.configure(camera_config)
 picam2.start()
 fps=0
