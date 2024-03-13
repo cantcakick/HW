@@ -4,13 +4,19 @@ from picamera2 import Picamera2, Preview
 picam2=Picamera2()
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (1280,720)})
 picam2.configure(camera_config)
-
 picam2.start()
 fps=0
+pos=(20,40)
+font=cv2.FONT_HERSHEY_DUPLEX
+height=1.5
+fpsColor=(0,0,255)
+weight=(3)
 while True:
     tStart=time.time()
     frame=picam2.capture_array()
-    cv2.putText(frame, str(int(fps)), (20,40), cv2.FONT_HERSHEY_TRIPLEX, 1.5,(0,0,255),3)
+    cv2.putText(frame, str(int(fps)), pos, font, height, fpsColor, weight)
+    # cv2.putText(frame, str(int(fps)), (20,40), cv2.FONT_HERSHEY_TRIPLEX, 1.5,(0,0,255),3)
+    #^ this can be aliased and moved outside of the loop
     cv2.imshow("picam", frame)
     if cv2.waitKey(1)==ord('q'):
         break
