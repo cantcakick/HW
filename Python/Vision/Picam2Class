@@ -11,12 +11,15 @@ font=cv2.FONT_HERSHEY_DUPLEX
 height=1.5
 fpsColor=(0,0,255)
 weight=(3)
+uLeft=(250,80)
+lRight=(650,700)
+rColor=(0,0,255)
+thickness=3 #-1 creates solid box 
 while True:
     tStart=time.time()
     frame=picam2.capture_array()
-    cv2.putText(frame, str(int(fps)), pos, font, height, fpsColor, weight)
-    # cv2.putText(frame, str(int(fps)), (20,40), cv2.FONT_HERSHEY_TRIPLEX, 1.5,(0,0,255),3)
-    #^ this can be aliased and moved outside of the loop
+    cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
+    cv2.rectangle(frame,uLeft, lRight, rColor, thickness)
     cv2.imshow("picam", frame)
     if cv2.waitKey(1)==ord('q'):
         break
