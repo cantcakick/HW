@@ -1,8 +1,18 @@
 import cv2
 import time
 import numpy as np
+from gpiozero import Servo
 from picamera2 import Picamera2, Preview
 picam2=Picamera2()
+pan=Servo(3)
+tilt=Servo(7)
+
+panAngle=0
+tiltAngle=0
+
+pan.set_angle(panAngle)
+tilt.set_angle(tiltAngle)
+
 dispW=720
 dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
@@ -69,9 +79,21 @@ while True:
         contour=contours[0]
         x,y,w,h=cv2.boundingRect(contour)
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
+        error=(x+w/2)-dispW/2
+        if error > 30:
+            panAngle=panAngle-1
+            if panAngle<-90:
+                panAngle=-90
+            pan.set_angle(panAngle)
+        if error<-30:
+            panAngle=panAngle+1
+            if panAngle>90:
+                panAngle=90
+            pan.set_angle(panAngle)
+            
     cv2.imshow("picam", frame)
-    cv2.imshow("My Mask", miniMask)
-    cv2.imshow("My Object", miniObject)
+    cv2.imshow("My Mask", myMask)
+    cv2.imshow("My Object", myObject)
     if cv2.waitKey(1)==ord('q'):
         break
     tEnd=time.time()
