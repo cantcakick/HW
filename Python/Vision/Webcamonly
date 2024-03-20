@@ -4,15 +4,15 @@ import sys
 import numpy as np
 from picamera2 import Picamera2, Preview
 
-picam2=Picamera2(0)
+#picam2=Picamera2(0)
 webcam=Picamera2(1)
 dispW=720
 dispH=480
-camera_config = picam2.create_video_configuration({'format': 'XRGB8888', 'size' : (dispW,dispH)})
+#camera_config = picam2.create_video_configuration({'format': 'XRGB8888', 'size' : (dispW,dispH)})
 webcam_config = webcam.create_video_configuration({'format': 'XBGR8888', 'size' : (dispW,dispH)})
-picam2.configure(camera_config)
+#picam2.configure(camera_config)
 webcam.configure(webcam_config)
-picam2.start()
+#picam2.start()
 webcam.start()
 fps=0
 wfps=0
@@ -61,43 +61,37 @@ cv2.createTrackbar('Val max', 'Trackbar', 255, 255, onTrack6)
 while True:
     
     tStart=time.time()
-    frame=picam2.capture_array()
+    #frame=picam2.capture_array()
     frame2=webcam.capture_array()
-    cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
+    #cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
     cv2.putText(frame2, str(int(wfps))+' FPS', pos, font, height, fpsColor, weight)
     lowerBound=np.array([hueMin,satMin, valMin])
     upperBound=np.array([hueMax, satMax, valMax])
-    frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    #frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     webcamHSV=cv2.cvtColor(frame2, cv2.COLOR_BGR2HSV)
-    myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
+    #myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
     webcamMask=cv2.inRange(webcamHSV, lowerBound, upperBound)
-    miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
+    #miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
     webcamminiMask=cv2.resize(webcamMask, (int(dispW/2),int(dispH/2)))
-    myObject=cv2.bitwise_and(frame, frame, mask=myMask)
+    #myObject=cv2.bitwise_and(frame, frame, mask=myMask)
     webcamObject=cv2.bitwise_and(frame2, frame2, mask=webcamMask)
-    miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
+    #miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
     webcamminiObject=cv2.resize(webcamObject,(int(dispW/2),int(dispH/2)))
     #cv2.rectangle(frame,(xPos, yPos),(xPos+wPos, yPos+hPos), rColor, thickness)
-    contours, junk=cv2.findContours(myMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #contours, junk=cv2.findContours(myMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     webcamcontours, junk=cv2.findContours(webcamMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    if len(contours)>0:
-        contours=sorted(contours, key=lambda x:cv2.contourArea(x), reverse=True)
-        #webcamcontours=sorted(webcamcontours, key=lambda x:cv2.contourArea(x), reverse=True)
-        contour=contours[0]
-        #webcamcontour=webcamcontours[0]
-        x,y,w,h=cv2.boundingRect(contour)
-        #x,y,w,h=cv2.boundingRect(webcamcontour)
-        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
-        #cv2.rectangle(frame2,(x,y),(x+w,y+h),(0,0,255),3)
     if len(webcamcontours)>0:
+        #contours=sorted(contours, key=lambda x:cv2.contourArea(x), reverse=True)
         webcamcontours=sorted(webcamcontours, key=lambda x:cv2.contourArea(x), reverse=True)
+        #contour=contours[0]
         webcamcontour=webcamcontours[0]
+        #x,y,w,h=cv2.boundingRect(contour)
         x,y,w,h=cv2.boundingRect(webcamcontour)
+        #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
         cv2.rectangle(frame2,(x,y),(x+w,y+h),(0,0,255),3)
-
-    cv2.imshow("picam", frame)
-    cv2.imshow("Picam Mask", miniMask)
-    cv2.imshow("Picam Object", miniObject)
+    #cv2.imshow("picam", frame)
+    #cv2.imshow("Picam Mask", miniMask)
+    #cv2.imshow("Picam Object", miniObject)
     cv2.imshow("webcam", frame2)
     cv2.imshow("webcam Mask", webcamminiMask)
     cv2.imshow("webcam Object", webcamminiObject)
@@ -105,7 +99,7 @@ while True:
         break
     tEnd=time.time()
     loopTime=tEnd-tStart
-    fps=.9*fps + .1*(1/loopTime)
+    #fps=.9*fps + .1*(1/loopTime)
     wfps=.9*wfps + .1*(1/loopTime)
     #print(int(fps))
 cv2.destroyAllWindows() 
