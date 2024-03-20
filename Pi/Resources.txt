@@ -22,3 +22,10 @@ https://forums.raspberrypi.com/viewtopic.php?t=328911
 https://github.com/openFyde/overlay-rpi4-openfyde
 https://github.com/FydeOS/chromium_os-raspberry_pi/releases
 https://fydeos.io/download/device/rpi4-fydeos
+
+#ServoKit
+https://docs.circuitpython.org/projects/servokit/en/latest/
+https://blog.garybricks.com/control-16-servos-with-raspberry-pi-pca9685-driver
+https://github.com/adafruit/Adafruit_CircuitPython_PCA9685/blob/main/examples/pca9685_simpletest.py
+https://cdn-learn.adafruit.com/downloads/pdf/16-channel-pwm-servo-driver.pdf
+https://github.com/adafruit/Adafruit_CircuitPython_ServoKit

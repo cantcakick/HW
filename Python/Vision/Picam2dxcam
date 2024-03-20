@@ -1,24 +1,17 @@
 import cv2
 import time
 import numpy as np
-from adafruit_servokit import ServoKit
 from picamera2 import Picamera2, Preview
-picam2=Picamera2()
-kit=ServoKit(channels=16)
-pan=kit.servo[3]
-tilt=kit.servo[7]
-
-panAngle=0
-tiltAngle=0
-
-pan.angle(panAngle)
-tilt.angle(tiltAngle)
-
+picam2=Picamera2(0)
+webcam=Picamera2(1)
 dispW=720
 dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
+webcam_config = webcam.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
 picam2.configure(camera_config)
+webcam.configure(webcam_config)
 picam2.start()
+webcam.start()
 fps=0
 pos=(20,40)
 font=cv2.FONT_HERSHEY_DUPLEX
@@ -63,38 +56,42 @@ cv2.createTrackbar('Val min', 'Trackbar', 100, 255, onTrack5)
 cv2.createTrackbar('Val max', 'Trackbar', 255, 255, onTrack6)
 
 while True:
+    
     tStart=time.time()
     frame=picam2.capture_array()
+    frame2=webcam.capture_array()
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
+    cv2.putText(frame2, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
     lowerBound=np.array([hueMin,satMin, valMin])
     upperBound=np.array([hueMax, satMax, valMax])
     frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    webcamHSV=cv2.cvtColor(frame2, cv2.COLOR_BGR2HSV)
     myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
+    webcamMask=cv2.inRange(webcamHSV, lowerBound, upperBound)
     miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
+    webcamminiMask=cv2.resize(webcamMask, (int(dispW/2),int(dispH/2)))
     myObject=cv2.bitwise_and(frame, frame, mask=myMask)
-    miniObject=cv2.resize(myObject, (int(dispW/2),int(dispH/2)))
+    webcamObject=cv2.bitwise_and(frame2, frame2, mask=webcamMask)
+    miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
+    webcamminiObject=cv2.resize(webcamObject,(int(dispW/2),int(dispH/2)))
     #cv2.rectangle(frame,(xPos, yPos),(xPos+wPos, yPos+hPos), rColor, thickness)
     contours, junk=cv2.findContours(myMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #webcamcontours, junk=cv2.findContours(webcamMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours)>0:
         contours=sorted(contours, key=lambda x:cv2.contourArea(x), reverse=True)
+        #webcamcontours=sorted(webcamcontours, key=lambda x:cv2.contourArea(x), reverse=True)
         contour=contours[0]
+        #webcamcontour=webcamcontours[0]
         x,y,w,h=cv2.boundingRect(contour)
+        #x,y,w,h=cv2.boundingRect(webcamcontour)
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
-        error=(x+w/2)-dispW/2
-        if error > 30:
-            panAngle=panAngle-1
-            if panAngle<-90:
-                panAngle=-90
-            pan.set_angle(panAngle)
-        if error<-30:
-            panAngle=panAngle+1
-            if panAngle>90:
-                panAngle=90
-            pan.set_angle(panAngle)
-            
+        #cv2.rectangle(frame2,(x,y),(x+w,y+h),(0,0,255),3)
     cv2.imshow("picam", frame)
-    cv2.imshow("My Mask", myMask)
-    cv2.imshow("My Object", myObject)
+    cv2.imshow("Picam Mask", miniMask)
+    cv2.imshow("Picam Object", miniObject)
+    cv2.imshow("webcam", frame2)
+    cv2.imshow("webcam Mask", webcamminiMask)
+    cv2.imshow("webcam Object", webcamminiObject)
     if cv2.waitKey(1)==ord('q'):
         break
     tEnd=time.time()
