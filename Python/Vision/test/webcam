@@ -1,15 +1,37 @@
 import cv2
 import time
 import sys
+import board
+from adafruit_motor import servo
+from adafruit_servokit import ServoKit
+from adafruit_pca9685 import PCA9685
 import numpy as np
 from picamera2 import Picamera2, Preview
+s=1
+i2c = board.I2C()
+pca=PCA9685(i2c)
+pca.frequency = 30
+kit = ServoKit(channels=16)
+pan=kit.servo[3]
+tilt=kit.servo[7]
+
+if len(sys.argv) > 1:
+    s=sys.argv[1]
+
+
+panAngle=0
+tiltAngle=0
+
+pan.angle(panAngle)
+tilt.angle(tiltAngle)
 
 #picam2=Picamera2(0)
-webcam=Picamera2(1)
+webcam=Picamera2(s)
 dispW=720
 dispH=480
 #camera_config = picam2.create_video_configuration({'format': 'XRGB8888', 'size' : (dispW,dispH)})
-webcam_config = webcam.create_video_configuration({'format': 'XBGR8888', 'size' : (dispW,dispH)})
+webcam_config = webcam.create_video_configuration(main={'format': 'XRGB8888', 'size' : (dispW,dispH)})
+
 #picam2.configure(camera_config)
 webcam.configure(webcam_config)
 #picam2.start()
@@ -68,7 +90,7 @@ while True:
     lowerBound=np.array([hueMin,satMin, valMin])
     upperBound=np.array([hueMax, satMax, valMax])
     #frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    webcamHSV=cv2.cvtColor(frame2, cv2.COLOR_BGR2HSV)
+    webcamHSV=cv2.cvtColor(frame2, cv2.COLOR_RGB2HSV)
     #myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
     webcamMask=cv2.inRange(webcamHSV, lowerBound, upperBound)
     #miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
@@ -89,6 +111,17 @@ while True:
         x,y,w,h=cv2.boundingRect(webcamcontour)
         #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
         cv2.rectangle(frame2,(x,y),(x+w,y+h),(0,0,255),3)
+        error=(x+w/2)-dispW/2
+        if error > 30:
+            panAngle=panAngle-1
+            if panAngle<-90:
+                panAngle=-90
+            pan.set_pulse_width_range(panAngle)
+        if error<-30:
+            panAngle=panAngle+1
+            if panAngle>90:
+                panAngle=90
+            pan.set_pulse_width_range(panAngle)
     #cv2.imshow("picam", frame)
     #cv2.imshow("Picam Mask", miniMask)
     #cv2.imshow("Picam Object", miniObject)
