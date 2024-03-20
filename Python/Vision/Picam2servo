@@ -1,8 +1,19 @@
 import cv2
 import time
 import numpy as np
+from adafruit_servokit import ServoKit
 from picamera2 import Picamera2, Preview
 picam2=Picamera2()
+kit=ServoKit(channels=16)
+pan=kit.servo[3]
+tilt=kit.servo[7]
+
+panAngle=0
+tiltAngle=0
+
+pan.angle(panAngle)
+tilt.angle(tiltAngle)
+
 dispW=720
 dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
@@ -14,7 +25,7 @@ font=cv2.FONT_HERSHEY_DUPLEX
 height=1.5
 fpsColor=(0,0,255)
 weight=(3)
-rColor=(0,0,255) 
+rColor=(0,0,255)
 thickness=3 #-1 creates solid box
 
 def onTrack1(val):
@@ -61,7 +72,7 @@ while True:
     myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
     miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
     myObject=cv2.bitwise_and(frame, frame, mask=myMask)
-    miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
+    miniObject=cv2.resize(myObject, (int(dispW/2),int(dispH/2)))
     #cv2.rectangle(frame,(xPos, yPos),(xPos+wPos, yPos+hPos), rColor, thickness)
     contours, junk=cv2.findContours(myMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if len(contours)>0:
@@ -69,9 +80,21 @@ while True:
         contour=contours[0]
         x,y,w,h=cv2.boundingRect(contour)
         cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
+        error=(x+w/2)-dispW/2
+        if error > 30:
+            panAngle=panAngle-1
+            if panAngle<-90:
+                panAngle=-90
+            pan.set_angle(panAngle)
+        if error<-30:
+            panAngle=panAngle+1
+            if panAngle>90:
+                panAngle=90
+            pan.set_angle(panAngle)
+            
     cv2.imshow("picam", frame)
-    cv2.imshow("My Mask", miniMask)
-    cv2.imshow("My Object", miniObject)
+    cv2.imshow("My Mask", myMask)
+    cv2.imshow("My Object", myObject)
     if cv2.waitKey(1)==ord('q'):
         break
     tEnd=time.time()

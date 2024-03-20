@@ -1,0 +1,1 @@
+miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
