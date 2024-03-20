@@ -14,7 +14,7 @@ font=cv2.FONT_HERSHEY_DUPLEX
 height=1.5
 fpsColor=(0,0,255)
 weight=(3)
-rColor=(0,0,255)
+rColor=(0,0,255) 
 thickness=3 #-1 creates solid box
 
 def onTrack1(val):

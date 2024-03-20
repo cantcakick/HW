@@ -14,7 +14,7 @@ export PATH=/home/charles/.local/bin:$PATH
 sudo apt install make g++ pkg-config libgl1-mesa-dev libfontconfig1-dev libxkbcommon-x11-dev 
 #^ needed for OpenCV to use GUI
 #not needed libgtk-3-dev libxcb*-dev
-sudo apt-get install libopencv-dev python-opencv
+sudo apt-get install libopencv-dev python3-opencv
 
 #Install docker
 curl -sSL https://get.docker.com | sh
