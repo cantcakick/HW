@@ -34,3 +34,33 @@ sudo sh -eux <<EOF
 apt-get install -y uidmap
 EOF
 dockerd-rootless-setuptool.sh install
+
+
+Coral TPU
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get install libedgetpu1-std
+sudo apt-get install python3-pycoral
+mkdir coral && cd coral
+
+git clone https://github.com/google-coral/pycoral.git
+
+cd pycoral
+
+TFLite
+pip install tflite-runtime tflite_support
+git clone https://github.com/tensorflow/examples --depth 1
+cd examples/lite/examples/object_detection/raspberry_pi
+
+# The script install the required dependencies and download the TFLite models.
+sh setup.sh
+python3 detect.py \
+  --model efficientdet_lite0.tflite
+#With Coral TPU
+python3 detect.py \
+  --enableEdgeTPU
+  --model efficientdet_lite0_edgetpu.tflite
