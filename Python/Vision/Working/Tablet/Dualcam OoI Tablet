@@ -65,7 +65,7 @@ while True:
     frame2=webcam.capture_array()
     frame2RGB=cv2.cvtColor(frame2,cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
-    cv2.putText(frame2RGB, str(int(wfps))+' wFPS', pos, font, height, fpsColor, weight)
+    cv2.putText(frame2RGB, str(int(wfps))+' FPS', pos, font, height, fpsColor, weight)
     lowerBound=np.array([hueMin,satMin, valMin])
     upperBound=np.array([hueMax, satMax, valMax])
     frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -104,6 +104,6 @@ while True:
     tEnd=time.time()
     loopTime=tEnd-tStart
     fps=.9*fps + .1*(1/loopTime)
-    wfps=.9*wfps + .1*(1/loopTime)
+    wfps=.8*wfps + .2*(1/loopTime)
     #print(int(fps))
 cv2.destroyAllWindows() 
