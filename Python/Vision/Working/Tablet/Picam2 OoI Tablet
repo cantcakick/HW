@@ -1,0 +1,98 @@
+import cv2
+import time
+import numpy as np
+from picamera2 import Picamera2, Preview
+picam2=Picamera2()
+def TrackX(val):
+    global xPos
+    xPos=val
+def TrackY(val):
+    global yPos
+    yPos=val
+def TrackW(val):
+    global wPos
+    wPos=val
+def TrackH(val):
+    global hPos
+    hPos=val    
+
+dispW=640
+dispH=320
+camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
+picam2.configure(camera_config)
+picam2.start()
+fps=0
+pos=(20,40)
+font=cv2.FONT_HERSHEY_DUPLEX
+height=1.5
+fpsColor=(0,0,255)
+weight=(3)
+rColor=(0,0,255)
+thickness=3 #-1 creates solid box  
+
+def onTrack1(val):
+    global hueMin
+    hueMin=val
+    print('Hue Low',hueMin)
+def onTrack2(val):
+    global hueMax
+    hueMax=val
+    print('Hue High',hueMax)
+def onTrack3(val):
+    global satMin
+    satMin=val
+    print('Sat Low',satMin)
+def onTrack4(val):
+    global satMax
+    satMax=val
+    print('Sat High',satMax)
+def onTrack5(val):
+    global valMin
+    valMin=val
+    print('Val Low',valMin)
+def onTrack6(val):
+    global valMax
+    valMax=val
+    print('Hue Low',valMax)
+
+  
+cv2.namedWindow('Trackbar')
+cv2.createTrackbar('Hue min', 'Trackbar', 10, 179 , onTrack1)
+cv2.createTrackbar('Hue max', 'Trackbar', 50, 179 , onTrack2)
+cv2.createTrackbar('Sat min', 'Trackbar', 100, 255, onTrack3)
+cv2.createTrackbar('Sat max', 'Trackbar', 255, 255, onTrack4)
+cv2.createTrackbar('Val min', 'Trackbar', 100, 255, onTrack5)
+cv2.createTrackbar('Val max', 'Trackbar', 255, 255, onTrack6)
+
+cv2.namedWindow('Trackbar')
+cv2.createTrackbar('X Pos', 'Trackbar', 20, dispW-1 , TrackX)
+cv2.createTrackbar('Y Pos', 'Trackbar', 20, dispH-1 , TrackY)
+cv2.createTrackbar('Box Width', 'Trackbar', 20, dispW-1, TrackW)
+cv2.createTrackbar('Box Height', 'Trackbar', 20, dispH-1, TrackH)
+while True:
+    tStart=time.time()
+    frame=picam2.capture_array()
+    cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
+    lowerBound=np.array([hueMin,satMin, valMin])
+    upperBound=np.array([hueMax, satMax, valMax])
+    frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
+    miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
+    myObject=cv2.bitwise_and(frame, frame, mask=myMask)
+    miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
+    contours, junk=cv2.findContours(myMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if len(contours)>0:
+        contours=sorted(contours, key=lambda x:cv2.contourArea(x), reverse=True)
+        contour=contours[0]
+        x,y,w,h=cv2.boundingRect(contour)
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
+    cv2.imshow("picam", frame)
+    cv2.imshow("Picam Mask", miniMask)
+    cv2.imshow("Picam Object", miniObject)
+
+    if cv2.waitKey(1)==ord('q'):
+        break
+    tEnd=time.time()
+    loopTime=tEnd-tStart
+    fps=.9*fps + .1*(1/loopTime)
+cv2.destroyAllWindows() 
