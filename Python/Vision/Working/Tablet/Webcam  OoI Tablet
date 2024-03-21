@@ -80,5 +80,5 @@ while True:
         break
     tEnd=time.time()
     loopTime=tEnd-tStart
-    fps=.9*wfps + .1*(1/loopTime)
+    wfps=.9*wfps + .1*(1/loopTime)
 cv2.destroyAllWindows() 
