@@ -29,3 +29,8 @@ https://blog.garybricks.com/control-16-servos-with-raspberry-pi-pca9685-driver
 https://github.com/adafruit/Adafruit_CircuitPython_PCA9685/blob/main/examples/pca9685_simpletest.py
 https://cdn-learn.adafruit.com/downloads/pdf/16-channel-pwm-servo-driver.pdf
 https://github.com/adafruit/Adafruit_CircuitPython_ServoKit
+
+#Tensorflow lite
+https://pimylifeup.com/raspberry-pi-tensorflow-lite/
+
+https://learnubuntu.com/updating-from-repository-cant-done-securely/

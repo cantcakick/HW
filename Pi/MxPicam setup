@@ -18,6 +18,8 @@ sudo pip3 install adafruit-circuitpython-servokit
 import cv2
 print(cv2.__version__)
 
+sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
+or
 export PATH=/home/charles/.local/bin:$PATH
 #^fixes issue with OS not recognizing Opencv and tensorflow file path
 sudo apt install make g++ pkg-config libgl1-mesa-dev libfontconfig1-dev libxkbcommon-x11-dev 
@@ -52,9 +54,13 @@ git clone https://github.com/google-coral/pycoral.git
 cd pycoral
 
 TFLite
-pip install tflite-runtime tflite_support
+#pip install tflite-runtime tflite_support
+sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 git clone https://github.com/tensorflow/examples --depth 1
 cd examples/lite/examples/object_detection/raspberry_pi
+sudo pip3 install mediapipe  
+#tflite is supported by mediapipe.  Install this before trying to install tflite
+export PATH=/home/charles/.local/bin:$PATH
 
 # The script install the required dependencies and download the TFLite models.
 sh setup.sh
