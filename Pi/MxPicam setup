@@ -26,6 +26,7 @@ sudo pip3 install adafruit-circuitpython-servokit
 import cv2
 print(cv2.__version__)
 
+
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 or
 export PATH=/home/charles/.local/bin:$PATH
