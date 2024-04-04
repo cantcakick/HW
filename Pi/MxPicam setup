@@ -79,3 +79,6 @@ python3 detect.py \
 python3 detect.py \
   --enableEdgeTPU
   --model efficientdet_lite0_edgetpu.tflite
+
+cd /etc/apt
+sudo cp trusted.gpg trusted.gpg.d

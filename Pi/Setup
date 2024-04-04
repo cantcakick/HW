@@ -4,8 +4,10 @@ wget  https://rawgithubusercontent.com/Botspot/pi-apps/master/install | bash
 #or
 sudo apt install git -y 
 git clone https://github.com/Botspot/pi-apps && ~/pi-apps/install
+#Install Pi-kiss
+curl -sSL https://git.io/JfAPE | bash
 #VS Code
-#sudo apt install Code
+sudo apt install Code
 #R
 sudo apt install r-base
 #PHPmyadmin
