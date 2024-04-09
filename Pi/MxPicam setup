@@ -67,6 +67,10 @@ TFLite
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 git clone https://github.com/tensorflow/examples --depth 1
 cd examples/lite/examples/object_detection/raspberry_pi
+python3 -m pip install virtualenv --break-system-packages
+python3 -m venv tf
+ls 
+source tf/bin/activate
 sudo pip3 install mediapipe  
 #tflite is supported by mediapipe.  Install this before trying to install tflite
 export PATH=/home/charles/.local/bin:$PATH
