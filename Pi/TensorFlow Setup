@@ -9,8 +9,9 @@ ls
 source tf/bin/activate
 
 pip install --upgrade pip setuptools wheel --break-system-packages
-sudo pip3 install mediapipe picamera2 opencv-python opencv-contrib-python tflite-runtime tflite-support
 sudo pip install mediapipe tflite-support tflite-runtime
+sudo pip3 install mediapipe picamera2 opencv-python opencv-contrib-python tflite-runtime tflite-support
+
 export PATH=/home/charles/.local/bin:$PATH
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 

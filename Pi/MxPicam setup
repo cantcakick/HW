@@ -1,4 +1,5 @@
 sudo apt install libcap-dev
+sudo apt-get install python3-picamera2
 sudo apt install libcamera* #may or may not work, if it doesn't install from synaptic
 #or
 git clone https://git.libcamera.org/libcamera/libcamera.git
