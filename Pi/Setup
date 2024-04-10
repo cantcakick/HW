@@ -22,6 +22,8 @@ sudo apt install phpmyadmin
 #Check password is working and log in as admin
     # mysql -uadmin -p 
 
+sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+
 #Install PiCamera
  sudo apt-get install python-picamera python3-picamera
  sudo apt-get install python3-picamera2

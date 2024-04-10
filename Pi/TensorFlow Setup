@@ -1,0 +1,71 @@
+sudo apt install git pip code synaptic -y 
+sudo apt-get install python3-picamera2 libcamera-apps libcap-dev
+sudo apt install make g++ pkg-config libgl1-mesa-dev libfontconfig1-dev libxkbcommon-x11-dev 
+
+#Setup virtualenv
+python3 -m pip install virtualenv --break-system-packages
+python3 -m venv tf
+ls 
+source tf/bin/activate
+
+pip install --upgrade pip setuptools wheel --break-system-packages
+sudo pip3 install mediapipe picamera2 opencv-python opencv-contrib-python tflite-runtime tflite-support
+
+export PATH=/home/charles/.local/bin:$PATH
+sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
+
+#Tensorflow Install
+git clone https://github.com/tensorflow/examples --depth 1
+cd examples/lite/examples/object_detection/raspberry_pi
+# The script install the required dependencies and download the TFLite models.
+sh setup.sh
+python3 detect.py \
+  --model efficientdet_lite0.tflite
+#With Coral TPU
+python3 detect.py \
+  --enableEdgeTPU
+  --model efficientdet_lite0_edgetpu.tflite
+
+#Coral TPU
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get install libedgetpu1-std
+sudo apt-get install python3-pycoral
+mkdir coral && cd coral
+
+git clone https://github.com/google-coral/pycoral.git
+
+cd pycoral
+
+#Setup docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+sudo sh -eux <<EOF
+# Install newuidmap & newgidmap binaries
+apt-get install -y uidmap
+EOF
+dockerd-rootless-setuptool.sh install
+
+#Extra
+#Pi-Apps
+git clone https://github.com/Botspot/pi-apps && ~/pi-apps/install
+#R
+sudo apt install r-base
+#PHPmyadmin
+sudo apt install apache2 php mariadb-server php-mysql 
+sudo apt install phpmyadmin 
+# select apache as webserver, when prompted to install a database select yes and do NOT add password to the database 
+
+#Open mysql and add give admin privileges and set password
+    # sudo mysql 
+    # grant all privileges on *.* to 'admin'@'localhost' identified by 'password' with grant option;
+    # quit
+#Check password is working and log in as admin
+    # mysql -uadmin -p 
+
+
