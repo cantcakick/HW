@@ -34,3 +34,7 @@ https://github.com/adafruit/Adafruit_CircuitPython_ServoKit
 https://pimylifeup.com/raspberry-pi-tensorflow-lite/
 
 https://learnubuntu.com/updating-from-repository-cant-done-securely/
+
+
+https://opensource.com/article/20/4/install-python-linux
+https://www.delftstack.com/howto/python/downgrade-python-version/
