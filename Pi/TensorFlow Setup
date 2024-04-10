@@ -4,13 +4,13 @@ sudo apt install make g++ pkg-config libgl1-mesa-dev libfontconfig1-dev libxkbco
 
 #Setup virtualenv
 python3 -m pip install virtualenv --break-system-packages
-python3 -m venv tf
+python3 -m venv tf --system-site-packages
 ls 
 source tf/bin/activate
 
 pip install --upgrade pip setuptools wheel --break-system-packages
 sudo pip3 install mediapipe picamera2 opencv-python opencv-contrib-python tflite-runtime tflite-support
-
+sudo pip install mediapipe tflite-support tflite-runtime
 export PATH=/home/charles/.local/bin:$PATH
 sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 
