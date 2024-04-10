@@ -2,10 +2,9 @@ import cv2
 import time
 from picamera2 import Picamera2
 
-from tflite_support.task import core
-from tflite_support.task import processor
-from tflite_support.task import vision
-import utils
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
+from utils import visualize
  
 model='efficientdet_lite0.tflite'
 num_threads=4
@@ -34,8 +33,8 @@ myColor=(255,0,0)
  
 fps=0
  
-base_options=core.BaseOptions(file_name=model,use_coral=False, num_threads=num_threads)
-detection_options=processor.DetectionOptions(max_results=3, score_threshold=.3)
+base_options=python.BaseOptions(file_name=model,use_coral=False, num_threads=num_threads)
+#detection_options=vision.DetectionOptions(max_results=3, score_threshold=.3)
 options=vision.ObjectDetectorOptions(base_options=base_options,detection_options=detection_options)
 detector=vision.ObjectDetector.create_from_options(options)
 tStart=time.time()

@@ -9,7 +9,7 @@ ls
 source tf/bin/activate
 
 pip install --upgrade pip setuptools wheel --break-system-packages
-sudo pip install mediapipe tflite-support tflite-runtime
+sudo pip3 install utils mediapipe opencv-python tflite-support tflite-runtime
 sudo pip3 install mediapipe picamera2 opencv-python opencv-contrib-python tflite-runtime tflite-support
 
 export PATH=/home/charles/.local/bin:$PATH
@@ -26,6 +26,10 @@ python3 detect.py \
 python3 detect.py \
   --enableEdgeTPU
   --model efficientdet_lite0_edgetpu.tflite
+
+#Freedomtech TF using Mediapipe
+git clone https://github.com/freedomwebtech/tflite-custom-object-bookworm.git
+
 
 #Coral TPU
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
