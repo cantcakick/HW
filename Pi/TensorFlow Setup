@@ -57,6 +57,8 @@ EOF
 dockerd-rootless-setuptool.sh install
 
 #Extra
+#Pan/tilt-hat Servo lib
+curl https://get.pimoroni.com/pantilthat | bash
 #Pi-Apps
 git clone https://github.com/Botspot/pi-apps && ~/pi-apps/install
 #R
