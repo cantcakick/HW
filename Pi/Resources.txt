@@ -24,7 +24,7 @@ https://github.com/FydeOS/chromium_os-raspberry_pi/releases
 https://fydeos.io/download/device/rpi4-fydeos
 
 #ServoKit
-**https://github.com/pimoroni/pantilt-hat
+**https://github.com/sunfounder/pan-tilt-hat
 https://docs.circuitpython.org/projects/servokit/en/latest/
 https://blog.garybricks.com/control-16-servos-with-raspberry-pi-pca9685-driver
 https://github.com/adafruit/Adafruit_CircuitPython_PCA9685/blob/main/examples/pca9685_simpletest.py
