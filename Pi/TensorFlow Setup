@@ -78,4 +78,6 @@ sudo apt install phpmyadmin
 #Check password is working and log in as admin
     # mysql -uadmin -p 
 
-
+#For image classification
+sudo apt-get install pyqt5-dev-tools
+sudo pip3 install labelimg

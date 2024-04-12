@@ -1,0 +1,24 @@
+General
+    IBM skillsbuild.org
+    Google Coursera
+    Project Management Institute pmi.org
+Programming:
+    edube.org
+    opencv.org
+    fast.ai
+    cloudskillsboost
+Networking:
+    Cisco
+        netacad.com
+        skillsforall.com
+Cybersec:
+    codered.eccouncil.org
+    isc2.org
+    sans.org
+AV/Networking
+    audinate.com
+    sai.training.shure.com
+    training.qsc.com
+    training.harmonpro.com
+    trainingapps.crestron.com
+    legrand.us/training
