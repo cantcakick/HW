@@ -3,8 +3,8 @@ sys.path.append('./')
 from servo import Servo
 from time import sleep
 
-pan = Servo(pin='P3')
-tilt = Servo(pin='A3')
+pan = Servo(pin=3)
+tilt = Servo(pin=7)
 
 while True:
     pan.set_angle(0)

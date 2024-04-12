@@ -7,23 +7,23 @@ from adafruit_servokit import ServoKit
 from adafruit_pca9685 import PCA9685
 import numpy as np
 from picamera2 import Picamera2, Preview
-s=1
-#i2c = board.I2C()
-#pca=PCA9685(i2c)
-#pca.frequency = 30
-#kit = ServoKit(channels=16)
-#pan=kit.servo[3]
-#tilt=kit.servo[7]
+s=2
+i2c = board.I2C()
+pca=PCA9685(i2c)
+pca.frequency = 30
+kit = ServoKit(channels=16)
+pan=kit.servo[3]
+tilt=kit.servo[7]
 
 if len(sys.argv) > 1:
     s=sys.argv[1]
 
 
-#panAngle=0
-#tiltAngle=0
+panAngle=0
+tiltAngle=0
 
-#pan.angle(panAngle)
-#tilt.angle(tiltAngle)
+pan.angle(panAngle)
+tilt.angle(tiltAngle)
 
 #picam2=Picamera2(0)
 webcam=Picamera2(s)
@@ -111,17 +111,17 @@ while True:
         x,y,w,h=cv2.boundingRect(webcamcontour)
         #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
         cv2.rectangle(frame2,(x,y),(x+w,y+h),(0,0,255),3)
-        #error=(x+w/2)-dispW/2
-        #if error > 30:
-        #    panAngle=panAngle-1
-        #    if panAngle<-90:
-        #        panAngle=-90
-        #    pan.set_pulse_width_range(panAngle)
-        #if error<-30:
-        #    panAngle=panAngle+1
-        #    if panAngle>90:
-        #        panAngle=90
-        #    pan.set_pulse_width_range(panAngle)
+        error=(x+w/2)-dispW/2
+        if error > 30:
+            panAngle=panAngle-1
+            if panAngle<-90:
+                panAngle=-90
+            pan.set_pulse_width_range(panAngle)
+        if error<-30:
+            panAngle=panAngle+1
+            if panAngle>90:
+                panAngle=90
+            pan.set_pulse_width_range(panAngle)
     #cv2.imshow("picam", frame)
     #cv2.imshow("Picam Mask", miniMask)
     #cv2.imshow("Picam Object", miniObject)
