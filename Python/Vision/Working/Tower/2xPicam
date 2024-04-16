@@ -103,9 +103,9 @@ while True:
     if cv2.waitKey(1)==ord('q'):
         break
     tEnd=time.time()
-    wtEnd=time.time()
+    wEnd=time.time()
     loopTime=tEnd-tStart
-    wloopTime=wtEnd-wtStart
+    wloopTime=wEnd-wtStart
     fps=.9*fps + .1*(1/loopTime)
     wfps=.8*wfps + .2*(1/wloopTime)
     #print(int(fps))
