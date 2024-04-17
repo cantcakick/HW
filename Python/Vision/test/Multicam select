@@ -1,0 +1,140 @@
+import cv2
+import time
+import sys
+import numpy as np
+from picamera2 import Picamera2, Preview
+
+picam2=Picamera2(0)
+webcam=Picamera2(2)
+pihdmi=Picamera2(1)
+dispW=720
+dispH=480
+camera_config = picam2.create_video_configuration({'format': 'XRGB8888', 'size' : (dispW,dispH)})
+webcam_config = webcam.create_video_configuration({'format': 'XRGB8888', 'size' : (dispW,dispH)})
+pihdmi_config = pihdmi.create_video_configuration({'format': 'XRGB8888', 'size': (dispW,dispH)})
+picam2.configure(camera_config)
+webcam.configure(webcam_config)
+pihdmi.configure(pihdmi_config)
+picam2.start()
+webcam.start()
+pihdmi.start()
+fps=0
+wfps=0
+hfps=0
+pos=(20,40)
+font=cv2.FONT_HERSHEY_DUPLEX
+height=1.5
+fpsColor=(0,0,255)
+weight=(3)
+rColor=(0,0,255)
+thickness=3 #-1 creates solid box
+
+def onTrack1(val):
+    global hueMin
+    hueMin=val
+    print('Hue Low',hueMin)
+def onTrack2(val):
+    global hueMax
+    hueMax=val
+    print('Hue High',hueMax)
+def onTrack3(val):
+    global satMin
+    satMin=val
+    print('Sat Low',satMin)
+def onTrack4(val):
+    global satMax
+    satMax=val
+    print('Sat High',satMax)
+def onTrack5(val):
+    global valMin
+    valMin=val
+    print('Val Low',valMin)
+def onTrack6(val):
+    global valMax
+    valMax=val
+    print('Hue Low',valMax)
+
+  
+cv2.namedWindow('Trackbar')
+cv2.createTrackbar('Hue min', 'Trackbar', 10, 179 , onTrack1)
+cv2.createTrackbar('Hue max', 'Trackbar', 50, 179 , onTrack2)
+cv2.createTrackbar('Sat min', 'Trackbar', 100, 255, onTrack3)
+cv2.createTrackbar('Sat max', 'Trackbar', 255, 255, onTrack4)
+cv2.createTrackbar('Val min', 'Trackbar', 100, 255, onTrack5)
+cv2.createTrackbar('Val max', 'Trackbar', 255, 255, onTrack6)
+camselect=input("Select camera 0 1 2: ")
+while True:
+    camera=camselect
+    
+    lowerBound=np.array([hueMin,satMin, valMin])
+    upperBound=np.array([hueMax, satMax, valMax])
+    if camera is '0':
+        frame=picam2.capture_array()
+        cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
+        tStart=time.time()    
+        frameHSV=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        myMask=cv2.inRange(frameHSV, lowerBound, upperBound)
+        miniMask=cv2.resize(myMask, (int(dispW/2),int(dispH/2)))
+        myObject=cv2.bitwise_and(frame, frame, mask=myMask)
+        miniObject=cv2.resize(myObject,(int(dispW/2),int(dispH/2)))
+        contours, junk=cv2.findContours(myMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(contours)>0:
+            contours=sorted(contours, key=lambda x:cv2.contourArea(x), reverse=True)
+            contour=contours[0]
+            x,y,w,h=cv2.boundingRect(contour)
+            cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),3)
+        cv2.imshow("picam", frame)
+        cv2.imshow("Picam Mask", miniMask)
+        cv2.imshow("Picam Object", miniObject)
+        tEnd=time.time()
+        loopTime=tEnd-tStart    
+        fps=.9*fps + .1*(1/loopTime)  
+    if camera is '1':
+        frame2=webcam.capture_array()
+        frame2RGB=cv2.cvtColor(frame2,cv2.COLOR_BGR2RGB)
+        cv2.putText(frame2RGB, str(int(wfps))+' wFPS', pos, font, height, fpsColor, weight)
+        wStart=time.time()
+        webcamHSV=cv2.cvtColor(frame2RGB, cv2.COLOR_BGR2HSV)
+        webcamMask=cv2.inRange(webcamHSV, lowerBound, upperBound)
+        webcamminiMask=cv2.resize(webcamMask, (int(dispW/2),int(dispH/2)))
+        webcamObject=cv2.bitwise_and(frame2RGB, frame2RGB, mask=webcamMask)
+        webcamminiObject=cv2.resize(webcamObject,(int(dispW/2),int(dispH/2)))
+        webcamcontours, junk=cv2.findContours(webcamMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(webcamcontours)>0:
+            webcamcontours=sorted(webcamcontours, key=lambda x:cv2.contourArea(x), reverse=True)
+            webcamcontour=webcamcontours[0]
+            x,y,w,h=cv2.boundingRect(webcamcontour)
+            cv2.rectangle(frame2RGB,(x,y),(x+w,y+h),(0,0,255),3)
+        cv2.imshow("webcam", frame2RGB)
+        cv2.imshow("webcam Mask", webcamminiMask)
+        cv2.imshow("webcam Object", webcamminiObject)    
+        wEnd=time.time()
+        wloopTime=wEnd-wStart    
+        wfps=.9*wfps + .1*(1/wloopTime)        
+    if camera is '2':
+        frame3=pihdmi.capture_array()
+        cv2.putText(frame3, str(int(hfps))+' hFPS', pos, font, height, fpsColor, weight)
+        hStart=time.time()
+        pihdmiHSV=cv2.cvtColor(frame3, cv2.COLOR_BGR2HSV)
+        pihdmiMask=cv2.inRange(pihdmiHSV, lowerBound, upperBound)
+        pihdmiminiMask=cv2.resize(pihdmiMask, (int(dispW/2),int(dispH/2)))
+        pihdmiObject=cv2.bitwise_and(frame3, frame3, mask=pihdmiMask)
+        pihdmiminiObject=cv2.resize(pihdmiObject, (int(dispW/2),int(dispH/2)))
+        pihdmicontours, junk=cv2.findContours(pihdmiMask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(pihdmicontours)>0:
+            pihdmicontours=sorted(pihdmicontours, key=lambda x:cv2.contourArea(x), reverse=True)
+            pihdmicontour=pihdmicontours[0]
+            x,y,w,h=cv2.boundingRect(pihdmicontour)
+            cv2.rectangle(frame3,(x,y),(x+w,y+h),(0,0,255),3)
+        cv2.imshow("pihdmi", frame3)
+        cv2.imshow("pihdmi Mask", pihdmiminiMask)
+        cv2.imshow("pihdmi Object", pihdmiminiObject)
+        hEnd=time.time()
+        hloopTime=hEnd-hStart
+        hfps=.8*hfps + .2*(1/hloopTime)    
+    
+    if cv2.waitKey(1)==ord('q'):
+        break
+
+    #print(int(fps))
+cv2.destroyAllWindows() 

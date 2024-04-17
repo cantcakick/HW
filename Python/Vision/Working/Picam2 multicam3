@@ -123,7 +123,7 @@ while True:
     cv2.imshow("webcam Object", webcamminiObject)
     cv2.imshow("pihdmi", frame3)
     cv2.imshow("pihdmi Mask", pihdmiminiMask)
-    cv2.imshow("pihdmi Object", webcamminiObject)
+    cv2.imshow("pihdmi Object", pihdmiminiObject)
     if cv2.waitKey(1)==ord('q'):
         break
     tEnd=time.time()

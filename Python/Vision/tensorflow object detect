@@ -4,9 +4,9 @@ from picamera2 import Picamera2
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
-from utils import visualize
+import utils
  
-model='efficientdet_lite0.tflite'
+model='/home/charles/Desktop/HW/efficientdet_lite0.tflite'
 num_threads=4
  
 dispW=1280
@@ -34,7 +34,7 @@ myColor=(255,0,0)
 fps=0
  
 base_options=python.BaseOptions(file_name=model,use_coral=False, num_threads=num_threads)
-#detection_options=vision.DetectionOptions(max_results=3, score_threshold=.3)
+detection_options=vision.DetectionOptions(max_results=3, score_threshold=.3)
 options=vision.ObjectDetectorOptions(base_options=base_options,detection_options=detection_options)
 detector=vision.ObjectDetector.create_from_options(options)
 tStart=time.time()
