@@ -5,8 +5,8 @@ import mediapipe as mp
 from picamera2 import Picamera2, Preview
 picam2=Picamera2(0)
 
-dispW=640
-dispH=320
+dispW=1280
+dispH=720
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
 picam2.configure(camera_config)
 picam2.start()
