@@ -8,12 +8,13 @@ python3 -m venv tf --system-site-packages
 ls 
 source tf/bin/activate
 
+export PATH=/home/charles/.local/bin:$PATH
+sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
 pip install --upgrade pip setuptools wheel --break-system-packages
 sudo pip3 install utils mediapipe opencv-python tflite-support tflite-runtime
 sudo pip3 install mediapipe picamera2 opencv-python opencv-contrib-python tflite-runtime tflite-support
 
-export PATH=/home/charles/.local/bin:$PATH
-sudo rm /usr/lib/python3.11/EXTERNALLY-MANAGED
+
 
 #Tensorflow Install
 git clone https://github.com/tensorflow/examples --depth 1
@@ -67,7 +68,7 @@ git clone https://github.com/Botspot/pi-apps && ~/pi-apps/install
 #R
 sudo apt install r-base
 #PHPmyadmin
-sudo apt install apache2 php mariadb-server php-mysql 
+sudo apt install r-base apache2 php mariadb-server php-mysql 
 sudo apt install phpmyadmin 
 # select apache as webserver, when prompted to install a database select yes and do NOT add password to the database 
 
@@ -81,7 +82,3 @@ sudo apt install phpmyadmin
 #For image classification
 sudo apt-get install pyqt5-dev-tools
 sudo pip3 install labelimg
-
-git clone https://github.com/google-ai-edge/mediapipe-samples.git
-cd /usr/lib/python3.11/dist-packages/
-sudo git clone https://github.com/google-ai-edge/mediapipe.git
