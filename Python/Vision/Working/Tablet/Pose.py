@@ -5,8 +5,8 @@ import mediapipe as mp
 from picamera2 import Picamera2, Preview
 picam2=Picamera2(0)
 
-dispW=1280
-dispH=720
+dispW=720
+dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
 picam2.configure(camera_config)
 picam2.start()
@@ -31,10 +31,11 @@ while True:
     #print(results)
     if results.pose_landmarks != None:
         mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
-    cv2.imshow("picam", frame)
+    cv2.imshow("picam pose", frame)
 
     if cv2.waitKey(1)==ord('q'):
         break
     tEnd=time.time()
     loopTime=tEnd-tStart
     fps=.9*fps + .1*(1/loopTime)
+cv2.destroyAllWindows()
