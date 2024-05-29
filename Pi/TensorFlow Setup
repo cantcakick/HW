@@ -81,3 +81,7 @@ sudo apt install phpmyadmin
 #For image classification
 sudo apt-get install pyqt5-dev-tools
 sudo pip3 install labelimg
+
+git clone https://github.com/google-ai-edge/mediapipe-samples.git
+cd /usr/lib/python3.11/dist-packages/
+sudo git clone https://github.com/google-ai-edge/mediapipe.git

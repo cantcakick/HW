@@ -4,7 +4,7 @@ import sys
 import numpy as np
 from picamera2 import Picamera2, Preview
 
-webcam=Picamera2(1)
+webcam=Picamera2(0)
 dispW=640
 dispH=320
 webcam_config = webcam.create_video_configuration({"format": "RGB888", "size" : (dispW,dispH)})
