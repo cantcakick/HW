@@ -1,3 +1,4 @@
+#on first run navigate to file location and run sudo python Pose.py
 import cv2
 import time
 import numpy as np
@@ -5,8 +6,8 @@ import mediapipe as mp
 from picamera2 import Picamera2, Preview
 picam2=Picamera2(0)
 
-dispW=1280
-dispH=720
+dispW=720
+dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
 picam2.configure(camera_config)
 picam2.start()
