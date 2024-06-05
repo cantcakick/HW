@@ -5,11 +5,24 @@ import mediapipe as mp
 import pickle
 from picamera2 import Picamera2, Preview
 
-def findPose(unknownPose,knownPose,pose,poseNames,tol):
-    errorArray=[]
-    for i in range(0, len(poseNames),1):
-        error=findError()
 
+
+class mpPose:
+    import mediapipe as mp
+    def __init__(self,still=False,upperBody=False,smoothData=True):
+        self.myPose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
+    def Marks(self,frame):
+        frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+        results=self.myPose.process(frameRGB)
+        poseLandmarks=[]
+        if results.pose_landmarks:
+            for lm in results.pose_landmarks.landmark:
+                poseLandmarks.append((int(lm.x*dispW),int(lm.y*dispH)))
+            return poseLandmarks
+    def findPose(unknownPose,knownPose,pose,poseNames,tol):
+        errorArray=[]
+        for i in range(0, len(poseNames),1):
+            error=findError()
 picam2=Picamera2(0)
 dispW=720
 dispH=480
@@ -26,7 +39,7 @@ rColor=(0,0,255)
 
 pose=mp.solutions.pose.Pose(False, False, True,True,True)
 mpDraw=mp.solutions.drawing_utils
-
+landmarks=[]
 train=int(input('Enter 1 to train, Enter 0 to run '))
 if train==1:
     trainCount=0
@@ -58,10 +71,10 @@ while True:
     #print(results)
     if train == 1:
         if results.pose_landmarks != None:
-            mpDraw.draw_landmarks(frame, pose, mp.solutions.pose.POSE_CONNECTIONS)
+            mpDraw.draw_landmarks(frame, poseNames, mp.solutions.pose.POSE_CONNECTIONS)
             print('Please show pose',poseNames[trainCount],': Press s to Start')
             if cv2.waitKey(1) & 0xff==ord('s'):
-                knownPose=pose
+                knownPose=poseNames
                 knownPoses.append(knownPose)
                 trainCount=trainCount+1
                 if trainCount==numPoses:
