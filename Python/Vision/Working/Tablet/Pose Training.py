@@ -2,6 +2,7 @@ import cv2
 import time
 import numpy as np
 import mediapipe as mp
+import os
 import pickle
 from picamera2 import Picamera2, Preview
 
@@ -10,22 +11,22 @@ from picamera2 import Picamera2, Preview
 class mpPose:
     import mediapipe as mp
     def __init__(self,still=False,upperBody=False,smoothData=True):
-        self.mypose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
+        self.pose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
     def Marks(self,frame):
-        poseLandmarks=[]
+        myPoses=[]
         frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
-        results=self.mypose.process(frameRGB)   
+        results=self.pose.process(frameRGB)   
         if results.pose_landmarks != None:
             for lm in results.pose_landmarks.landmark:
-                poseLandmarks.append((int(lm.x*dispW),int(lm.y*dispH)))
-        return poseLandmarks
+                myPoses.append((int(lm.x*dispW),int(lm.y*dispH)))
+        return myPoses
 
 def findDist(poseData):
     distMatrix=np.zeros([len(poseData),len(poseData)],dtype='float')
     #coreSize=((poseData[0][12]-poseData[][])**2+(poseData[][]-poseData[][])**2)**(1./2.)
     for row in range(0,len(poseData)):
         for column in range(0,len(poseData)):
-            distMatrix[row][column]=((((poseData[row][0]-poseData[column][0])**2+(poseData[row][1]-poseData[column][1])**2))**(1/2))
+            distMatrix[row][column]=(((poseData[row][0]-poseData[column][0])**2+(poseData[row][1]-poseData[column][1])**2))**(1./2.)
     return distMatrix
  
 def findError(poseMatrix,unknownMatrix,keypoints):
@@ -48,14 +49,15 @@ def findPose(unknownPose,knownPose,keypoints,poseNames,tol):
             errorMin=errorArray[i]
             minIndex=i
         if errorMin<tol:
-            pose=poseNames[minIndex]
+            po=poseNames[minIndex]
         if errorMin>=tol:
-            pose='Unknown'
-        return pose
+            po='Unknown'
+        return po
 
 picam2=Picamera2(0)
 dispW=720
 dispH=480
+time.sleep(1)
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
 picam2.configure(camera_config)
 picam2.start()
@@ -69,10 +71,9 @@ rColor=(0,0,255)
 
 keypoints=[0,7,8,11,13,15,19,12,14,16,20,23,25,27,31,24,26,28,32]
 findPose=mpPose()
-pose=mp.solutions.pose.Pose(False, False, True,True,True)
+#pose=mp.solutions.pose.Pose(False, False, True,True,True)
 mpDraw=mp.solutions.drawing_utils
 
-#landmarks=[]
 train=int(input('Enter 1 to train, Enter 0 to run '))
 if train==1:
     trainCount=0
@@ -84,14 +85,14 @@ if train==1:
         name=input(prompt)
         poseNames.append(name)
     print(poseNames)
-    trainFile=input('Enter training data file.  Press Enter for Default ')
+    trainFile=input('Enter training data file.  Press Enter for default ')
     if trainFile=='':
-        trainFile='Default'
+        trainFile='default'
     trainFile=trainFile+'.pkl'
 if train==0:
-    trainFile=input('What training data do you want to use? Press enter for Default  ')
+    trainFile=input('What training data do you want to use? Press enter for default  ')
     if trainFile=='':
-        trainFile='Default'
+        trainFile='default'
     trainFile=trainFile+'.pkl'
     with open(trainFile, 'rb') as f:
         poseNames=pickle.load(f)
@@ -109,9 +110,12 @@ while True:
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
     poseData=findPose.Marks(frame)
-    results=pose.process(frameRGB)
+    #results=pose.process(frameRGB)
     #print(results)
+    #landmarks=[]
     #if results.pose_landmarks != None:
+        #for lm in results.pose_landmarks.landmark:
+            #landmarks.append((lm.x,lm.y))
     if train == 1:
         if poseData!=[]:
             #if results.pose_landmarks != None:
