@@ -10,11 +10,11 @@ from picamera2 import Picamera2, Preview
 class mpPose:
     import mediapipe as mp
     def __init__(self,still=False,upperBody=False,smoothData=True):
-        self.pose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
+        self.mypose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
     def Marks(self,frame):
         poseLandmarks=[]
         frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
-        results=self.pose.process(frameRGB)   
+        results=self.mypose.process(frameRGB)   
         if results.pose_landmarks != None:
             for lm in results.pose_landmarks.landmark:
                 poseLandmarks.append((int(lm.x*dispW),int(lm.y*dispH)))
