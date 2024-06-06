@@ -16,6 +16,7 @@ class mpPose:
             for lm in results.pose_landmarks.landmark:
                 poseLandmarks.append((int(lm.x*dispW),int(lm.y*dispH)))
             return poseLandmarks
+
 picam2=Picamera2(0)
 dispW=720
 dispH=480
@@ -36,7 +37,7 @@ mpDraw=mp.solutions.drawing_utils
 
 while True:
     tStart=time.time()
-    frame=picam2.capture_array(0)
+    frame=picam2.capture_array()
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
 

@@ -10,19 +10,49 @@ from picamera2 import Picamera2, Preview
 class mpPose:
     import mediapipe as mp
     def __init__(self,still=False,upperBody=False,smoothData=True):
-        self.myPose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
+        self.pose=self.mp.solutions.pose.Pose(still,upperBody,smoothData)
     def Marks(self,frame):
-        frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
-        results=self.myPose.process(frameRGB)
         poseLandmarks=[]
-        if results.pose_landmarks:
+        frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+        results=self.pose.process(frameRGB)   
+        if results.pose_landmarks != None:
             for lm in results.pose_landmarks.landmark:
                 poseLandmarks.append((int(lm.x*dispW),int(lm.y*dispH)))
-            return poseLandmarks
-    def findPose(unknownPose,knownPose,pose,poseNames,tol):
-        errorArray=[]
-        for i in range(0, len(poseNames),1):
-            error=findError()
+        return poseLandmarks
+
+def findDist(poseData):
+    distMatrix=np.zeros([len(poseData),len(poseData)],dtype='float')
+    #coreSize=((poseData[][]-poseData[][])**2+(poseData[][]-poseData[][])**2)**(1./2.)
+    for row in range(0,len(poseData)):
+        for column in range(0,len(poseData)):
+            distMatrix[row][column]=(((poseData[row][0]-poseData[column][0])**2+(poseData[row][1]-poseData[column][1])**2)**(1./2.))
+    return distMatrix
+ 
+def findError(poseMatrix,unknownMatrix,keypoints):
+    error=0
+    for row in keypoints:
+        for column in keypoints:
+            error=error+abs(poseMatrix[row][column] - unknownMatrix[row][column])
+    print(error)
+    return error
+    
+def findPose(unknownPose,knownPose,keypoints,poseNames,tol):
+    errorArray=[]
+    for i in range(0, len(poseNames),1):
+        error=findError(knownPose[i],unknownPose,keypoints)
+        errorArray.append(error)
+    errorMin=errorArray[0]
+    minIndex=0
+    for i in range(0,len(errorArray),1):
+        if errorArray[i]<errorMin:
+            errorMin=errorArray[i]
+            minIndex=i
+        if errorMin<tol:
+            pose=poseNames[minIndex]
+        if errorMin>=tol:
+            pose='Unknown'
+        return pose
+
 picam2=Picamera2(0)
 dispW=720
 dispH=480
@@ -37,8 +67,11 @@ fpsColor=(0,0,255)
 weight=(3)
 rColor=(0,0,255)
 
+keypoints=[0,7,8,11,13,15,19,12,14,16,20,23,25,27,31,24,26,28,32]
+findPose=mpPose()
 pose=mp.solutions.pose.Pose(False, False, True,True,True)
 mpDraw=mp.solutions.drawing_utils
+
 landmarks=[]
 train=int(input('Enter 1 to train, Enter 0 to run '))
 if train==1:
@@ -51,30 +84,35 @@ if train==1:
         name=input(prompt)
         poseNames.append(name)
     print(poseNames)
-    trainFile=input('Enter training data file.  Press Enter for Default')
+    trainFile=input('Enter training data file.  Press Enter for Default ')
     if trainFile=='':
         trainFile='Default'
-        trainFile=trainFile+'.pkl'
-        with open(trainFile, 'rb') as f:
-            poseNames=pickle.load(f)
-            knownPoses=pickle.load(f)
+    trainFile=trainFile+'.pkl'
+if train==0:
+    trainFile=input('What training data do you want to use? Press enter for Default  ')
+    if trainFile=='':
+        trainFile='Default'
+    trainFile=trainFile+'.pkl'
+    with open(trainFile, 'rb') as f:
+        poseNames=pickle.load(f)
+        knownPoses=pickle.load(f)
             
-total=10
-
+tol=10
 while True:
     tStart=time.time()
     frame=picam2.capture_array()
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
-
-    results=pose.process(frameRGB)
+    poseData=findPose.Marks(frame)
+    #results=pose.process(frameRGB)
     #print(results)
     if train == 1:
-        if results.pose_landmarks != None:
-            mpDraw.draw_landmarks(frame, poseNames, mp.solutions.pose.POSE_CONNECTIONS)
+        if poseData!=[]:
+        #if results.pose_landmarks != None:
+            #mpDraw.draw_landmarks(frame, poseNames, mp.solutions.pose.POSE_CONNECTIONS)
             print('Please show pose',poseNames[trainCount],': Press s to Start')
             if cv2.waitKey(1) & 0xff==ord('s'):
-                knownPose=poseNames
+                knownPose=findDist(poseData[0])
                 knownPoses.append(knownPose)
                 trainCount=trainCount+1
                 if trainCount==numPoses:
@@ -82,11 +120,15 @@ while True:
                     with open(trainFile,'wb') as f:
                         pickle.dump(poseNames,f)
                         pickle.dump(knownPoses,f)
-    #if train == 0:
-    #    if results.pose_landmarks != None:
-    #        unknownPose=0
-    #        myPose=findPose(unknownPose,knownPose,results.pose_landmarks,poseNames,tol)
-    
+    if train == 0:
+        if poseData!=[]:
+        #if results.pose_landmarks != None:
+            unknownPose=findDist(poseData[0])
+            myPose=findPose(unknownPose,knownPose,keypoints,poseNames,tol)
+            cv2.putText(frame, myPose,(100,160),cv2.FONT_HERSHEY_SIMPLEX,3,(255,0,0),8)
+    for body in poseData:
+        for joint in keypoints:
+            cv2.circle(frame,body[joint],25,(0,255,0),3)    
     cv2.imshow("picam pose", frame)
     if cv2.waitKey(1)==ord('q'):
         break
