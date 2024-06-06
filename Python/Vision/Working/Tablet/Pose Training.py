@@ -22,10 +22,10 @@ class mpPose:
 
 def findDist(poseData):
     distMatrix=np.zeros([len(poseData),len(poseData)],dtype='float')
-    #coreSize=((poseData[][]-poseData[][])**2+(poseData[][]-poseData[][])**2)**(1./2.)
+    #coreSize=((poseData[0][12]-poseData[][])**2+(poseData[][]-poseData[][])**2)**(1./2.)
     for row in range(0,len(poseData)):
         for column in range(0,len(poseData)):
-            distMatrix[row][column]=(((poseData[row][0]-poseData[column][0])**2+(poseData[row][1]-poseData[column][1])**2)**(1./2.))
+            distMatrix[row][column]=((((poseData[row][0]-poseData[column][0])**2+(poseData[row][1]-poseData[column][1])**2))**(1/2))
     return distMatrix
  
 def findError(poseMatrix,unknownMatrix,keypoints):
@@ -72,7 +72,7 @@ findPose=mpPose()
 pose=mp.solutions.pose.Pose(False, False, True,True,True)
 mpDraw=mp.solutions.drawing_utils
 
-landmarks=[]
+#landmarks=[]
 train=int(input('Enter 1 to train, Enter 0 to run '))
 if train==1:
     trainCount=0
@@ -96,20 +96,26 @@ if train==0:
     with open(trainFile, 'rb') as f:
         poseNames=pickle.load(f)
         knownPoses=pickle.load(f)
-            
+
+  
+circleRadius=5
+circleColor=(0,0,255)
+circleThickness=2          
 tol=10
+
 while True:
     tStart=time.time()
     frame=picam2.capture_array()
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
     poseData=findPose.Marks(frame)
-    #results=pose.process(frameRGB)
+    results=pose.process(frameRGB)
     #print(results)
+    #if results.pose_landmarks != None:
     if train == 1:
         if poseData!=[]:
-        #if results.pose_landmarks != None:
-            #mpDraw.draw_landmarks(frame, poseNames, mp.solutions.pose.POSE_CONNECTIONS)
+            #if results.pose_landmarks != None:
+                #mpDraw.draw_landmarks(frame, poseNames, mp.solutions.pose.POSE_CONNECTIONS)
             print('Please show pose',poseNames[trainCount],': Press s to Start')
             if cv2.waitKey(1) & 0xff==ord('s'):
                 knownPose=findDist(poseData[0])
@@ -122,13 +128,14 @@ while True:
                         pickle.dump(knownPoses,f)
     if train == 0:
         if poseData!=[]:
-        #if results.pose_landmarks != None:
+            #if results.pose_landmarks != None:
             unknownPose=findDist(poseData[0])
             myPose=findPose(unknownPose,knownPose,keypoints,poseNames,tol)
             cv2.putText(frame, myPose,(100,160),cv2.FONT_HERSHEY_SIMPLEX,3,(255,0,0),8)
     for body in poseData:
-        for joint in keypoints:
-            cv2.circle(frame,body[joint],25,(0,255,0),3)    
+        for point in keypoints:
+            #mpDraw.draw_landmarks(frame,results.pose_landmarks,mp.solutions.pose.POSE_CONNECTIONS)
+            cv2.circle(frame,poseData[point],circleRadius, circleColor, circleThickness)    
     cv2.imshow("picam pose", frame)
     if cv2.waitKey(1)==ord('q'):
         break
