@@ -1,0 +1,76 @@
+import cv2
+import time
+import numpy as np
+import mediapipe as mp
+import os
+import pickle
+from picamera2 import Picamera2
+
+class MediaPipePose:
+    def __init__(self, still=False, upper_body=False, smooth_data=True):
+        self.pose = mp.solutions.pose.Pose(still, upper_body, smooth_data)
+
+    def get_landmarks(self, frame):
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = self.pose.process(frame_rgb)   
+        landmarks = []
+        if results.pose_landmarks is not None:
+            for lm in results.pose_landmarks.landmark:
+                landmarks.append((int(lm.x * dispW), int(lm.y * dispH)))
+        return landmarks
+
+def find_distances(pose_data):
+    num_points = len(pose_data)
+    dist_matrix = np.zeros((num_points, num_points), dtype='float')
+    for i in range(num_points):
+        for j in range(num_points):
+            dist_matrix[i, j] = np.sqrt((pose_data[i][0] - pose_data[j][0]) ** 2 + 
+                                        (pose_data[i][1] - pose_data[j][1]) ** 2)
+    return dist_matrix
+
+def find_error(pose_matrix, unknown_matrix, keypoints):
+    error = 0
+    for row in keypoints:
+        for column in keypoints:
+            error += abs(pose_matrix[row][column] - unknown_matrix[row][column])
+    return error
+
+def find_pose(unknown_pose, known_poses, keypoints, pose_names, tol):
+    error_array = []
+    for i, known_pose in enumerate(known_poses):
+        error = find_error(known_pose, unknown_pose, keypoints)
+        error_array.append(error)
+    min_error = min(error_array)
+    if min_error < tol:
+        min_index = error_array.index(min_error)
+        return pose_names[min_index]
+    else:
+        return 'Unknown'
+
+picam2 = Picamera2(0)
+dispW, dispH = 720, 480
+time.sleep(1)
+camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW, dispH)})
+picam2.configure(camera_config)
+picam2.start()
+
+fps, train = 0, True
+pose_estimator = MediaPipePose()
+
+while True:
+    t_start = time.time()
+    frame = picam2.capture_array()
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    landmarks = pose_estimator.get_landmarks(frame)
+    
+    # Your processing code here...
+    
+    cv2.imshow("MediaPipe Pose", frame)
+    if cv2.waitKey(1) == ord('q'):
+        break
+    
+    t_end = time.time()
+    loop_time = t_end - t_start
+    fps = 0.9 * fps + 0.1 * (1 / loop_time)
+
+cv2.destroyAllWindows()

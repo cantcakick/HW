@@ -28,7 +28,7 @@ def findDist(poseData):
         for column in range(0,len(poseData)):
             distMatrix[row][column]=(((poseData[row][0]-poseData[column][0])**2+(poseData[row][1]-poseData[column][1])**2))**(1./2.)
     return distMatrix
- 
+
 def findError(poseMatrix,unknownMatrix,keypoints):
     error=0
     for row in keypoints:
@@ -36,7 +36,7 @@ def findError(poseMatrix,unknownMatrix,keypoints):
             error=error+abs(poseMatrix[row][column] - unknownMatrix[row][column])
     print(error)
     return error
-    
+
 def findPose(unknownPose,knownPose,keypoints,poseNames,tol):
     errorArray=[]
     for i in range(0, len(poseNames),1):
@@ -98,7 +98,7 @@ if train==0:
         poseNames=pickle.load(f)
         knownPoses=pickle.load(f)
 
-  
+
 circleRadius=5
 circleColor=(0,0,255)
 circleThickness=2          
