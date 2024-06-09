@@ -1,4 +1,3 @@
-#on first run navigate to file location and run sudo python Pose.py
 import cv2
 import time
 import numpy as np
@@ -28,10 +27,8 @@ while True:
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
 
-    results=pose.process(frameRGB)
-    #print(results)
-    if results.pose_landmarks != None:
-        mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
+#insert code
+
     cv2.imshow("picam", frame)
 
     if cv2.waitKey(1)==ord('q'):

@@ -70,7 +70,7 @@ weight=(3)
 rColor=(0,0,255)
 
 keypoints=[0,7,8,11,13,15,19,12,14,16,20,23,25,27,31,24,26,28,32]
-findPose=mpPose()
+findP=mpPose()
 #pose=mp.solutions.pose.Pose(False, False, True,True,True)
 mpDraw=mp.solutions.drawing_utils
 
@@ -109,8 +109,8 @@ while True:
     frame=picam2.capture_array()
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
-    poseData=findPose.Marks(frame)
-    #results=pose.process(frameRGB)
+    poseData=findP.Marks(frame)
+    #results=findP.pose.process(frameRGB)
     #print(results)
     #landmarks=[]
     #if results.pose_landmarks != None:
