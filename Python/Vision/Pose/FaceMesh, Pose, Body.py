@@ -7,7 +7,7 @@ picam2=Picamera2(0)
 
 class mpFaceMesh:
     import mediapipe as mp
-    def __init__(self,still=False,numFaces=2,tol1=.5,tol2=.5,drawMesh=True):
+    def __init__(self,still=False,numFaces=3,drawMesh=True):
         self.myFaceMesh=self.mp.solutions.face_mesh.FaceMesh(still,numFaces)
         self.myDraw=self.mp.solutions.drawing_utils
         self.draw=drawMesh
@@ -95,8 +95,9 @@ font=cv2.FONT_HERSHEY_DUPLEX
 height=1.5
 fpsColor=(0,0,255)
 weight=(3)
-rColor=(0,0,255)
-
+tColor=(0,0,255)
+tSize=.1
+tThick=1
 #pose=mp.solutions.pose.Pose(False, False, True,True,True)
 #mpDraw=mp.solutions.drawing_utils
 
@@ -113,15 +114,26 @@ while True:
     frame=picam2.capture_array()
     frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
-#insert code
     handsLM,handsType=findHands.Marks(frame)
     faceLoc=findFace.Marks(frame)
     poseLM=findPose.Marks(frame)
-    faceMeshLM=findMesh.Marks(frame)
+    facesMeshLM=findMesh.Marks(frame)
     if poseLM != []:
         for ind in keypoints:
             cv2.circle(frame,poseLM[ind],circleRadius, circleColor, circleThickness)
-
+        for face in faceLoc:
+            cv2.rectangle(frame,face[0],face[1],(255,0,0),3)
+        for hand,handType in zip (handsLM, handsType):
+            if handType=='Right':
+                lbl='Right'
+            if handType=='Left':
+                lbl='Left'
+            cv2.putText(frame(lbl,hand[8],font,2,tColor,2))
+        #for faceMeshLM in facesMeshLM:
+        #    cnt=0
+        #    for lm in faceMeshLM:
+        #        cv2.putText(frame,str(cnt),lm,font,tSize,tColor,tThick)
+        #        cnt=cnt+1
 
     cv2.imshow("picam", frame)
 

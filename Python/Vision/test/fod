@@ -1,0 +1,139 @@
+import cv2
+import time
+import numpy as np
+import mediapipe as mp
+import pickle
+from picamera2 import Picamera2, Preview
+picam2=Picamera2(0)
+
+class mpHands:
+    import mediapipe as mp
+    def __init__(self,maxHands=2):
+        self.hands=self.mp.solutions.hands.Hands(False,maxHands)
+    def Marks(self,frame):
+        myHands=[]
+        frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+        results=self.hands.process(frameRGB)
+        if results.multi_hand_landmarks != None:
+            for handLandMarks in results.multi_hand_landmarks:
+                myHand=[]
+                for landMark in handLandMarks.landmark:
+                    myHand.append((int(landMark.x*dispW),int(landMark.y*dispH)))
+                myHands.append(myHand)
+        return myHands
+def findDistances(handData):
+    distMatrix=np.zeros([len(handData),len(handData)],dtype='float')
+    palmSize=((handData[0][0]-handData[9][0])**2+(handData[0][1]-handData[9][1])**2)**(1./2.)
+    for row in range(0,len(handData)):
+        for column in range(0,len(handData)):
+            distMatrix[row][column]=(((handData[row][0]-handData[column][0])**2+(handData[row][1]-handData[column][1])**2)**(1./2.))/palmSize
+    return distMatrix
+ 
+def findError(gestureMatrix,unknownMatrix,keyPoints):
+    error=0
+    for row in keyPoints:
+        for column in keyPoints:
+            error=error+abs(gestureMatrix[row][column]-unknownMatrix[row][column])
+    print(error)
+    return error
+def findGesture(unknownGesture,knownGestures,keyPoints,gestNames,tol):
+    errorArray=[]
+    for i in range(0,len(gestNames),1):
+        error=findError(knownGestures[i],unknownGesture,keyPoints)
+        errorArray.append(error)
+    errorMin=errorArray[0]
+    minIndex=0
+    for i in range(0,len(errorArray),1):
+        if errorArray[i]<errorMin:
+            errorMin=errorArray[i]
+            minIndex=i
+    if errorMin<tol:
+        gesture=gestNames[minIndex]
+    if errorMin>=tol:
+        gesture='Unknown'
+    return gesture
+
+dispW=720
+dispH=480
+camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
+picam2.configure(camera_config)
+picam2.start()
+fps=0
+pos=(20,40)
+font=cv2.FONT_HERSHEY_DUPLEX
+height=1.5
+fpsColor=(0,0,255)
+weight=(3)
+rColor=(0,0,255)
+
+findHands=mpHands(1)
+time.sleep(5)
+keyPoints=[0,4,5,9,13,17,8,12,16,20]
+
+train=int(input('Enter 1 to Train, Enter 0 to Recognize '))
+if train==1:
+    trainCnt=0
+    knownGestures=[]
+    numGest=int(input('How Many Gestures Do You Want? '))
+    gestNames=[]
+    for i in range(0,numGest,1):
+        prompt='Name of Gesture #'+str(i+1)+' '
+        name=input(prompt)
+        gestNames.append(name)
+    print(gestNames)
+    trainName=input('Filename for training data? (Press Enter for Default) ')
+    if trainName=='':
+        trainName='default'
+    trainName=trainName+'.pkl'
+if train==0:
+    trainName=input('What Training Data Do You Want to Use? (Press Enter for Default) ')
+    if trainName=='':
+        trainName='default'
+    trainName=trainName+'.pkl'
+    with open(trainName,'rb') as f:
+        gestNames=pickle.load(f)
+        knownGestures=pickle.load(f)
+
+tol=10
+
+pose=mp.solutions.pose.Pose(False, False, True,True,True)
+mpDraw=mp.solutions.drawing_utils
+
+while True:
+    tStart=time.time()
+    frame=picam2.capture_array()
+    frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    cv2.putText(frame, str(int(fps))+' FPS', pos, font, height, fpsColor, weight)
+
+#insert code
+    handData=findHands.Marks(frame)
+    if train==1:
+        if handData!=[]:
+            print('Please Show Gesture ',gestNames[trainCnt],': Press t when Ready')
+            if cv2.waitKey(1) & 0xff==ord('t'):
+                knownGesture=findDistances(handData[0])
+                knownGestures.append(knownGesture)
+                trainCnt=trainCnt+1
+                if trainCnt==numGest:
+                    train=0
+                    with open(trainName,'wb') as f:
+                        pickle.dump(gestNames,f)
+                        pickle.dump(knownGestures,f)
+    if train == 0:
+        if handData!=[]:
+            unknownGesture=findDistances(handData[0])
+            myGesture=findGesture(unknownGesture,knownGestures,keyPoints,gestNames,tol)
+            #error=findError(knownGesture,unknownGesture,keyPoints)
+            cv2.putText(frame,myGesture,(100,175),cv2.FONT_HERSHEY_SIMPLEX,3,(255,0,0),8)
+    for hand in handData:
+        for ind in keyPoints:
+            cv2.circle(frame,hand[ind],25,(255,0,255),3)
+
+
+    cv2.imshow("picam", frame)
+
+    if cv2.waitKey(1)==ord('q'):
+        break
+    tEnd=time.time()
+    loopTime=tEnd-tStart
+    fps=.9*fps + .1*(1/loopTime)
