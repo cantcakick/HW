@@ -80,7 +80,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         except:
             pass
         #Status box
-        cv2.rectangle(frame,(0,0),(dispW-180,70), (225,25,55), -1)
+        #cv2.rectangle(frame,(0,0),(dispW-180,70), (225,25,55), -1)
         #Reps
         cv2.putText(frame,'Jab',(15,12),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,str(jabcounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA)
@@ -88,7 +88,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         cv2.putText(frame,str(crosscounter),(100,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA)
 
         #Stance
-        cv2.putText(frame,"Stance",(220,12),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,0),1,cv2.LINE_AA)
+        cv2.putText(frame,"Stance",(220,12),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,stance,(220,60),cv2.FONT_HERSHEY_SIMPLEX,2,(0,0,255),2,cv2.LINE_AA)
         
         if results.pose_landmarks != None:
