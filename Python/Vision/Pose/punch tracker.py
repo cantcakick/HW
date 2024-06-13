@@ -28,6 +28,8 @@ lKneecounter=0
 rKneecounter=0
 lKickcounter=0
 rKickcounter=0
+lTeepcounter=0
+rTeepcounter=0
 stance=None
 def calculate_angle(a,b,c):
     a=np.array(a)
@@ -67,13 +69,16 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             rHip=[landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
             rKnee=[landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
             rAnkle=[landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
+            lToe=[landmarks[mp_pose.PoseLandmark.LEFT_FOOT_INDEX.value].x,landmarks[mp_pose.PoseLandmark.LEFT_FOOT_INDEX.value].y]
+            rToe=[landmarks[mp_pose.PoseLandmark.RIGHT_FOOT_INDEX.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_FOOT_INDEX.value].y]
+
 
             lArmAngle=calculate_angle(lShoulder,lElbow,lWrist)
             rArmAngle=calculate_angle(rShoulder,rElbow,rWrist)
             lKneeAngle=calculate_angle(lHip,lKnee,lAnkle)
             rKneeAngle=calculate_angle(rHip,rKnee,rAnkle)
-            lLegAngle=calculate_angle(head,lHip,lAnkle)
-            rLegAngle=calculate_angle(head,rHip,rAnkle)
+            lTeepAngle=calculate_angle(lToe,lHip,rAnkle)
+            rTeepAngle=calculate_angle(rToe,rHip,lAnkle)
             #Show angle
             #cv2.putText(frameRGB,str(lAngle), tuple(np.multiply(lElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
             #cv2.putText(frameRGB,str(rAngle), tuple(np.multiply(rElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
@@ -90,32 +95,31 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
                 stance="guard"
                 crosscounter +=1
                 print(crosscounter)
-            if lKneeAngle < 70:
+            if lKneeAngle < 50:
                 stance="Left Knee"
-            if lKneeAngle > 90 and stance=="Left Knee":
+            if lKneeAngle > 120 and stance=="Left Knee":
                 stance="guard"
                 lKneecounter +=1
                 print(lKneecounter)
-            if rKneeAngle < 70:
+            if rKneeAngle < 50:
                 stance="Right Knee"
-            if rKneeAngle > 90 and stance=="Right Knee":
+            if rKneeAngle > 120 and stance=="Right Knee":
                 stance="guard"
                 rKneecounter +=1
                 print(rKneecounter)
-            if lLegAngle < 80:
+            if lTeepAngle > 90:
                 stance="Kick"
-            if lLegAngle > 130 and stance=="Left Kick":
+            if lTeepAngle < 60 and stance=="Left Teep":
                 stance="guard"
-                lKickcounter +=1
-                print(lKickcounter)
-            if rLegAngle < 80:
+                lTeepcounter +=1
+                print(lTeepcounter)             
+            if rTeepAngle > 90:
                 stance="cross"
-            if rLegAngle > 130 and stance=="Righ Kick":
+            if rTeepAngle < 60 and stance=="Righ Kick":
                 stance="guard"
-                rKickcounter +=1
-                print(rKickcounter)
-            else:
-                stance="Neutral"    
+                rTeepcounter +=1
+                print(rTeepcounter)
+  
             
             
         except:
@@ -132,9 +136,9 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #cv2.putText(frame,str(lKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,'Right Knee:'+str(rKneecounter),(120,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(rKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Left Kick:'+str(lKickcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Left Teep:'+str(lTeepcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(lKickcounter),(10,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Right Kick:'+str(rKickcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Right Teep:'+str(rTeepcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(rKickcounter),(10,0),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
 
         #Stance
