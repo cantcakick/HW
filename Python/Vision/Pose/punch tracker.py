@@ -30,6 +30,8 @@ lKickcounter=0
 rKickcounter=0
 lTeepcounter=0
 rTeepcounter=0
+lUppercut=0
+rUppercut=0
 stance=None
 def calculate_angle(a,b,c):
     a=np.array(a)
@@ -83,37 +85,37 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             #cv2.putText(frameRGB,str(lAngle), tuple(np.multiply(lElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
             #cv2.putText(frameRGB,str(rAngle), tuple(np.multiply(rElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
 
-            if lArmAngle > 130:
+            if lArmAngle >= 130:
                 stance="jab"
-            if lArmAngle < 30 and stance=="jab":
+            if lArmAngle < 50 and stance=="jab":
                 stance="guard"
                 jabcounter +=1
                 print(jabcounter)
-            if rArmAngle > 160:
+            if rArmAngle >= 130:
                 stance="cross"
-            if rArmAngle < 30 and stance=="cross":
+            if rArmAngle < 50 and stance=="cross":
                 stance="guard"
                 crosscounter +=1
                 print(crosscounter)
-            if lKneeAngle < 50:
+            if lKneeAngle <= 70:
                 stance="Left Knee"
-            if lKneeAngle > 120 and stance=="Left Knee":
+            if lKneeAngle > 80 and stance=="Left Knee":
                 stance="guard"
                 lKneecounter +=1
                 print(lKneecounter)
-            if rKneeAngle < 50:
+            if rKneeAngle <= 60:
                 stance="Right Knee"
-            if rKneeAngle > 120 and stance=="Right Knee":
+            if rKneeAngle > 70 and stance=="Right Knee":
                 stance="guard"
                 rKneecounter +=1
                 print(rKneecounter)
-            if lTeepAngle > 90:
+            if lTeepAngle >= 90:
                 stance="Kick"
             if lTeepAngle < 60 and stance=="Left Teep":
                 stance="guard"
                 lTeepcounter +=1
                 print(lTeepcounter)             
-            if rTeepAngle > 90:
+            if rTeepAngle >= 90:
                 stance="cross"
             if rTeepAngle < 60 and stance=="Righ Kick":
                 stance="guard"
