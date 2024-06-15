@@ -76,11 +76,14 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
 
 
             lArmAngle=calculate_angle(lShoulder,lElbow,lWrist)
-            rArmAngle=calculate_angle(rShoulder,rElbow,rWrist)
+            rArmAngle=calculate_angle(rShoulder,rElbow,rWrist) 
+            lArmPitAngle=calculate_angle(lHip,lShoulder,lElbow)
+            rArmPitAngle=calculate_angle(rHip,rShoulder,rElbow)
             lKneeAngle=calculate_angle(lHip,lKnee,lAnkle)
             rKneeAngle=calculate_angle(rHip,rKnee,rAnkle)
             lTeepAngle=calculate_angle(lToe,lHip,rAnkle)
             rTeepAngle=calculate_angle(rToe,rHip,lAnkle)
+            groinAngle=calculate_angle(lKnee,rHip,rKnee)
             #Show angle
             #cv2.putText(frameRGB,str(lAngle), tuple(np.multiply(lElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
             #cv2.putText(frameRGB,str(rAngle), tuple(np.multiply(rElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
