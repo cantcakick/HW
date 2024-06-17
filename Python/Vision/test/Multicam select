@@ -89,7 +89,7 @@ while True:
         tEnd=time.time()
         loopTime=tEnd-tStart    
         fps=.9*fps + .1*(1/loopTime)  
-    if camera is '1':
+    elif camera is '1':
         frame2=webcam.capture_array()
         frame2RGB=cv2.cvtColor(frame2,cv2.COLOR_BGR2RGB)
         cv2.putText(frame2RGB, str(int(wfps))+' wFPS', pos, font, height, fpsColor, weight)
@@ -111,7 +111,7 @@ while True:
         wEnd=time.time()
         wloopTime=wEnd-wStart    
         wfps=.9*wfps + .1*(1/wloopTime)        
-    if camera is '2':
+    elif camera is '2':
         frame3=pihdmi.capture_array()
         cv2.putText(frame3, str(int(hfps))+' hFPS', pos, font, height, fpsColor, weight)
         hStart=time.time()
