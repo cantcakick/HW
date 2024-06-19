@@ -26,6 +26,7 @@ jabcounter=0
 crosscounter=0
 lUcutcounter=0
 rUcutcounter=0
+lHookcounter=0
 lKneecounter=0
 rKneecounter=0
 lKickcounter=0
@@ -112,7 +113,12 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #        print(lUcutcounter)
         #    if rArmAngle and :
         #        stance="Right Uppercut"
-        #    if rArmAngle and stance=="Right Uppercut"            
+        #    if rArmAngle and stance=="Right Uppercut" 
+            if 70 >= lArmAngle >= 130 and lArmPitAngle >= 60 :
+                stance="Left Hook"
+            if lArmPitAngle < 50 and stance=="Left Hook":
+                stance="guard"
+                lHookcounter += 1           
 #Muay Thai
 
             if 70 >= lKneeAngle >= 10:
@@ -162,6 +168,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #cv2.putText(frame,str(jabcounter),(50,25),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,'Cross:'+str(crosscounter),(15,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)        
         #cv2.putText(frame,str(crosscounter),(70,55),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Left Hook: '+str(lHookcounter),(15,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,'Left Knee:'+str(lKneecounter),(120,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(lKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,'Right Knee:'+str(rKneecounter),(120,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
