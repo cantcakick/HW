@@ -148,6 +148,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             if rKickAngle <=90 and groinAngle >= 90:
                 stance="Right Kick"
             if rKickAngle >110 and stance=="Right Kick":
+                stance="guard"
                 rKickcounter +=1
                 print(rKickcounter)            
             
