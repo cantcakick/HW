@@ -3,8 +3,9 @@ import time
 import numpy as np
 import mediapipe as mp
 from picamera2 import Picamera2, Preview
+import tkinter as tk
 import pickle
-picam2=Picamera2(0)
+picam2=Picamera2(1)
 
 dispW=720
 dispH=480
@@ -32,8 +33,11 @@ lKickcounter=0
 rKickcounter=0
 lTeepcounter=0
 rTeepcounter=0
-
 stance=None
+
+#cv2.namedWindow('Tracker')
+
+
 def calculate_angle(a,b,c):
     a=np.array(a)
     b=np.array(b)
@@ -54,6 +58,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #frameRGB.flags.writeable=False
         cv2.putText(frame, str(int(fps))+'FPS', pos, font, height, fpsColor, weight)
         results=pose.process(frameRGB)
+
     #    if results.pose_landmarks != None:
     #        mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
         try:
@@ -150,7 +155,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             if rKickAngle >110 and stance=="Right Kick":
                 rKickcounter +=1
                 print(rKickcounter)            
-            
+   
         except:
             pass
         #Status box
@@ -188,3 +193,13 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         tEnd=time.time()
         loopTime=tEnd-tStart
         fps=.9*fps + .1*(1/loopTime)
+
+'''        window=tk.Tk()
+        jabLabel=tk.Label(window,text="Jabs: "+str(jabcounter))
+        crossLabel=tk.Label(window,text="Cross: "+str(crosscounter))
+        leftKickLabel=tk.Label(window, text="Left Kick: "+str(lKickcounter))
+        rightKickLabel=tk.Label(window, text="Right Kick: "+str(rKickcounter))
+        leftKneeLabel=tk.Label(window,text="Left Knee: "+str(lKneecounter))
+        rightKneeLabel=tk.Label(window,text="Right Knee: "+str(rKneecounter))
+        wFrame=tk.Frame(window)
+        window.mainloop() '''

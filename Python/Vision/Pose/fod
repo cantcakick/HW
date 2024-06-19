@@ -6,6 +6,7 @@ import pickle
 from picamera2 import Picamera2, Preview
 picam2=Picamera2(0)
 
+#should it be mpHands()?
 class mpHands:
     import mediapipe as mp
     def __init__(self,maxHands=2):

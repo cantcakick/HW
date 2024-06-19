@@ -24,14 +24,15 @@ mp_pose=mp.solutions.pose
 mpDraw=mp.solutions.drawing_utils
 jabcounter=0
 crosscounter=0
+lUcutcounter=0
+rUcutcounter=0
 lKneecounter=0
 rKneecounter=0
 lKickcounter=0
 rKickcounter=0
 lTeepcounter=0
 rTeepcounter=0
-lUppercut=0
-rUppercut=0
+
 stance=None
 def calculate_angle(a,b,c):
     a=np.array(a)
@@ -65,67 +66,90 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             lHip=[landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
             lKnee=[landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
             lAnkle=[landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value].y]
+            lToe=[landmarks[mp_pose.PoseLandmark.LEFT_FOOT_INDEX.value].x,landmarks[mp_pose.PoseLandmark.LEFT_FOOT_INDEX.value].y]
             rShoulder=[landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
             rElbow=[landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
             rWrist=[landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
             rHip=[landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
             rKnee=[landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value].y]
             rAnkle=[landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value].y]
-            lToe=[landmarks[mp_pose.PoseLandmark.LEFT_FOOT_INDEX.value].x,landmarks[mp_pose.PoseLandmark.LEFT_FOOT_INDEX.value].y]
             rToe=[landmarks[mp_pose.PoseLandmark.RIGHT_FOOT_INDEX.value].x,landmarks[mp_pose.PoseLandmark.RIGHT_FOOT_INDEX.value].y]
 
 
             lArmAngle=calculate_angle(lShoulder,lElbow,lWrist)
-            rArmAngle=calculate_angle(rShoulder,rElbow,rWrist) 
+            rArmAngle=calculate_angle(rShoulder,rElbow,rWrist)
             lArmPitAngle=calculate_angle(lHip,lShoulder,lElbow)
             rArmPitAngle=calculate_angle(rHip,rShoulder,rElbow)
             lKneeAngle=calculate_angle(lHip,lKnee,lAnkle)
             rKneeAngle=calculate_angle(rHip,rKnee,rAnkle)
             lTeepAngle=calculate_angle(lToe,lHip,rAnkle)
             rTeepAngle=calculate_angle(rToe,rHip,lAnkle)
-            groinAngle=calculate_angle(lKnee,rHip,rKnee)
+            lKickAngle=calculate_angle(lToe,lHip,lShoulder)
+            rKickAngle=calculate_angle(rToe,rHip,rShoulder)
+            groinAngle=calculate_angle(lKnee,lHip,rKnee)
+
             #Show angle
             #cv2.putText(frameRGB,str(lAngle), tuple(np.multiply(lElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
             #cv2.putText(frameRGB,str(rAngle), tuple(np.multiply(rElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
-
-            if lArmAngle >= 130:
+#Boxing
+            if 180 > lArmAngle > 130:
                 stance="jab"
-            if lArmAngle < 50 and stance=="jab":
+            if lArmAngle < 30 and stance=="jab":
                 stance="guard"
                 jabcounter +=1
                 print(jabcounter)
-            if rArmAngle >= 130:
+            if 180 > rArmAngle > 130:
                 stance="cross"
-            if rArmAngle < 50 and stance=="cross":
+            if rArmAngle < 30 and stance=="cross":
                 stance="guard"
                 crosscounter +=1
                 print(crosscounter)
-            if lKneeAngle <= 70:
+        #    if lArmAngle < 90 and :
+        #        stance="Left Uppercut"
+        #    if lArmAngle and stance=="Left Uppercut":
+        #        stance="guard"
+        #        lUcutcounter +=1
+        #        print(lUcutcounter)
+        #    if rArmAngle and :
+        #        stance="Right Uppercut"
+        #    if rArmAngle and stance=="Right Uppercut"            
+#Muay Thai
+
+            if 70 >= lKneeAngle >= 10:
                 stance="Left Knee"
-            if lKneeAngle > 80 and stance=="Left Knee":
+            if lKneeAngle > 120 and stance=="Left Knee":
                 stance="guard"
                 lKneecounter +=1
                 print(lKneecounter)
-            if rKneeAngle <= 60:
+            if 70 >= rKneeAngle >= 10:
                 stance="Right Knee"
-            if rKneeAngle > 70 and stance=="Right Knee":
+            if rKneeAngle > 120 and stance=="Right Knee":
                 stance="guard"
                 rKneecounter +=1
                 print(rKneecounter)
-            if lTeepAngle >= 90:
-                stance="Kick"
+            if 180 >= lTeepAngle >= 130:
+                stance="Left Teep"
             if lTeepAngle < 60 and stance=="Left Teep":
                 stance="guard"
                 lTeepcounter +=1
                 print(lTeepcounter)             
-            if rTeepAngle >= 90:
-                stance="cross"
-            if rTeepAngle < 60 and stance=="Righ Kick":
+            if 180 >= rTeepAngle >= 130:
+                stance="Right Teep"
+            if rTeepAngle < 60 and stance=="Righ Teep":
                 stance="guard"
                 rTeepcounter +=1
                 print(rTeepcounter)
-  
-            
+            if lKickAngle <= 90 and groinAngle >= 90:
+                stance="Left Kick"
+            if lKickAngle > 110 and stance=="Left Kick":
+                stance="guard"
+                lKickcounter +=1
+                print(lKickcounter)
+            if rKickAngle <=90 and groinAngle >= 90:
+                stance="Right Kick"
+            if rKickAngle >110 and stance=="Right Kick":
+                rKickcounter +=1
+                print(rKickcounter)            
             
         except:
             pass
@@ -145,6 +169,10 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #cv2.putText(frame,str(lKickcounter),(10,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
         cv2.putText(frame,'Right Teep:'+str(rTeepcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(rKickcounter),(10,0),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
+    #    cv2.putText(frame,'Left Uppercut:'+str(lUcutcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+    #    cv2.putText(frame,'Right Uppercut:'+str(rUcutcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Left Kick:'+str(lKickcounter),(400,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Right Kick:'+str(rKickcounter),(400,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
 
         #Stance
         cv2.putText(frame,"Stance",(520,12),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
