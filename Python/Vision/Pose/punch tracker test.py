@@ -34,7 +34,9 @@ rKickcounter=0
 lTeepcounter=0
 rTeepcounter=0
 stance=None
-
+velocity=0
+jabVel=0
+crossVel=0
 #cv2.namedWindow('Tracker')
 
 
@@ -49,6 +51,14 @@ def calculate_angle(a,b,c):
         angle=360-angle
     return angle
 
+def calc_vel(d):
+    d=np.array(d)
+    t=(tEnd-tStart)*1000
+    velocity=((d[1]-d[0]))/t
+    roundedV=round(velocity)
+    if velocity > 0:
+        return roundedV
+
 with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pose:
     while True:
         tStart=time.time()
@@ -59,23 +69,23 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         cv2.putText(frame, str(int(fps))+'FPS', pos, font, height, fpsColor, weight)
         results=pose.process(frameRGB)
         
-        window=tk.Tk()
-        window.geometry("360x240")
-        T=tk.Text(window, height=10, width= 60)
-        jabLabel=tk.Label(window,text="Jabs: ")
-        crossLabel=tk.Label(window,text="Cross: ")
-        leftKickLabel=tk.Label(window, text="Left Kick: ")
-        rightKickLabel=tk.Label(window, text="Right Kick: ")
-        leftKneeLabel=tk.Label(window,text="Left Knee: ")
-        rightKneeLabel=tk.Label(window,text="Right Knee: ")
-        jabLabel.pack()
-        crossLabel.pack()
-        leftKickLabel.pack()
-        rightKickLabel.pack()
-        leftKneeLabel.pack()
-        rightKneeLabel.pack()
-        T.insert(tk.END,jabcounter) 
-        labelFrame=tk.Frame(window)
+        #window=tk.Tk()
+        #window.geometry("360x240")
+        #T=tk.Text(window, height=10, width= 60)
+        #jabLabel=tk.Label(window,text="Jabs: ")
+        #crossLabel=tk.Label(window,text="Cross: ")
+        #leftKickLabel=tk.Label(window, text="Left Kick: ")
+        #rightKickLabel=tk.Label(window, text="Right Kick: ")
+        #leftKneeLabel=tk.Label(window,text="Left Knee: ")
+        #rightKneeLabel=tk.Label(window,text="Right Knee: ")
+        #jabLabel.pack()
+        #crossLabel.pack()
+        #leftKickLabel.pack()
+        #rightKickLabel.pack()
+        #leftKneeLabel.pack()
+        #rightKneeLabel.pack()
+        #T.insert(tk.END,jabcounter) 
+        #labelFrame=tk.Frame(window)
 
         
     #    if results.pose_landmarks != None:
@@ -111,6 +121,9 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             lKickAngle=calculate_angle(lToe,lHip,lShoulder)
             rKickAngle=calculate_angle(rToe,rHip,rShoulder)
             groinAngle=calculate_angle(lKnee,lHip,rKnee)
+            jabVel=calc_vel(lWrist)
+            crossVel=calc_vel(rWrist)
+
 
             #Show angle
             #cv2.putText(frameRGB,str(lAngle), tuple(np.multiply(lElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
@@ -182,17 +195,17 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #cv2.rectangle(frame,(0,0),(dispW-180,70), (225,25,55), -1)
         #Reps
         #score=cv2.namedWindow('Score')
-        cv2.putText(frame,'Jab:'+str(jabcounter),(15,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Jab:'+str(jabcounter)+ ' Velocity: '+str(jabVel),(15,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(jabcounter),(50,25),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Cross:'+str(crosscounter),(15,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)        
+        cv2.putText(frame,'Cross:'+str(crosscounter)+ ' Velocity: '+str(crossVel),(15,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)        
         #cv2.putText(frame,str(crosscounter),(70,55),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Left Knee:'+str(lKneecounter),(120,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Left Knee:'+str(lKneecounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(lKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Right Knee:'+str(rKneecounter),(120,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Right Knee:'+str(rKneecounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(rKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Left Teep:'+str(lTeepcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Left Teep:'+str(lTeepcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(lKickcounter),(10,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Right Teep:'+str(rTeepcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Right Teep:'+str(rTeepcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,str(rKickcounter),(10,0),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
     #    cv2.putText(frame,'Left Uppercut:'+str(lUcutcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
     #    cv2.putText(frame,'Right Uppercut:'+str(rUcutcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
@@ -202,7 +215,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #Stance
         cv2.putText(frame,"Stance: " + str(stance),(10,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,stance,(520,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA)
-        
+        #print(jabVel)
         if results.pose_landmarks != None:
             mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
 
