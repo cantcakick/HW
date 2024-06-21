@@ -5,7 +5,7 @@ import mediapipe as mp
 from picamera2 import Picamera2, Preview
 import tkinter as tk
 import pickle
-picam2=Picamera2(1)
+picam2=Picamera2(0)
 
 dispW=720
 dispH=480
@@ -60,7 +60,7 @@ def calc_vel(d):
     t=(tEnd-tStart)*1000
     velocity=((d[1]-d[0]))/t
     roundedV=round(velocity)
-    if velocity > 0:
+    if velocity > 0.1:
         return roundedV
 
 with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pose:
