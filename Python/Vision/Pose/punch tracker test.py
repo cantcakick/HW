@@ -141,13 +141,13 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             if lArmAngle < 30 and stance=="jab":
                 stance="guard"
                 jabcounter +=1
-                print(jabcounter)
+                #print(jabcounter)
             if 180 > rArmAngle > 130:
                 stance="cross"
             if rArmAngle < 30 and stance=="cross":
                 stance="guard"
                 crosscounter +=1
-                print(crosscounter)
+                #print(crosscounter)
         #    if lArmAngle < 90 and :
         #        stance="Left Uppercut"
         #    if lArmAngle and stance=="Left Uppercut":
@@ -164,37 +164,37 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             if lKneeAngle > 120 and stance=="Left Knee":
                 stance="guard"
                 lKneecounter +=1
-                print(lKneecounter)
+                #print(lKneecounter)
             if 70 >= rKneeAngle >= 10:
                 stance="Right Knee"
             if rKneeAngle > 120 and stance=="Right Knee":
                 stance="guard"
                 rKneecounter +=1
-                print(rKneecounter)
+                #print(rKneecounter)
             if lTeepAngle <=140 and groinAngle >=90 :
                 stance="Left Teep"
             if lTeepAngle > 100 and stance=="Left Teep":
                 stance="guard"
                 lTeepcounter +=1
-                print(lTeepcounter)             
+                #print(lTeepcounter)             
             if rTeepAngle <= 130 and groinAngle >=90:
                 stance="Right Teep"
             if rTeepAngle >100 and stance=="Righ Teep":
                 stance="guard"
                 rTeepcounter +=1
-                print(rTeepcounter)
+                #print(rTeepcounter)
             if lKickAngle <= 90 and groinAngle >= 90:
                 stance="Left Kick"
             if lKickAngle > 110 and stance=="Left Kick":
                 stance="guard"
                 lKickcounter +=1
-                print(lKickcounter)
+                #print(lKickcounter)
             if rKickAngle <=90 and groinAngle >= 90:
                 stance="Right Kick"
             if rKickAngle >110 and stance=="Right Kick":
                 stance="guard"
                 rKickcounter +=1
-                print(rKickcounter)            
+                #print(rKickcounter)            
    
         except:
             pass
