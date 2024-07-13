@@ -24,35 +24,35 @@ mp_pose=mp.solutions.pose
 mpDraw=mp.solutions.drawing_utils
 
 class Striking:
-
-
-
-    def counter(self,incr=False):
-        count=0
-        if incr==True:
-            count+=1
-    def jab(self, lArmAngle, stance=None,jabcounter=0):
+    def jab(self, lArmAngle, stance=None):
         jabcounter=0
+        jabVel=0
+        jabVel=calc_vel(lWrist)
         if 180>lArmAngle>120:
             stance='jab'
         if lArmAngle<30 and stance=='jab':
             stance='guard'
             jabcounter+=1
-            print(jabcounter)
-    def cross(self, rArmAngle, stance=None,crosscounter=0):
-        
+            return jabcounter
+        return jabVel
+    def cross(self, rArmAngle, stance=None):
+        crosscounter=0
+        crossVel=0
+        crossVel=calc_vel(rWrist)
         if 180> rArmAngle >120:
             stance='cross'
         if rArmAngle<30 and stance=='cross':
             stance='guard'
-            crosscounter+=1    
+            crosscounter+=1
+            return crosscounter
+        return crossVel    
+
 def calculate_angle(a,b,c):
     a=np.array(a)
     b=np.array(b)
     c=np.array(c)
     radians=np.arctan2(c[1]-b[1],c[0]-b[0])-np.arctan2(a[1]-b[1],a[0]-b[0])
-    angle=np.abs(radians*180.0/np.pi)
-    
+    angle=np.abs(radians*180.0/np.pi)   
     if angle > 180.0:
         angle=360-angle
     return angle
@@ -60,6 +60,7 @@ def calculate_angle(a,b,c):
 def calc_vel(d):
     d=np.array(d)
     t=(tEnd-tStart)*1000
+    velocity=0
     velocity=((d[1]-d[0]))/t
     roundedV=round(velocity)
     if velocity > 0.1:
@@ -70,9 +71,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
     while True:
         tStart=time.time()
         frame=picam2.capture_array()
-        #fullscreen=cv2.namedWindow(frame,cv2.WND_PROP_FULLSCREEN)
         frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        #frameRGB.flags.writeable=False
         cv2.putText(frame, str(int(fps))+'FPS', pos, font, height, fpsColor, weight)
         results=pose.process(frameRGB)
 
