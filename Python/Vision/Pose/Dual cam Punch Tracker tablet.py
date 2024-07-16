@@ -5,12 +5,12 @@ import mediapipe as mp
 from picamera2 import Picamera2, Preview
 import tkinter as tk
 import pickle
-picam2=Picamera2(0)
-webcam=Picamera2(1)
+picam2=Picamera2(1)
+webcam=Picamera2(0)
 dispW=720
 dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
-webcam_config=webcam.create_video_configuration({'format':'XRGB8888','size':(dispW,dispH)})
+webcam_config=webcam.create_video_configuration({'format':'RGB888','size':(dispW,dispH)})
 picam2.configure(camera_config)
 webcam.configure(webcam_config)
 picam2.start()
@@ -76,12 +76,13 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         frame2=webcam.capture_array()
         #fullscreen=cv2.namedWindow(frame,cv2.WND_PROP_FULLSCREEN)
         frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame=frameRGB
         frame2RGB=cv2.cvtColor(frame2,cv2.COLOR_BGR2RGB)
         #frameRGB.flags.writeable=False
         cv2.putText(frame, str(int(fps))+'FPS', pos, font, height, fpsColor, weight)
-        cv2.putText(frame2RGB, str(int(fps))+'FPS', wpos, font, height, fpsColor, weight)
+        cv2.putText(frame2, str(int(fps))+'FPS', wpos, font, height, fpsColor, weight)
         results=pose.process(frameRGB)
-        wresults=pose.process(frame2RGB)
+        wresults=pose.process(frame2)
         #window=tk.Tk()
         #window.geometry("360x240")
         #T=tk.Text(window, height=10, width= 60)
@@ -231,7 +232,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             mpDraw.draw_landmarks(frame2, wresults.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
 
         cv2.imshow("picam", frame)
-        cv2.imshow("webcam", frame2RGB)
+        cv2.imshow("webcam", frame2)
         if cv2.waitKey(1)==ord('q'):
             break
         tEnd=time.time()
