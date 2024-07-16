@@ -6,3 +6,4 @@ class MyFirstClass():
         print(philosopher+" wrote: "+book)
 who=MyFirstClass()
 who.hand_list("Sun Tzu", "The Art of War")
+print(__name__)''

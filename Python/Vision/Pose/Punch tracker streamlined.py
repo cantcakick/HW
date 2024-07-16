@@ -114,8 +114,16 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
 
         except:
             pass
-        numJab=str(Striking.jab)
-        cv2.putText(frame,"Jab: "+numJab,(100,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Jab:'+str(jabcounter)+ ' Vel: '+str(jabVel),(15,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Cross:'+str(crosscounter)+ ' Vel: '+str(crossVel),(15,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)        
+        #cv2.putText(frame,'Left Knee:'+str(lKneecounter)+ ' Vel: '+str(lKneeVel),(200,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Right Knee:'+str(rKneecounter)+ ' Vel: '+str(rKneeVel),(200,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Left Teep:'+str(lTeepcounter)+ ' Vel: '+str(lAnlkeVel),(200,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Right Teep:'+str(rTeepcounter)+ ' Vel: '+str(rAnkleVel),(200,80),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+    #    cv2.putText(frame,'Left Uppercut:'+str(lUcutcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+    #    cv2.putText(frame,'Right Uppercut:'+str(rUcutcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Left Kick:'+str(lKickcounter)+ ' Vel: '+str(lAnlkeVel),(400,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        #cv2.putText(frame,'Right Kick:'+str(rKickcounter)+ ' Vel: '+str(rAnkleVel),(400,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
 
         if results.pose_landmarks != None:
             mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
