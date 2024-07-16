@@ -226,9 +226,9 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         cv2.putText(frame,"Stance: " + str(stance),(10,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,stance,(520,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA)
         #print(jabVel)
-        if results.pose_landmarks or wresults.pose_landmarks != None:
+        if results.pose_landmarks != None:
             mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
-        #if wresults.pose_landmarks!= None:
+        if wresults.pose_landmarks!= None:
             mpDraw.draw_landmarks(frame2RGB, wresults.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
 
         cv2.imshow("picam", frame)
