@@ -1,0 +1,17 @@
+class Dog:
+    def __init__(self, height, weight, sex, breed):
+        self.height=height
+        self.weight=weight
+        self.sex=sex
+        self.breed=breed
+    def walk(self):
+        pass
+    def bark(self):
+        return print('woof')
+
+puppy=Dog(height=4, weight=6, sex='male',breed='Maltese')
+
+puppy.bark()
+print (puppy.weight)
+
+print(Dog.__class__,puppy.__class__)
