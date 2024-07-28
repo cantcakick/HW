@@ -1,0 +1,9 @@
+num=int(input("Enter number: "))
+
+class counter: 
+    def __init__(self,i=0):
+        for i in range(num):
+            i=i+1
+            print(i)
+        
+print(counter())

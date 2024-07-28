@@ -43,7 +43,10 @@ lAnlkeVel=0
 rAnkleVel=0
 #cv2.namedWindow('Tracker')
 
-
+class counter:
+    def __init__(self,count=0):
+        count+=1
+        return count
 def calculate_angle(a,b,c):
     a=np.array(a)
     b=np.array(b)
@@ -120,7 +123,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             lKneeAngle=calculate_angle(lHip,lKnee,lAnkle)
             rKneeAngle=calculate_angle(rHip,rKnee,rAnkle)
             lTeepAngle=calculate_angle(lAnkle,lHip,lShoulder)
-            rTeepAngle=calculate_angle(rAnkle,rHip,lShoulder)
+            rTeepAngle=calculate_angle(rAnkle,rHip,rShoulder)
             lKickAngle=calculate_angle(lToe,lHip,lShoulder)
             rKickAngle=calculate_angle(rToe,rHip,rShoulder)
             groinAngle=calculate_angle(lKnee,lHip,rKnee)
@@ -140,6 +143,7 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
                 stance="jab"
             if lArmAngle < 30 and stance=="jab":
                 stance="guard"
+                
                 jabcounter +=1
                 #print(jabcounter)
             if 180 > rArmAngle > 130:

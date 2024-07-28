@@ -1,0 +1,9 @@
+class MyFirstClass():
+    print("What is this?")
+    index="Author-Book"
+    def hand_list(self,philosopher, book):
+        print(MyFirstClass.index)
+        print(philosopher+" wrote: "+book)
+who=MyFirstClass()
+who.hand_list("Sun Tzu", "The Art of War")
+print(__name__)''

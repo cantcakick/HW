@@ -5,15 +5,20 @@ import mediapipe as mp
 from picamera2 import Picamera2, Preview
 import tkinter as tk
 import pickle
-picam2=Picamera2(1)
-
+picam2=Picamera2(0)
+webcam=Picamera2(1)
 dispW=720
 dispH=480
 camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
+webcam_config=webcam.create_video_configuration({'format':'XRGB8888','size':(dispW,dispH)})
 picam2.configure(camera_config)
+webcam.configure(webcam_config)
 picam2.start()
+webcam.start()
 fps=0
+wfps=0
 pos=(15,100)
+wpos=(15,60)
 font=cv2.FONT_HERSHEY_DUPLEX
 height=1
 fpsColor=(0,0,255)
@@ -66,13 +71,17 @@ def calc_vel(d):
 with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pose:
     while True:
         tStart=time.time()
+        wtStart=time.time()
         frame=picam2.capture_array()
+        frame2=webcam.capture_array()
         #fullscreen=cv2.namedWindow(frame,cv2.WND_PROP_FULLSCREEN)
         frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame2RGB=cv2.cvtColor(frame2,cv2.COLOR_BGR2RGB)
         #frameRGB.flags.writeable=False
         cv2.putText(frame, str(int(fps))+'FPS', pos, font, height, fpsColor, weight)
+        cv2.putText(frame2RGB, str(int(fps))+'FPS', wpos, font, height, fpsColor, weight)
         results=pose.process(frameRGB)
-
+        wresults=pose.process(frame2RGB)
         #window=tk.Tk()
         #window.geometry("360x240")
         #T=tk.Text(window, height=10, width= 60)
@@ -217,14 +226,18 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         cv2.putText(frame,"Stance: " + str(stance),(10,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         #cv2.putText(frame,stance,(520,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA)
         #print(jabVel)
-        if results.pose_landmarks != None:
+        if results.pose_landmarks or wresults.pose_landmarks != None:
             mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
+            mpDraw.draw_landmarks(frame2, wresults.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
 
         cv2.imshow("picam", frame)
-
+        cv2.imshow("webcam", frame2RGB)
         if cv2.waitKey(1)==ord('q'):
             break
         tEnd=time.time()
+        wtEnd=time.time()
         loopTime=tEnd-tStart
+        wloopTime=wtEnd-wtStart
         fps=.9*fps + .1*(1/loopTime)
-
+        wfps=.8*wfps+.1*(1/loopTime)
+cv2.destroyAllWindows
