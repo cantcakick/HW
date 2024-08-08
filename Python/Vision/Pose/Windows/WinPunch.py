@@ -11,13 +11,13 @@ dispH=480
 #camera_config = picam2.create_video_configuration({'format': 'RGB888', 'size' : (dispW,dispH)})
 #picam2.configure(camera_config)
 #picam2.start()
-cam=cv2.Video(1,cv2.CAP_DSHOW)
+cam=cv2.VideoCapture(1,cv2.CAP_DSHOW)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, dispW)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, dispH)
 cam.set(cv2.CAP_PROP_FPS, 30)
 cam.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
 fps=0
-pos=(dispW-100,25)
+pos=(0,100)
 font=cv2.FONT_HERSHEY_DUPLEX
 height=1
 fpsColor=(0,0,255)
@@ -37,6 +37,13 @@ lKickcounter=0
 rKickcounter=0
 lTeepcounter=0
 rTeepcounter=0
+velocity=0
+jabVel=0
+crossVel=0
+lKneeVel=0
+rKneeVel=0
+lAnlkeVel=0
+rAnkleVel=0
 
 stance=None
 def calculate_angle(a,b,c):
@@ -49,17 +56,25 @@ def calculate_angle(a,b,c):
     if angle > 180.0:
         angle=360-angle
     return angle
+def calc_vel(d):
+    d=np.array(d)
+    t=(tEnd-tStart)*1000
+    velocity=((d[1]-d[0]))/t
+    roundedV=round(velocity)
+    if velocity > 0.1:
+        return roundedV
+
 
 with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pose:
     while True:
         tStart=time.time()
         #frame=picam2.capture_array()
-        frame=cam.read()
+        ignore, frame=cam.read()
         #fullscreen=cv2.namedWindow(frame,cv2.WND_PROP_FULLSCREEN)
         frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        #frameRGB.flags.writeable=False
+        frameRGB.flags.writeable=False
         cv2.putText(frame, str(int(fps))+'FPS', pos, font, height, fpsColor, weight)
-        results=pose.process(frameRGB)
+        results=pose.process(frame)
     #    if results.pose_landmarks != None:
     #        mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
         try:
@@ -88,11 +103,17 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
             rArmPitAngle=calculate_angle(rHip,rShoulder,rElbow)
             lKneeAngle=calculate_angle(lHip,lKnee,lAnkle)
             rKneeAngle=calculate_angle(rHip,rKnee,rAnkle)
-            lTeepAngle=calculate_angle(lToe,lHip,rAnkle)
-            rTeepAngle=calculate_angle(rToe,rHip,lAnkle)
+            lTeepAngle=calculate_angle(lAnkle,lHip,lShoulder)
+            rTeepAngle=calculate_angle(rAnkle,rHip,rShoulder)
             lKickAngle=calculate_angle(lToe,lHip,lShoulder)
             rKickAngle=calculate_angle(rToe,rHip,rShoulder)
             groinAngle=calculate_angle(lKnee,lHip,rKnee)
+            jabVel=calc_vel(lWrist)
+            crossVel=calc_vel(rWrist)
+            lKneeVel=calc_vel(lKnee)
+            rKneeVel=calc_vel(rKnee)
+            lAnlkeVel=calc_vel(lAnkle)
+            rAnkleVel=calc_vel(rAnkle)
 
             #Show angle
             #cv2.putText(frameRGB,str(lAngle), tuple(np.multiply(lElbow,[dispW,dispH]).astype(int)),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),2,cv2.LINE_AA)
@@ -133,15 +154,15 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
                 stance="guard"
                 rKneecounter +=1
                 print(rKneecounter)
-            if 180 >= lTeepAngle >= 130:
+            if lTeepAngle <=140 and groinAngle >=90 :
                 stance="Left Teep"
-            if lTeepAngle < 60 and stance=="Left Teep":
+            if lTeepAngle > 100 and stance=="Left Teep":
                 stance="guard"
                 lTeepcounter +=1
                 print(lTeepcounter)             
-            if 180 >= rTeepAngle >= 130:
+            if rTeepAngle <= 130 and groinAngle >=90:
                 stance="Right Teep"
-            if rTeepAngle < 60 and stance=="Righ Teep":
+            if rTeepAngle >100 and stance=="Righ Teep":
                 stance="guard"
                 rTeepcounter +=1
                 print(rTeepcounter)
@@ -164,26 +185,19 @@ with mp_pose.Pose(min_detection_confidence=.5,min_tracking_confidence=.5) as pos
         #cv2.rectangle(frame,(0,0),(dispW-180,70), (225,25,55), -1)
         #Reps
         #score=cv2.namedWindow('Score')
-        cv2.putText(frame,'Jab:'+str(jabcounter),(15,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        #cv2.putText(frame,str(jabcounter),(50,25),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Cross:'+str(crosscounter),(15,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)        
-        #cv2.putText(frame,str(crosscounter),(70,55),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Left Knee:'+str(lKneecounter),(120,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        #cv2.putText(frame,str(lKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Right Knee:'+str(rKneecounter),(120,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        #cv2.putText(frame,str(rKneecounter),(10,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Left Teep:'+str(lTeepcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        #cv2.putText(frame,str(lKickcounter),(10,40),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Right Teep:'+str(rTeepcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        #cv2.putText(frame,str(rKickcounter),(10,0),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Jab:'+str(jabcounter)+ ' Vel: '+str(jabVel),(15,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Cross:'+str(crosscounter)+ ' Vel: '+str(crossVel),(15,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)        
+        cv2.putText(frame,'Left Knee:'+str(lKneecounter)+ ' Vel: '+str(lKneeVel),(200,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Right Knee:'+str(rKneecounter)+ ' Vel: '+str(rKneeVel),(200,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Left Teep:'+str(lTeepcounter)+ ' Vel: '+str(lAnlkeVel),(200,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Right Teep:'+str(rTeepcounter)+ ' Vel: '+str(rAnkleVel),(200,80),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
     #    cv2.putText(frame,'Left Uppercut:'+str(lUcutcounter),(280,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
     #    cv2.putText(frame,'Right Uppercut:'+str(rUcutcounter),(280,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Left Kick:'+str(lKickcounter),(400,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,'Right Kick:'+str(rKickcounter),(400,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Left Kick:'+str(lKickcounter)+ ' Vel: '+str(lAnlkeVel),(400,20),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
+        cv2.putText(frame,'Right Kick:'+str(rKickcounter)+ ' Vel: '+str(rAnkleVel),(400,40),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
 
         #Stance
-        cv2.putText(frame,"Stance",(520,12),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
-        cv2.putText(frame,stance,(520,60),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2,cv2.LINE_AA)
+        cv2.putText(frame,"Stance: " + str(stance),(10,60),cv2.FONT_HERSHEY_SIMPLEX,.5,(0,0,255),1,cv2.LINE_AA)
         
         if results.pose_landmarks != None:
             mpDraw.draw_landmarks(frame, results.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
